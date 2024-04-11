@@ -4,7 +4,6 @@
 
 # Projeto E-Commerce  *Star-Bit*
 
-
 Bem-vindo ao repositório do Projeto do Banco de Dados! 
 Este projeto tem como objetivo criar uma plataforma de e-commerce abrangente com várias funcionalidades para aprimorar a experiência de compras online de uma empresa privada. Aqui, detalharemos todas as funcionalidades do nosso sistema de e-commerce, bem como organizaremos e planejaremos futuras adições e correções.
 
@@ -54,8 +53,9 @@ Provavelmente ninguem vai ajudar mas seria **muito apreciado** alguma ajuda.
 4. Faça o Push para a Branch (`git push origin feature/RecursoIncrivel`)
 5. Abra um Pull Request
 
-## Planos Futuros - Provavelmente não vamos fazer isso, mas é legal 💀💀💀
- 
+## Planos Futuros 
+- Provavelmente não vamos fazer isso, mas é legal 💀💀💀
+  
 - Implementar um sistema de recomendação baseado nas preferências do usuário
 - Adicionar um sistema de avaliação e comentários dos clientes
 - Aprimorar medidas de segurança para a proteção de dados dos usuários
