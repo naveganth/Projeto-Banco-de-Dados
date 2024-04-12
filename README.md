@@ -80,7 +80,3 @@ Coloquem os email de voces seguindo esse formato.
 - E-mail: [seu-email@exemplo.com](mailto:seu-email@exemplo.com)
 
 Obrigado por visitar nosso projeto!
-
-<p align="left">
-  <img src="https://gabrielataide.com/gato.jpg" alt="Star-Bit Icon" width="150" height="150">
-</p>
