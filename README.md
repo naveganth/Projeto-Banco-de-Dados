@@ -29,10 +29,21 @@ Este projeto tem como objetivo criar uma plataforma de e-commerce abrangente com
 
 Para obter uma cópia local em funcionamento, siga estes passos simples:
 
-1. Clone o repositório:
+1. Instale o rust:
+   
+   ```bash
+   https://www.rust-lang.org/learn/get-started
+  
+2. Clone o repositório:
 
    ```bash
    git clone https://github.com/naveganth/Projeto-Banco-de-Dados.git
+
+3. Dentro do diretorio clonado, execute:
+   ```bash
+   cargo run
+
+4. Após isso uma página da web será disponibilizada em http://localhost:9000
 
 ## Tecnologias Utilizadas 
 
@@ -41,11 +52,12 @@ Para obter uma cópia local em funcionamento, siga estes passos simples:
 - ![CSS3](https://img.shields.io/badge/-CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
 - ![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
 ### Backend
+- Actix (Achar um shield pro actix)
 - ![MySQL](https://img.shields.io/badge/-MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
 
 ## Contribuindo
 
-Provavelmente ninguem vai ajudar mas seria **muito apreciado** alguma ajuda.
+Provavelmente ninguém vai ajudar mas qualquer ajuda seria **muito agradecida**.
 
 1. Faça um Fork do Projeto
 2. Crie sua Branch de Recursos (`git checkout -b feature/RecursoIncrivel`)
