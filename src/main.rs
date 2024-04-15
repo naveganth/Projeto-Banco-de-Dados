@@ -4,7 +4,7 @@ use fs::{Files, NamedFile};
 
 #[get("/")]
 async fn indice() -> actix_web::Result<NamedFile> {
-    Ok(NamedFile::open("./paginas/HTML.html")?)
+    Ok(NamedFile::open("./paginas/index.html")?)
 }
 
 #[actix_web::main]
