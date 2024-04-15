@@ -79,8 +79,4 @@ Se você tiver alguma dúvida ou sugestão, sinta-se à vontade para entrar em c
 Coloquem os email de voces seguindo esse formato.
 - E-mail: [seu-email@exemplo.com](mailto:seu-email@exemplo.com)
 
-Obrigado por visitar nosso projeto!
-
-
-
-TESTE DE PUSH
+Obrigado por visitar nosso projeto! 
