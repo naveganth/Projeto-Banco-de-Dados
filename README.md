@@ -1,5 +1,5 @@
 <p align="left">
-  <img src="https://t.ly/rClBQ" alt="Star-Bit Icon" width="150" height="150">
+  <img src="imagens-github/Starwalker_overworld_walk.webp" alt="Star-Bit Icon" width="150" height="150">
 </p>
 
 # Projeto E-Commerce  *Star-Bit*
