@@ -1,4 +1,4 @@
-<p align="left">
+<p align="center">
   <img src="imagens-github/Starwalker_overworld_walk.webp" alt="Star-Bit Icon" width="150" height="150">
 </p>
 
