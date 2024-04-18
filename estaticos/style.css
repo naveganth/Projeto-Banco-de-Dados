@@ -1,9 +1,36 @@
-.header {
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
+
+nav.fill {
+    display: flex;
+}
+
+.iconepadrao {
+    flex: 0 0 auto; 
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1; 
+    justify-content: space-between;
+}
+
+.button-container .carrinho {
+    font-weight: 700;
     display: flex;
     align-items: center;
-    align-content:center;
-text-align: center;
-background-color: #efefef;
-width: 500px;
-padding: 20px;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+    background-color: #bea9a9;
+    text-decoration: none;
+    color: #000000;
+}
+
+.header {
+    background-color: #eeff00; 
 }
