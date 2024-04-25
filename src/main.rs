@@ -1,32 +1,35 @@
 use actix_files as fs;
-use actix_web::http::Error;
-use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
-use fs::{Files, NamedFile};
+use actix_web::{web, App, HttpResponse, HttpServer};
 use mysql::*;
-use mysql::prelude::*;
 use serde_json::json;
 use handlebars::{Handlebars, DirectorySourceOptions};
 
+// Os outros programas vem aqui
 mod modelos;
 mod banco;
 
 
 async fn indice( pool: web::Data<Pool>, hb: web::Data<Handlebars<'_>>) -> HttpResponse {
     println!("Indice");
-    let mut conn = pool.get_conn().expect("Erro ao conectar ao banco de dados");
+    // Envia uma referência do pool para fazer uma consulta no banco
+    banco::validar_tabelas(&pool);
     
+    // Imagina que aqui tem dados que foram recebidos do banco
     let dados = json!({
         "teste": "adhdfhjdshkesfhdksbaba"
     });
 
-    println!("Dados: {}", dados);
+    // Renderiza a página
     let body = hb.render("index", &dados).unwrap();
+
+    println!("Indice enviado com sucesso!");
     HttpResponse::Ok().body(body)
 }
 
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    // substituir isso aqui por variáveis de ambiente do docker;
     let url = "mysql://root:senhaboa@localhost:9876/projeti";
     let pool = Pool::new(url).expect("Erro ao conectar ao banco");
 
@@ -35,11 +38,17 @@ async fn main() -> std::io::Result<()> {
         banco::corrigir_tabelas(&pool);
     }
 
-    let opcoes_hb = handlebars::DirectorySourceOptions{tpl_extension: String::from(".html"), hidden: false, temporary: false};
+    // Cria as configurações que o handlebars irá usar para renderizar
+    // as páginas em html com os dados desejados.
+    let opcoes_hb = DirectorySourceOptions{
+        tpl_extension: String::from(".html"), 
+        hidden: false, 
+        temporary: false};
     let mut hb = Handlebars::new();
     hb.register_templates_directory("./static", opcoes_hb).unwrap();
     let hb_ref = web::Data::new(hb);
 
+    // Instância o servidor http do actix usando as rotas disponíveis;
     HttpServer::new(move || {
         App::new()
         .app_data(web::Data::new(pool.clone()))
@@ -50,4 +59,5 @@ async fn main() -> std::io::Result<()> {
     .bind(("0.0.0.0", 9000))?
     .run()
     .await
+
 }
