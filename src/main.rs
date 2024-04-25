@@ -37,7 +37,7 @@ async fn main() -> std::io::Result<()> {
 
     let opcoes_hb = handlebars::DirectorySourceOptions{tpl_extension: String::from(".html"), hidden: false, temporary: false};
     let mut hb = Handlebars::new();
-    hb.register_templates_directory("./paginas", opcoes_hb).unwrap();
+    hb.register_templates_directory("./static", opcoes_hb).unwrap();
     let hb_ref = web::Data::new(hb);
 
     HttpServer::new(move || {
@@ -45,7 +45,7 @@ async fn main() -> std::io::Result<()> {
         .app_data(web::Data::new(pool.clone()))
         .app_data(hb_ref.clone())
         .route("/", web::get().to(indice))
-        .service(fs::Files::new("/estaticos", "./estaticos"))
+        .service(fs::Files::new("/static", "./static"))
     })
     .bind(("0.0.0.0", 9000))?
     .run()
