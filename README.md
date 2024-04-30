@@ -1,5 +1,5 @@
-<p align="left">
-  <img src="https://t.ly/rClBQ" alt="Star-Bit Icon" width="150" height="150">
+<p align="center">
+  <img src="imagens-github/Starwalker_overworld_walk.webp" alt="Star-Bit Icon" width="150" height="150">
 </p>
 
 # Projeto E-Commerce  *Star-Bit*
@@ -29,10 +29,10 @@ Este projeto tem como objetivo criar uma plataforma de e-commerce abrangente com
 
 Para obter uma cópia local em funcionamento, siga estes passos simples:
 
-1. Instale o rust:
+1. Instale o docker:
    
    ```bash
-   https://www.rust-lang.org/learn/get-started
+   https://docs.docker.com/engine/install/
   
 2. Clone o repositório:
 
@@ -41,7 +41,7 @@ Para obter uma cópia local em funcionamento, siga estes passos simples:
 
 3. Dentro do diretorio clonado, execute:
    ```bash
-   cargo run
+   docker compose -f compose.yaml up -d
 
 4. Após isso uma página da web será disponibilizada em http://localhost:9000
 
