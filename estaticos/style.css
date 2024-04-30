@@ -1,7 +1,7 @@
-@import url("https://fonts.googleapis.com/css?family=Renogare:700|Renogare:400");
+@import url('https://fonts.cdnfonts.com/css/renogare');
 
 * {
-  font-family: "Renogare", Arial;
+  font-family: 'Renogare', sans-serif;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -48,11 +48,11 @@ body {
   width: 100%;
 }
 
-.section-p1{
+.section-p1 {
   margin: 40px 80px;
 }
 
-.section-m1{
+.section-m1 {
   margin: 40px 0;
 }
 
