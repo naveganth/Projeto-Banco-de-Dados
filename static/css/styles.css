@@ -109,7 +109,7 @@ body {
 
 #hero {
   background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)),
-    url("/img/bg/muitofeio.png");
+    url("/static/img/bg/muitofeio.png");
   background-repeat: round;
   height: 80vh;
   width: 100%;
