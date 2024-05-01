@@ -104,7 +104,7 @@ body {
 }
 
 #hero {
-  background-image: url("/img/bg/muitofeio.png");
+  background-image: url("/static/img/bg/muitofeio.png");
   height: 60vh;
   width: 100%;
   margin: 20px 0; 
