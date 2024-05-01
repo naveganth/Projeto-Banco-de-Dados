@@ -3,6 +3,7 @@
 * {
   font-family: "Renogare", sans-serif;
   box-sizing: border-box;
+  text-decoration: none;
   margin: 0;
   padding: 0;
 }
@@ -61,9 +62,13 @@ body {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 20px;
+  padding: 10px;
   background: #f2f2f2;
-  box-shadow: 0 5px 15px rgb(0, 0, 0, 0.05);
+  box-shadow: 0 5px 15px rgb(0, 0, 0, 0.1);
+  z-index: 999;
+  position: sticky;
+  top: 0;
+  left: 0;
 }
 
 #navbar {
@@ -79,7 +84,6 @@ body {
 }
 
 #navbar li a {
-  text-decoration: none;
   font-size: 20px;
   font-weight: 500;
   color: #1c1717;
@@ -104,47 +108,113 @@ body {
 }
 
 #hero {
-  background-image: url("/img/bg/muitofeio.png");
-  height: 60vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)),
+    url("/img/bg/muitofeio.png");
+  background-repeat: round;
+  height: 80vh;
   width: 100%;
-  margin: 20px 0; 
   background-size: cover;
-  padding: 20px 80px;
+  padding: 0px 80px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-end;
-  color: #eaeaea; 
+  align-items: center;
+  justify-content: center;
+  color: #eaeaea;
 }
 
 #hero h3 {
-  margin: 100px 0px 0px 100px; 
-  font-size: 4em; 
+  margin: 0px 0px 0px 0px;
+  font-size: 64px;
   text-align: center;
   padding-bottom: 10px;
+  font-weight: 400;
 }
 
 #hero p {
-  margin: 0px 0px 100px 0px; 
+  margin: 20px 0px 50px 0px;
   color: yellow;
   text-align: center;
 }
 
 #hero button {
-  background-color: white; 
+  align-self: center;
+  width: 40vh;
+  background-color: white;
   border: 2px solid white;
-  color: white; 
-  padding: 10px 20px; 
-  text-transform: uppercase; 
-  cursor: pointer; 
+  color: white;
+  padding: 20px 0px 20px 0px;
+  text-transform: uppercase;
+  cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 #hero button:hover {
-  background-color: black; 
+  background-color: #a1a5a4;
   color: white;
 }
 
+#hero a {
+  color: #1c1717;
+}
+
+#feature{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+#feature .fe-box {
+  width: 180px;
+  text-align: center;
+  padding: 25px 15px;
+  box-shadow: 20px 20px 34px rgba(0, 0, 0, 0.02);
+  border: 1px solid #b6a8a5;
+  border-radius: 4px;
+  margin: 4px 0px;
+}
+
+#feature .fe-box:hover{
+  box-shadow: 10px 10px 54px rgba(0, 0, 0, 0.3);
+}
+
+#feature .fe-box img{
+  width: 100%;
+  margin-bottom: 10px;
+
+}
+
+#feature .fe-box h6{
+  display: inline-block;
+  padding: 9px 8px 9px 8px;
+  line-height: 1;
+  border-radius: 4px;
+  color: #1c1717;
+}
+
+#feature .fe-box:nth-child(1) h6{
+  background-color: #E2A88B;
+}
+
+#feature .fe-box:nth-child(2) h6{
+  background-color: #89D8E1;
+}
+
+#feature .fe-box:nth-child(3) h6{
+  background-color: #E28ABD;
+}
+
+#feature .fe-box:nth-child(4) h6{
+  background-color: #B8DD7F;
+}
+
+#feature .fe-box:nth-child(5) h6{
+  background-color: #88BFE1;
+}
+
+#feature .fe-box:nth-child(6) h6{
+  background-color: #A28FDA;
+}
 
 .modoclaro {
   --text: #1c1717;
