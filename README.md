@@ -2,7 +2,7 @@
   <img src="imagens-github/Starwalker_overworld_walk.webp" alt="Star-Bit Icon" width="150" height="150">
 </p>
 
-# Projeto E-Commerce  *Star-Bit*
+# Projeto E-Commerce  *Nosferatu*
 
 Bem-vindo ao repositório do Projeto do Banco de Dados! 
 Este projeto tem como objetivo criar uma plataforma de e-commerce abrangente com várias funcionalidades para aprimorar a experiência de compras online de uma empresa privada. Aqui, detalharemos todas as funcionalidades do nosso sistema de e-commerce, bem como organizaremos e planejaremos futuras adições e correções.
