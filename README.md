@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="imagens-github/Starwalker_overworld_walk.webp" alt="Star-Bit Icon" width="150" height="150">
+  <img src="https://github.com/naveganth/Projeto-Banco-de-Dados/assets/159157666/fdb35051-38f5-4f6a-9541-45ae84dbff1b" alt="animated" />
 </p>
 
 # Projeto E-Commerce  *Nosferatu*
