@@ -1,7 +1,7 @@
-@import url('https://fonts.cdnfonts.com/css/renogare');
+@import url("https://fonts.cdnfonts.com/css/renogare");
 
 * {
-  font-family: 'Renogare', sans-serif;
+  font-family: "Renogare", sans-serif;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -55,6 +55,96 @@ body {
 .section-m1 {
   margin: 40px 0;
 }
+
+#header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px;
+  background: #f2f2f2;
+  box-shadow: 0 5px 15px rgb(0, 0, 0, 0.05);
+}
+
+#navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#navbar li {
+  list-style-type: none;
+  padding: 0 20px;
+  position: relative;
+}
+
+#navbar li a {
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 500;
+  color: #1c1717;
+  transition: 0.2s ease;
+}
+
+#navbar li a:hover,
+#navbar li a.active {
+  color: #bea499;
+}
+
+#navbar li a.active::after,
+#navbar li a:hover::after {
+  content: "";
+  width: 75%;
+  height: 2px;
+  background: #baa7a0;
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#hero {
+  background-image: url("/img/bg/muitofeio.png");
+  height: 60vh;
+  width: 100%;
+  margin: 20px 0; 
+  background-size: cover;
+  padding: 20px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  color: #eaeaea; 
+}
+
+#hero h3 {
+  margin: 100px 0px 0px 100px; 
+  font-size: 4em; 
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+#hero p {
+  margin: 0px 0px 100px 0px; 
+  color: yellow;
+  text-align: center;
+}
+
+#hero button {
+  background-color: white; 
+  border: 2px solid white;
+  color: white; 
+  padding: 10px 20px; 
+  text-transform: uppercase; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease;
+}
+
+#hero button:hover {
+  background-color: black; 
+  color: white;
+}
+
 
 .modoclaro {
   --text: #1c1717;
