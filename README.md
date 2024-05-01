@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="imagens-github/Starwalker_overworld_walk.webp" alt="Star-Bit Icon" width="150" height="150">
+  <img src="https://github.com/naveganth/Projeto-Banco-de-Dados/assets/159157666/fdb35051-38f5-4f6a-9541-45ae84dbff1b" alt="animated" />
 </p>
 
-# Projeto E-Commerce  *Star-Bit*
+# Projeto E-Commerce  *Nosferatu*
 
 Bem-vindo ao repositório do Projeto do Banco de Dados! 
 Este projeto tem como objetivo criar uma plataforma de e-commerce abrangente com várias funcionalidades para aprimorar a experiência de compras online de uma empresa privada. Aqui, detalharemos todas as funcionalidades do nosso sistema de e-commerce, bem como organizaremos e planejaremos futuras adições e correções.
@@ -80,3 +80,7 @@ Coloquem os email de voces seguindo esse formato.
 - E-mail: [seu-email@exemplo.com](mailto:seu-email@exemplo.com)
 
 Obrigado por visitar nosso projeto! 
+
+## Sim é um morcego.
+<img src="https://github.com/naveganth/Projeto-Banco-de-Dados/assets/159157666/301ebfab-f705-4b70-8224-203e751e97f0"/>
+
