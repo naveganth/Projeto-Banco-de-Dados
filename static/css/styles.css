@@ -57,6 +57,19 @@ body {
   margin: 40px 0;
 }
 
+button.normal{
+  font-size: 14px;
+  font-weight: 600;
+  padding: 15px 30px;
+  color: #0d0d0d;
+  background-color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition:  0.2s;
+}
+
 #header {
   display: flex;
   align-items: center;
@@ -289,6 +302,46 @@ body {
   right: 10px;
 }
 
+#banner{
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/static/img/banner/gatosbanner1.jpg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  height: 40vh;
+  background-size: cover;
+  background-position: center;
+}
+
+#banner h4{
+  color:#e8e3e3;
+  font-size: 16px;
+  font-weight:  400;
+}
+
+#banner h2{
+  color:#e8e3e3;
+  font-size: 30px;
+  font-weight: 500;
+  padding: 10px 0;
+}
+
+#banner h2 span{
+  color:#ff1f1f;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+#banner .normal {
+  color: #1c1717;
+  margin-top: 20px;
+}
+
+#banner button:hover{
+  background: a1a5a4;
+}
 .modoclaro {
   --text: #1c1717;
   --background: #f2f2f2;
