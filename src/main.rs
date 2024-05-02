@@ -1,4 +1,5 @@
 use actix_files as fs;
+use std::env;
 use actix_web::{web, App, HttpResponse, HttpServer};
 use mysql::*;
 use serde_json::json;
@@ -11,21 +12,18 @@ mod banco;
 
 async fn indice( pool: web::Data<Pool>, hb: web::Data<Handlebars<'_>>) -> HttpResponse {
     println!("Indice");
-    // Envia uma referência do pool para fazer uma consulta no banco
-    banco::validar_tabelas(&pool);
     
     // Imagina que aqui tem dados que foram recebidos do banco
     let dados = json!({
-        "teste": "adhdfhjdshkesfhdksbaba"
+        "motd": "Texto vindo do backend"
     });
-
+    
     // Renderiza a página
     let body = hb.render("index", &dados).unwrap();
 
-    println!("Indice enviado com sucesso!");
+    println!("Indice enviado");
     HttpResponse::Ok().body(body)
 }
-
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {

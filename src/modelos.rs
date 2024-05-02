@@ -12,7 +12,7 @@ struct Cliente {
 struct Endereco {
     id: u32,
     nome: String,
-    logradouto: String,
+    logradouro: String,
     cep: String,
     bairro: String,
     cidade: String,
