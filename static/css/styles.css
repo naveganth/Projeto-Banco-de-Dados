@@ -1,5 +1,6 @@
 @import url("https://fonts.cdnfonts.com/css/renogare");
 
+/* Familia da fonte e algumas configurações */
 * {
   font-family: "Renogare", sans-serif;
   box-sizing: border-box;
@@ -49,14 +50,17 @@ body {
   width: 100%;
 }
 
+/* Padding acima e abaixo e aos lados */
 .section-p1 {
   padding: 40px 80px;
 }
 
+/* Margem acima e abaixo */
 .section-m1 {
   margin: 40px 0;
 }
 
+/* Botão padrao  */
 button.normal {
   font-size: 14px;
   font-weight: 600;
@@ -70,6 +74,9 @@ button.normal {
   transition: 0.2s;
 }
 
+/* Inicio index.html */
+
+/* Barra de navegação/navbar */
 #header {
   display: flex;
   align-items: center;
@@ -120,6 +127,7 @@ button.normal {
   transform: translateX(-50%);
 }
 
+/* Header/hero inicio do site */
 #hero {
   background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)),
     url("/static/img/bg/muitofeio.png");
@@ -170,6 +178,7 @@ button.normal {
   color: #1c1717;
 }
 
+/* Recursos/features coloridos, se pá meter mais um pra ficar certinho ou diminuir a separação */
 #feature {
   display: flex;
   align-items: center;
@@ -229,6 +238,7 @@ button.normal {
   background-color: #a28fda;
 }
 
+/* Principais ou mais famosos produtos  */
 #product1 {
   text-align: center;
 }
@@ -302,6 +312,7 @@ button.normal {
   right: 10px;
 }
 
+/* Banner com promoção de desconto */
 #banner {
   background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
     url(/static/img/banner/gatosbanner1.jpg);
@@ -345,6 +356,7 @@ button.normal {
   color: #000;
 }
 
+/* Banner de envio de noticias/promoções */
 #newsletter {
   background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)),
     url("/static/img/newsletter/gatonews3.webp");
@@ -406,6 +418,7 @@ button.normal {
   white-space: nowrap;
 }
 
+/* Footer/parte de baixo do site */
 footer {
   display: flex;
   flex-wrap: wrap;
@@ -425,30 +438,73 @@ footer .logo {
 }
 
 footer h4 {
-  font-size: 14px;
+  font-size: 18px;
   padding-bottom: 20px;
 }
 
 footer p {
-  font-size: 13px;
+  font-size: 14px;
   margin: 0 0 8px 0;
+  color: #575757;
 }
 
 footer a {
-  font-size: 13px;
+  font-size: 14px;
   text-decoration: none;
-  color: #0d0d0d;
+  color: #575757;
   margin-bottom: 10px;
 }
 
-.copyright p {
-  font-size: 30px;
-}
-.install img {
-  width: 80px;
-  height: 20px;
+footer .follow{
+  margin-top: 20px;
 }
 
+footer .follow i{
+  color: #1c1717;
+  padding-right: 4px;
+  cursor: pointer;
+}
+
+footer i{
+  font-size: 35px;
+}
+
+
+footer .install .row img{
+  border: 1px solid #f32323;
+  border-radius: 6px;
+}
+
+footer .install img{
+  margin: 10px 0 15px 0;
+}
+
+footer .follow i:hover, footer a:hover{
+  color: #89d8e1;
+}
+
+.install img {
+  width: 200px;
+  height: 60px;
+}
+
+footer p strong{
+  color: #1c1717;
+}
+
+footer .copyright{
+  width: 100%;
+  text-align: center;
+}
+
+.copyright p {
+  font-size: 16px;
+}
+
+/* Loja/shop pagina */
+
+
+/* Palheta de cores */
 .modoclaro {
   --text: #1c1717;
   --background: #f2f2f2;
