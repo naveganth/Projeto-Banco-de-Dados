@@ -54,7 +54,7 @@ async fn main() -> std::io::Result<()> {
         .route("/", web::get().to(indice))
         .service(fs::Files::new("/static", "./static"))
     })
-    .bind(("0.0.0.0", 9000))?
+    .bind(("0.0.0.0", 9987))?
     .run()
     .await
 
