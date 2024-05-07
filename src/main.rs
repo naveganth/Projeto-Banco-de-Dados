@@ -1,11 +1,13 @@
-use actix_files as fs;
 use actix_web::{web, App, HttpResponse, HttpServer};
+use handlebars::{Handlebars, DirectorySourceOptions};
 use sqlx::mysql::MySqlPoolOptions;
+use sqlx::migrate::Migrator;
 use sqlx::{Pool, MySql};
+use actix_files as fs;
 use serde_json::json;
 use dotenvy::dotenv;
+use std::path::Path;
 use std::env;
-use handlebars::{Handlebars, DirectorySourceOptions};
 
 // Os outros programas vem aqui
 mod modelos;
@@ -149,16 +151,26 @@ async fn checkout( pool: web::Data<Pool<MySql>>, hb: web::Data<Handlebars<'_>>) 
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    // substituir isso aqui por variáveis de ambiente do docker;
+    println!("Programa iniciado");
     dotenv().expect("Arquivo '.env' não encontrado");
     
+    // Cria uma conexão com o banco de dados    
     let url = env::var("URL_BANCO").expect("Endereço do banco não definido");
     let pool = MySqlPoolOptions::new()
     .max_connections(5)
     .connect(url.as_str()).await.expect("Endereço do banco não acessível");
 
+    // Roda as migrações do banco de dados
+    println!("Rodando migrações...");
+    sqlx::migrate!("./migrations")
+        .run(&pool)
+        .await
+        .expect("Erro rodando migrações");
+    println!("Migrações finalizadas");
+
     // Cria as configurações que o handlebars irá usar para renderizar
     // as páginas em html com os dados desejados.
+    println!("Instânciando HandleBars...");
     let opcoes_hb = DirectorySourceOptions{
         tpl_extension: String::from(".html"), 
         hidden: false, 
@@ -166,8 +178,10 @@ async fn main() -> std::io::Result<()> {
     let mut hb = Handlebars::new();
     hb.register_templates_directory("./static", opcoes_hb).unwrap();
     let hb_ref = web::Data::new(hb);
+    println!("HandleBars instânciado");
 
     // Instância o servidor http do actix usando as rotas disponíveis;
+    println!("Rodando servidor...");
     HttpServer::new(move || {
         App::new()
         .app_data(web::Data::new(pool.clone()))
