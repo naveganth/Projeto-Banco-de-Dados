@@ -1,13 +1,14 @@
 services:
-  app:
-    build: .
-    command: cargo run
-    restart: always
-    ports:
-      - '9000:9000'
-    depends_on:
-      db:
-        condition: service_healthy
+  # app:
+  #   build: .
+  #   dns: 1.1.1.1
+  #   command: cargo run
+  #   restart: always
+  #   ports:
+  #     - '9987:9000'
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
   db:
     image: mysql:8.0
     restart: always

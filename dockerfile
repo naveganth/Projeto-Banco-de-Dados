@@ -1,2 +1,4 @@
 FROM rust:latest
-COPY . .
+COPY src/ .
+COPY static/ .
+COPY Cargo.toml .
