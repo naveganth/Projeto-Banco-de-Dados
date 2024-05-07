@@ -1,8 +1,10 @@
 use actix_files as fs;
-use std::env;
 use actix_web::{web, App, HttpResponse, HttpServer};
-use mysql::*;
+use sqlx::mysql::MySqlPoolOptions;
+use sqlx::{Pool, MySql};
 use serde_json::json;
+use dotenvy::dotenv;
+use std::env;
 use handlebars::{Handlebars, DirectorySourceOptions};
 
 // Os outros programas vem aqui
@@ -10,7 +12,7 @@ mod modelos;
 mod banco;
 
 
-async fn indice( pool: web::Data<Pool>, hb: web::Data<Handlebars<'_>>) -> HttpResponse {
+async fn indice( pool: web::Data<Pool<MySql>>, hb: web::Data<Handlebars<'_>>) -> HttpResponse {
     println!("Indice");
     
     // Imagina que aqui tem dados que foram recebidos do banco
@@ -25,16 +27,135 @@ async fn indice( pool: web::Data<Pool>, hb: web::Data<Handlebars<'_>>) -> HttpRe
     HttpResponse::Ok().body(body)
 }
 
+async fn shop( pool: web::Data<Pool<MySql>>, hb: web::Data<Handlebars<'_>>) -> HttpResponse {
+    println!("Shop");
+    
+    // Imagina que aqui tem dados que foram recebidos do banco
+    let dados = json!({
+        "motd": "Texto vindo do backend"
+    });
+    
+    // Renderiza a página
+    let body = hb.render("shop", &dados).unwrap();
+
+    println!("Shop enviado");
+    HttpResponse::Ok().body(body)
+}
+
+async fn blog( pool: web::Data<Pool<MySql>>, hb: web::Data<Handlebars<'_>>) -> HttpResponse {
+    println!("blog");
+    
+    // Imagina que aqui tem dados que foram recebidos do banco
+    let dados = json!({
+        "motd": "Texto vindo do backend"
+    });
+    
+    // Renderiza a página
+    let body = hb.render("blog", &dados).unwrap();
+
+    println!("Blog enviado");
+    HttpResponse::Ok().body(body)
+}
+
+async fn about( pool: web::Data<Pool<MySql>>, hb: web::Data<Handlebars<'_>>) -> HttpResponse {
+    println!("About");
+    
+    // Imagina que aqui tem dados que foram recebidos do banco
+    let dados = json!({
+        "motd": "Texto vindo do backend"
+    });
+    
+    // Renderiza a página
+    let body = hb.render("about", &dados).unwrap();
+
+    println!("About enviado");
+    HttpResponse::Ok().body(body)
+}
+
+async fn login( pool: web::Data<Pool<MySql>>, hb: web::Data<Handlebars<'_>>) -> HttpResponse {
+    println!("login");
+    
+    // Imagina que aqui tem dados que foram recebidos do banco
+    let dados = json!({
+        "motd": "Texto vindo do backend"
+    });
+    
+    // Renderiza a página
+    let body = hb.render("login", &dados).unwrap();
+
+    println!("login enviado");
+    HttpResponse::Ok().body(body)
+}
+
+async fn signin( pool: web::Data<Pool<MySql>>, hb: web::Data<Handlebars<'_>>) -> HttpResponse {
+    println!("sign in");
+    
+    // Imagina que aqui tem dados que foram recebidos do banco
+    let dados = json!({
+        "motd": "Texto vindo do backend"
+    });
+    
+    // Renderiza a página
+    let body = hb.render("signin", &dados).unwrap();
+
+    println!("signin enviado");
+    HttpResponse::Ok().body(body)
+}
+
+async fn contact( pool: web::Data<Pool<MySql>>, hb: web::Data<Handlebars<'_>>) -> HttpResponse {
+    println!("Contato");
+    
+    // Imagina que aqui tem dados que foram recebidos do banco
+    let dados = json!({
+        "motd": "Texto vindo do backend"
+    });
+    
+    // Renderiza a página
+    let body = hb.render("contact", &dados).unwrap();
+
+    println!("Contato enviado");
+    HttpResponse::Ok().body(body)
+}
+
+async fn cart( pool: web::Data<Pool<MySql>>, hb: web::Data<Handlebars<'_>>) -> HttpResponse {
+    println!("Cart");
+    
+    // Imagina que aqui tem dados que foram recebidos do banco
+    let dados = json!({
+        "motd": "Texto vindo do backend"
+    });
+    
+    // Renderiza a página
+    let body = hb.render("cart", &dados).unwrap();
+
+    println!("Cart enviado");
+    HttpResponse::Ok().body(body)
+}
+
+async fn checkout( pool: web::Data<Pool<MySql>>, hb: web::Data<Handlebars<'_>>) -> HttpResponse {
+    println!("Checkout");
+    
+    // Imagina que aqui tem dados que foram recebidos do banco
+    let dados = json!({
+        "motd": "Texto vindo do backend"
+    });
+    
+    // Renderiza a página
+    let body = hb.render("checkout", &dados).unwrap();
+
+    println!("checkout enviado");
+    HttpResponse::Ok().body(body)
+}
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     // substituir isso aqui por variáveis de ambiente do docker;
-    let url = "mysql://root:senhaboa@localhost:9876/projeti";
-    let pool = Pool::new(url).expect("Erro ao conectar ao banco");
-
-    // Se as tabelas do banco não estiverem certas, corrige elas
-    if !banco::validar_tabelas(&pool) {
-        banco::corrigir_tabelas(&pool);
-    }
+    dotenv().expect("Arquivo '.env' não encontrado");
+    
+    let url = env::var("URL_BANCO").expect("Endereço do banco não definido");
+    let pool = MySqlPoolOptions::new()
+    .max_connections(5)
+    .connect(url.as_str()).await.expect("Endereço do banco não acessível");
 
     // Cria as configurações que o handlebars irá usar para renderizar
     // as páginas em html com os dados desejados.
@@ -52,6 +173,12 @@ async fn main() -> std::io::Result<()> {
         .app_data(web::Data::new(pool.clone()))
         .app_data(hb_ref.clone())
         .route("/", web::get().to(indice))
+        .route("/shop", web::get().to(shop))
+        .route("/blog", web::get().to(blog))
+        .route("/about", web::get().to(about))
+        .route("/contact", web::get().to(contact))
+        .route("/login", web::get().to(login))
+        .route("/signin", web::get().to(signin))
         .service(fs::Files::new("/static", "./static"))
     })
     .bind(("0.0.0.0", 9987))?

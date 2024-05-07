@@ -1,6 +1,8 @@
+
 struct Cliente {
     id: u32,
     nome: String,
+    sexo: String,
     cpf: String,
     nascimento: String,
     idade: u8,
@@ -32,13 +34,17 @@ struct Compra {
     cliente: u32,
 }
 
-struct Produto {
-    id: u32,
-    nome: String,
-    estoque: u32,
-    peso: u32,
-    cod_barras: String,
-    desconto: f32
+// #[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
+pub struct Produto {
+    pub id: i32,
+    pub nome: String,
+    pub preco: String,
+    pub estoque: i32,
+    pub peso: String,
+    pub cod_barras: String,
+    pub desconto: String,
+    pub avaliacao: i8,
+    pub url_imagem: String,
 }
 
 struct NFE {
