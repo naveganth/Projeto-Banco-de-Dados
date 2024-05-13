@@ -1,82 +1,34 @@
+use std::result;
+
 use sqlx::mysql::MySqlPoolOptions;
-use sqlx::{Pool, MySql};
+use sqlx::{Pool, MySql, Row};
 use sqlx::mysql::MySqlRow;
 use crate::modelos::*;
 
-pub async fn validar_tabelas(pool: &Pool<MySql>) -> bool{
-    println!("BANCO: Validando tabelas");
+pub async fn pegar_produtos(pool: &Pool<MySql>) -> Option<Vec<Produto>>{
+    let mut produtos: Vec<Produto> = Vec::new();
+    let resultados = sqlx::query("SELECT * FROM Produto").fetch_all(pool).await.expect("Erro");
+    
+    for resultado in resultados {
+        let id: i32 = match resultado.try_get("id") {Ok(id) => id, Err(erro) => {println!("Erro ao pegar id: {}", erro); return None}};
+        let nome: &str = match resultado.try_get("nome") {Ok(id) => id, Err(erro) => {println!("Erro ao pegar nome: {}", erro); return None}};
+        let estoque: i32 = match resultado.try_get("estoque") {Ok(id) => id, Err(erro) => {println!("Erro ao pegar estoque: {}", erro); return None}};
+        let peso: f32 = match resultado.try_get("peso") {Ok(id) => id, Err(erro) => {println!("Erro ao pegar peso: {}", erro); return None}};
+        let cod_barras: &str = match resultado.try_get("cod_barras") {Ok(id) => id, Err(erro) => {println!("Erro ao pegar cod_barras: {}", erro); return None}};
+        let desconto: f32 = match resultado.try_get("desconto") {Ok(id) => id, Err(erro) => {println!("Erro ao pegar desconto: {}", erro); return None}};
+        let preco: f32 = match resultado.try_get("preco") {Ok(id) => id, Err(erro) => {println!("Erro ao pegar preco: {}", erro); return None}};
+        let avaliacao: i8 = match resultado.try_get("avaliacao") {Ok(id) => id, Err(erro) => {println!("Erro ao pegar avaliacao: {}", erro); return None}};
+        let url_imagem: &str = match resultado.try_get("url_imagem") {Ok(id) => id, Err(erro) => {println!("Erro ao pegar url_imagem: {}", erro); return None}};
 
-    let resultados: Vec<sqlx::mysql::MySqlRow> = sqlx::query(
-        "SELECT table_name FROM information_schema.tables WHERE table_schema = 'projeti'")
-        .fetch_all(pool).await.expect("Erro ao executar query");
+        let produto = Produto{ id: id, nome: String::from(nome), estoque: estoque, peso: peso, 
+                                        cod_barras: String::from(cod_barras), desconto: desconto, 
+                                        avaliacao: avaliacao, url_imagem: String::from(url_imagem), preco: preco};
 
-    for resultado in resultados{
-        println!("Resultado: {:?}", resultado);
+        println!("Produto encontrado: {}", produto);
+        produtos.push(produto);
     }
-    // let res: std::prelude::v1::Result<Vec<String>, mysql::Error> = conn.exec(query, {});
-    // if let Ok(resultados) = res {
-    //     if resultados.is_empty() {
-    //         println!("BANCO: Banco não possui tabela alguma");
 
-    //         let base = std::fs::read_to_string("./src/sql/base.sql").expect("Falha ao abrir o arquivo base do banco de dados");
-    //         let queries: Vec<&str> = base.split(";")
-    //         .collect();
-
-    //         for query in queries{
-    //             if query.is_empty(){ continue }
-
-    //             println!("BANCO: Query de criação da tabela: {}", query);
-    //             conn.query_drop(query).expect("Erro ao criar o banco de dados");
-    //         }
-    //     };
-    //     let tabelas_necessarias = ["Cliente", "Endereco", "Compra", "Produto", "NFE"];
-
-    //     for tabela in tabelas_necessarias{
-    //         println!("BANCO: Tabela encontrada: {}", &tabela);
-
-    //         if resultados.contains(&String::from(tabela)) {
-    //             println!("BANCO: Banco contém {}", tabela);
-    //             continue;
-    //         } else {
-    //             return false
-    //         }
-    //     }
-    //     return true
-
-    // } else {
-    //     println!("BANCO: Não deu pra buscar as tabelas do banco")
-    // }
-    // println!("BANCO: Fim da validação de tabelas");
-    false
-}
-
-pub fn corrigir_tabelas(pool: &Pool<MySql>) {
-    // println!("BANCO: Corrigindo tabelas");
-
-    // let mut conn = pool.get_conn().expect("Erro ao conectar ao banco de dados");
-    // let query = "SELECT table_name FROM information_schema.tables WHERE table_schema = 'projeti';";
-    // let res: std::prelude::v1::Result<Vec<String>, mysql::Error> = conn.exec(query, {});
-    // if let Ok(resultados) = res {
-    //     println!("{:?}", resultados);
-    // }
-}
-
-pub fn pegar_produtos(pool: &Pool<MySql>){  //  -> Vec<Produto>
-    // let mut conn = pool.get_conn().expect("Erro ao conectar ao banco de dados");
-    // let query = "SELECT id, nome, preco, estoque, peso, cod_barras, desconto, avaliacao, url_imagem FROM Produto LIMIT 4";
-
-    // let produtos: std::prelude::v1::Result<Vec<Produto>, Error> = conn.query_map(query, 
-    //     |(id, nome, preco, estoque, peso, cod_barras, desconto, avaliacao, url_imagem)| {
-    //         Produto{id, nome, preco, estoque, peso, cod_barras, desconto, avaliacao, url_imagem}
-    //     });
-
-    // match produtos{
-    //     Ok(produtos) => { return produtos},
-    //     Err(erro) => { 
-    //         println!("Erro ao buscar produtos");
-    //         vec![]
-    //     },
-    // }
+    Some(produtos)
 }
 
 pub fn pegar_produtos_populares(pool: &Pool<MySql>) {

@@ -1,3 +1,5 @@
+use std::fmt;
+
 
 struct Cliente {
     id: u32,
@@ -35,16 +37,25 @@ struct Compra {
 }
 
 // #[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(sqlx::FromRow)]
 pub struct Produto {
     pub id: i32,
     pub nome: String,
-    pub preco: String,
+    pub preco: f32,
     pub estoque: i32,
-    pub peso: String,
+    pub peso: f32,
     pub cod_barras: String,
-    pub desconto: String,
+    pub desconto: f32,
     pub avaliacao: i8,
     pub url_imagem: String,
+}
+
+impl fmt::Display for Produto {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        // Customize so only `x` and `y` are denoted.
+        write!(f, "Produto: (id: {}, nome: {}, preco: {}, estoque: {}, peso: {}, cod_barras: {}, desconto: {}, avaliacao: {}, url_imagem: {})", 
+                self.id, self.nome, self.preco, self.estoque, self.peso, self.cod_barras, self.desconto, self.avaliacao, self.url_imagem)
+    }
 }
 
 struct NFE {

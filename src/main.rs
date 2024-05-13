@@ -13,7 +13,6 @@ use std::env;
 mod modelos;
 mod banco;
 
-
 async fn indice( pool: web::Data<Pool<MySql>>, hb: web::Data<Handlebars<'_>>) -> HttpResponse {
     println!("Indice");
     
@@ -21,6 +20,8 @@ async fn indice( pool: web::Data<Pool<MySql>>, hb: web::Data<Handlebars<'_>>) ->
     let dados = json!({
         "motd": "Texto vindo do backend"
     });
+
+    let produtos = match banco::pegar_produtos(&pool).await {Some(p) => p, None => {println!("Erro ao pegar produtos, fazer alguma coisa"); Vec::new()} };
     
     // Renderiza a página
     let body = hb.render("index", &dados).unwrap();
