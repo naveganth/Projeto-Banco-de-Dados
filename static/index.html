@@ -32,7 +32,7 @@
 
     <section id="hero">
         <h3>Loja de Gatos</h3>
-        <p>The quick brown fox jumps over the lazy dog. The quickbrown fox jumps over the lazy dog.</p> <!--Coloca teu bagulhete aqui-->
+        <p>{{ motd }}</p> <!--Coloca teu bagulhete aqui-->
         <button><a href="">Explorar</a></button>
     </section>
 
@@ -69,8 +69,21 @@
         <h3>Principais Produtos</h3>
 
         <div class="pro-container">
-
-            <div class="pro">
+            {{#each produtos}}
+                <div class="pro">
+                    <img src="{{ url_imagem }}" alt="">
+                    <div class="des">
+                        <h5>{{ nome }}</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>Gratis</h4>
+                    </div>
+                    <a class="cart" href="#"><i class="fa fa-shopping-cart"></i></a>
+                </div>
+            {{/each}}
+            <!--
+                <div class="pro">
                 <img src="/static/img/gatos/gatomorcego.webp" alt="">
                 <div class="des">
                     <span>Raça: Morcego</span>
@@ -192,6 +205,7 @@
                 <a class="cart" href="#"><i class="fa fa-shopping-cart"></i></a>
             </div>
 
+            -->
         </div>
     </section>
 

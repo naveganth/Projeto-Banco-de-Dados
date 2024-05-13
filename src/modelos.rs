@@ -1,4 +1,6 @@
 use std::fmt;
+use serde::{Deserialize, Serialize};
+use serde_json::Result;
 
 
 struct Cliente {
@@ -37,7 +39,7 @@ struct Compra {
 }
 
 // #[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
-#[derive(sqlx::FromRow)]
+#[derive(sqlx::FromRow, Serialize, Deserialize)]
 pub struct Produto {
     pub id: i32,
     pub nome: String,

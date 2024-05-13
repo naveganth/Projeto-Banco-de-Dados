@@ -4,7 +4,7 @@ use sqlx::mysql::MySqlPoolOptions;
 use sqlx::migrate::Migrator;
 use sqlx::{Pool, MySql};
 use actix_files as fs;
-use serde_json::json;
+use serde_json::{json, Value};
 use dotenvy::dotenv;
 use std::path::Path;
 use std::env;
@@ -16,13 +16,10 @@ mod banco;
 async fn indice( pool: web::Data<Pool<MySql>>, hb: web::Data<Handlebars<'_>>) -> HttpResponse {
     println!("Indice");
     
-    // Imagina que aqui tem dados que foram recebidos do banco
-    let dados = json!({
-        "motd": "Texto vindo do backend"
-    });
+    let produtos: Vec<modelos::Produto> = match banco::pegar_produtos(&pool).await {Some(p) => p, None => {println!("Erro ao pegar produtos, fazer alguma coisa"); Vec::new()} };
+    let dados = json!({"produtos": &produtos, "motd": "Mensagem vinda do backend"});
+    println!("Dados da página: {}", dados);
 
-    let produtos = match banco::pegar_produtos(&pool).await {Some(p) => p, None => {println!("Erro ao pegar produtos, fazer alguma coisa"); Vec::new()} };
-    
     // Renderiza a página
     let body = hb.render("index", &dados).unwrap();
 
