@@ -12,26 +12,56 @@
 </head>
 
 <body>
-    <section>
-        <h4>Rastreie seu pedido</h4>
+    <section id="tracking">
 
         <div class="container">
-            <div class="order">
-                <h1>Pedido: <span>12398120381023912</span></h1>
-            </div>
-            <div class="date">
-                <p>Data de chegada: <span> 30/01/1933</span></p>
-                <p>Trasnportadora: <span>jadlog 💀</span></p>
-            </div>
-        </div>
 
-        <div class="track">
-            <ul>
-                <li class="active">ICONE</li>
-                <li class="active">ICONE</li>
-                <li class="active">ICONE</li>
-                <li class="active">ICONE</li>
-            </ul>
+            <div class="order-info">
+                <h1>Produto: <span>7 1 2 18 9 5 12 </span></h1>
+                <div class="arrival-info">
+                    <p>Previsão de Chegada: <span>12/12/2012</span></p>
+                    <p>NFE: <span>7 1 2 18 9 5 12 5 21 13 3 15 18 14 15 </span></p>
+                </div>
+            </div>
+
+            <!-- Adicione "active" depois do "step" para marcar como se estive concluido -->
+            <div class="track">
+                <ul>
+                    <li class="step active">
+                        <span class="icon"><i class="fas fa-check"></i></span>
+                        <div class="label">
+                            <p>Pedido Realizado</p>
+                            <p>Data: 10/10/2025</p>
+                        </div>
+                    </li>
+
+                    <li class="step active">
+                        <span class="icon"><i class="fas fa-check"></i></span>
+                        <div class="label">
+                            <p>Em Separação</p>
+                            <p>Data: 10/10/2025</p>
+                        </div>
+                    </li>
+
+                    <li class="step active">
+                        <span class="icon"><i class="fas fa-check"></i></span>
+                        <div class="label">
+                            <p>Produto Enviado</p>
+                            <p>Data: 10/10/2025</p>
+                        </div>
+                    </li>
+
+                    <li class="step">
+                        <span class="icon"><i class="fas fa-check"></i></span>
+                        <div class="label">
+                            <p>Produto Entregue </p>
+                            <p></p>
+                        </div>
+                    </li>
+                </ul>
+                
+            </div>
+
         </div>
 
     </section>

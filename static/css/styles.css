@@ -646,6 +646,85 @@ footer .copyright {
   font-weight: 200;
 }
 
+/* Caixa de rastreio, provavelmente vou juntar isso na pagina de usuario igual na pichau */
+#tracking{
+  background-color: #424242;
+  padding: 30px 100px;
+  margin: 15%;
+}
+
+#tracking .container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#tracking .order-info {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+#tracking .order-info h1 {
+  font-size: 2.5rem;
+  color: #1c1717; 
+  margin-bottom: 10px;
+}
+
+#tracking .order-info span {
+  font-weight: bold;
+}
+
+#tracking .arrival-info {
+  display: flex;
+  justify-content: space-around;
+  font-size: 0.9rem;
+  color: #757575; 
+}
+
+#tracking .arrival-info span {
+  font-weight: 600;
+}
+
+    /* Botoes do tracking, consertar linha entre eles */
+#tracking .track {
+  position: relative;
+}
+
+#tracking .track ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+#tracking .step {
+  text-align: center;
+  flex: 1;
+  position: relative;
+}
+
+#tracking .step .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: gray; 
+  color: white;
+  margin: 0 auto 15px;
+}
+
+#tracking .step.active .icon {
+  background-color: yellowgreen;
+}
+
+
+
 /* Palheta de cores */
 .modoclaro {
   --text: #1c1717;
