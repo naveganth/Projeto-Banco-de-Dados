@@ -17,12 +17,15 @@
 
         <form method="post" action="/api/registrar_cliente">
         <fieldset class="signinput">
-            <label for="">Seu nome: <input type="text" required></label>
-            <label for="">Nacimento: <input type="text" required></label>
-            <label for="">Seu CPF: <input type="text" required></label>
-            <label for="">Seu e-mail: <input type="email" required></label>
-            <label for="">Numero de Telefone: <input type="text" required></label>
-            <label for="">Senha: <input type="password" required></label>
+            <label for="nome">Seu nome: <input id="nome" name="nome" type="text" required></label>
+            <label for="nascimento">Nascimento: <input id="nascimento "name="nascimento" type="date" required></label>
+            <label>Sexo: 
+                <label style="display:inline" for="masculino"><input id="masculino" name="sexo" type="radio" value="m" required>Masculino</label>
+                <label style="display:inline" for="feminino"><input id="feminino" name="sexo" type="radio" value="f" required>feminino</label>
+            </label>
+            <label for="">Seu CPF: <input name="cpf" type="text" required></label>
+            <label for="">Seu e-mail: <input name="email" type="email" required></label>
+            <label for="">Senha: <input name="senha" type="password" required></label>
             <input type="submit">
         </fieldset>
     </form>
