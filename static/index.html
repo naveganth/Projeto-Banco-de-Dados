@@ -75,9 +75,11 @@
                     <div class="des">
                         <h5>{{ nome }}</h5>
                         <div class="star">
+                        {{#each avaliacao}}
                             <i class="fas fa-star"></i>
+                        {{/each}}
                         </div>
-                        <h4>Gratis</h4>
+                        <h4>R$ {{ preco }}</h4>
                     </div>
                     <a class="cart" href="#"><i class="fa fa-shopping-cart"></i></a>
                 </div>

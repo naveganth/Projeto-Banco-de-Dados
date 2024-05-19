@@ -1,10 +1,12 @@
 use actix_web::{web, App, HttpResponse, HttpServer};
+use actix_web::{web::Redirect, Responder};
 use handlebars::{Handlebars, DirectorySourceOptions};
 use sqlx::mysql::MySqlPoolOptions;
 use sqlx::migrate::Migrator;
 use sqlx::{Pool, MySql};
 use actix_files as fs;
 use serde_json::{json, Value};
+use serde::Deserialize;
 use dotenvy::dotenv;
 use std::path::Path;
 use std::env;
@@ -16,7 +18,11 @@ mod banco;
 async fn indice( pool: web::Data<Pool<MySql>>, hb: web::Data<Handlebars<'_>>) -> HttpResponse {
     println!("Indice");
     
-    let produtos: Vec<modelos::Produto> = match banco::pegar_produtos(&pool).await {Some(p) => p, None => {println!("Erro ao pegar produtos, fazer alguma coisa"); Vec::new()} };
+    let produtos: Vec<modelos::Produto> = match banco::pegar_produtos_populares(&pool).await {
+        Some(p) => p, 
+        None => {println!("Erro ao pegar produtos, fazer alguma coisa"); Vec::new()} 
+    };
+    
     let dados = json!({"produtos": &produtos, "motd": "Mensagem vinda do backend"});
     println!("Dados da página: {}", dados);
 
@@ -147,6 +153,14 @@ async fn checkout( pool: web::Data<Pool<MySql>>, hb: web::Data<Handlebars<'_>>) 
     HttpResponse::Ok().body(body)
 }
 
+async fn registrar_cliente( registro: web::Form<modelos::FormRegistro>, pool: web::Data<Pool<MySql>>, hb: web::Data<Handlebars<'_>>) -> impl Responder {
+    println!("Registrando cliente");
+    println!("Cliente criado: {}", registro);
+
+    banco::criar_cliente(&pool, registro.0).await;
+    Redirect::to("/").temporary()
+}
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     println!("Programa iniciado");
@@ -185,12 +199,14 @@ async fn main() -> std::io::Result<()> {
         .app_data(web::Data::new(pool.clone()))
         .app_data(hb_ref.clone())
         .route("/", web::get().to(indice))
+        .route("/", web::post().to(indice))
         .route("/shop", web::get().to(shop))
         .route("/blog", web::get().to(blog))
         .route("/about", web::get().to(about))
         .route("/contact", web::get().to(contact))
         .route("/login", web::get().to(login))
         .route("/signin", web::get().to(signin))
+        .route("/api/registrar_cliente", web::post().to(registrar_cliente))
         .service(fs::Files::new("/static", "./static"))
     })
     .bind(("0.0.0.0", 9987))?
