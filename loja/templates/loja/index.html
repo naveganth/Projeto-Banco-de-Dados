@@ -64,18 +64,8 @@
             <button class="normal">Ver Descontos</button>
 
         </section>
-
-        <section id="newsletter" class="section-p1 section-m1">
-            <div class="newstext">
-                <h4>Se Inscreva para Noticias e Promoções</h4>
-                <p>Receba e-mails com atualizações e <span>promoções especiais.</span></p>
-            </div>
-            <div class="form">
-                <input type="email" placeholder="Seu endereço de e-mail">
-                <button class="normal">Confirmar</button>
-            </div>
-        </section>
-
+        
+        {% include 'loja/snippets/newsletter.html' %}
         {% include 'loja/snippets/footer.html' %}
         
         <script src="{% static 'loja/script.js'%}"></script>
