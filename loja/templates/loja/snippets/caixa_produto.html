@@ -1,14 +1,16 @@
-<div class="pro">
-    <img src={{ produto.url_imagem }} alt="">
-    <div class="des">
-        <span>{{ produto.mini_descricao }}</span>
-        <h5>{{ produto.nome }}</h5>
-        <div class="star">
-            {% for i in produto.range_avaliacao %}
-            <i class="fas fa-star"></i>
-            {% endfor %}
+<a href="/produto/{{ produto.id }}">
+    <div class="pro">
+        <img src={{ produto.url_imagem }} alt="">
+        <div class="des">
+            <span>{{ produto.mini_descricao }}</span>
+            <h5>{{ produto.nome }}</h5>
+            <div class="star">
+                {% for i in produto.range_avaliacao %}
+                <i class="fas fa-star"></i>
+                {% endfor %}
+            </div>
+            <h4>R$: {{ produto.preco }}</h4>
         </div>
-        <h4>R$: {{ produto.preco }}</h4>
+        <a class="cart" href="#"><i class="fa fa-shopping-cart"></i></a>
     </div>
-    <a class="cart" href="#"><i class="fa fa-shopping-cart"></i></a>
-</div>
+</a>

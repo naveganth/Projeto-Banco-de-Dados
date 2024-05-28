@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Produto(models.Model):
     nome = models.CharField(max_length=255, blank=False, null=False, default="Produto sem nome")
-    descricao = models.CharField(max_length=255, blank=False, null=False, default="")
+    descricao = models.CharField(max_length=2048, blank=False, null=False, default="")
     mini_descricao = models.CharField(max_length=255, blank=False, null=False, default="")
     preco = models.DecimalField(max_digits=11, decimal_places=2, blank=False, null=False, default=0.0)
     estoque = models.IntegerField(blank=False, null=False, default=0)

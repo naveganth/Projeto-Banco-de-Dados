@@ -16,3 +16,9 @@ def shop(request: HttpRequest):
     
     print("Produtos encontrados:", produtos)
     return render(request, "loja/shop.html", {"produtos": produtos})
+
+def produto(request: HttpRequest, id_produto: int):
+    produto = Produto.objects.filter(id = id_produto).first()
+    
+    print("Produto encontrados:", produto)
+    return render(request, "loja/sprodutct.html", {"produto": produto})
