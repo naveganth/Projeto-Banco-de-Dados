@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,16 +6,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nosferatu</title>
-    <link href="/static/css/styles.css" rel="stylesheet">
+    <link href="{% static 'loja/styles.css'%}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://fonts.cdnfonts.com/css/renogare" rel="stylesheet">
-    <link rel="icon" href="/static/img/icon/Frame 3.png">
+    <link rel="icon" href="{% static 'loja/img/icon/Frame 3.png'%}"> 
 </head>
 
 <body>
 
     <section id="header">
-        <a href="#"><img style=" width: 30vh;" src="/static/img/icon/Nosferatulogog4.png" alt="gato lindao"></a>
+        <a href="#"><img style=" width: 30vh;" src="{% static 'loja/img/icon/Nosferatulogog4.png'%}" alt="gato lindao"></a> 
 
         <div>
             <ul id="navbar">
@@ -39,27 +40,27 @@
     <section id="feature" class="section-p1">
 
         <div class="fe-box">
-            <img src="/static/img/inicio/opçoes (1).png" alt="">
+            <img src="{% static 'loja/img/inicio/opçoes (1).png'%}" alt="">
             <h6> Suporte 24/7</h6>
         </div>
         <div class="fe-box">
-            <img src="/static/img/inicio/opçoes (2).png" alt="">
+            <img src="{% static 'loja/img/inicio/opçoes (2).png'%}" alt="">
             <h6> Frete Gratis</h6>
         </div>
         <div class="fe-box">
-            <img src="/static/img/inicio/opçoes (3).png" alt="">
+            <img src="{% static 'loja/img/inicio/opçoes (3).png'%}" alt="">
             <h6>Entrega Rapida</h6>
         </div>
         <div class="fe-box">
-            <img src="/static/img/inicio/opçoes (4).png" alt="">
+            <img src="{% static 'loja/img/inicio/opçoes (4).png'%}" alt="">
             <h6>Economize Dinheiro</h6>
         </div>
         <div class="fe-box">
-            <img src="/static/img/inicio/opçoes (5).png" alt="">
+            <img src="{% static 'loja/img/inicio/opçoes (5).png'%}" alt="">
             <h6>Promoções</h6>
         </div>
-        <div class="fe-box">
-            <img src="/static/img/inicio/opçoes (6).png" alt="">
+        <div class="fe-box"> 
+            <img src="{% static 'loja/img/inicio/opçoes (6).png'%}" alt="">
             <h6>Venda e Compra</h6>
         </div>
 
@@ -69,21 +70,7 @@
         <h3>Principais Produtos</h3>
 
         <div class="pro-container">
-            {{#each produtos}}
-                <div class="pro">
-                    <img src="{{ url_imagem }}" alt="">
-                    <div class="des">
-                        <h5>{{ nome }}</h5>
-                        <div class="star">
-                        {{#each avaliacao}}
-                            <i class="fas fa-star"></i>
-                        {{/each}}
-                        </div>
-                        <h4>R$ {{ preco }}</h4>
-                    </div>
-                    <a class="cart" href="#"><i class="fa fa-shopping-cart"></i></a>
-                </div>
-            {{/each}}
+            
             <!--
                 <div class="pro">
                 <img src="/static/img/gatos/gatomorcego.webp" alt="">
@@ -232,7 +219,7 @@
     <footer class="section-p1">
 
         <div class="col">
-            <img class="logo" src="/static/img/icon/Nosferatulogog4.png" alt="Logo">
+            <img class="logo" src="{% static 'loja/img/icon/Nosferatulogog4.png'%}" alt="Logo">
             <h4>Contato</h4>
             <p><strong>Endereço: </strong>Faculade Meta</p>
             <p><strong>Telefone: </strong>(96) 981112691</p>
@@ -271,8 +258,8 @@
             <h4>Instalar Aplicativo 💀</h4>
             <p>Apple Store ou Google Play </p>
             <div class="row">
-                <img src="/static/img/footer/googleplay.png" alt="">
-                <img src="/static/img/footer/appstore.png" alt="">
+                <img src="{% static 'loja/img/footer/googleplay.png'%}" alt="">
+                <img src="{% static 'loja/img/footer/appstore.png'%}" alt="">
             </div>
         </div>
 
@@ -281,7 +268,7 @@
         </div>
     </footer>
     
-    <script src="css/script.js"></script>
+    <script src="{% static 'loja/script.js'%}"></script>
 </body>
 
 </html>

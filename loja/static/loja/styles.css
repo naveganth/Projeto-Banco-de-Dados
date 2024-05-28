@@ -130,7 +130,7 @@ button.normal {
 /* Header/hero inicio do site */
 #hero {
   background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)),
-    url("/static/img/bg/muitofeio.png");
+    url("/static/loja/img/bg/muitofeio.png");
   background-repeat: round;
   height: 90vh;
   width: 100%;
@@ -315,7 +315,7 @@ button.normal {
 /* Banner com promoção de desconto */
 #banner {
   background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-    url(/static/img/banner/gatosbanner1.jpg);
+    url(/static/loja/img/banner/gatosbanner1.jpg);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -359,7 +359,7 @@ button.normal {
 /* Banner de envio de noticias/promoções */
 #newsletter {
   background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)),
-    url("/static/img/newsletter/gatonews3.webp");
+    url("/static/loja/img/newsletter/gatonews3.webp");
   background-position: 50% 60%;
   display: flex;
   justify-content: space-between;
@@ -505,7 +505,7 @@ footer .copyright {
 
 #page-header {
   background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2)),
-    url(/static/img/banner/cachorro.jpg);
+    url(/static/loja/img/banner/cachorro.jpg);
   background-position: 50% 90%;
   background-size: 70%;
   height: 40vh;
