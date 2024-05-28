@@ -1,274 +1,83 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Nosferatu</title>
+        <link href="{% static 'loja/styles.css'%}" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        <link href="https://fonts.cdnfonts.com/css/renogare" rel="stylesheet">
+        <link rel="icon" href="{% static 'loja/img/icon/Frame 3.png'%}"> 
+    </head>
+    <body>
+        {% include 'loja/snippets/header.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nosferatu</title>
-    <link href="{% static 'loja/styles.css'%}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link href="https://fonts.cdnfonts.com/css/renogare" rel="stylesheet">
-    <link rel="icon" href="{% static 'loja/img/icon/Frame 3.png'%}"> 
-</head>
+        <section id="hero">
+            <h3>Loja de Gatos</h3>
+            <p>{{ motd }}</p> <!--Coloca teu bagulhete aqui-->
+            <button><a href="">Explorar</a></button>
+        </section>
 
-<body>
+        <section id="feature" class="section-p1">
 
-    <section id="header">
-        <a href="#"><img style=" width: 30vh;" src="{% static 'loja/img/icon/Nosferatulogog4.png'%}" alt="gato lindao"></a> 
-
-        <div>
-            <ul id="navbar">
-                <li> <a class="active" href="/">Inicio</a></li>
-                <li> <a href="/shop">Loja</a></li>
-                <li> <a href="/about">Sobre</a></li>
-                <li> <a href="/contact">Contato</a></li>
-                <li> <a href="/login">Entrar</a></li>
-                <li> <a href="/signin">Cadastrar-se</a></li>
-                <li> <a href="/cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
-            </ul>
-        </div>
-
-    </section>
-
-    <section id="hero">
-        <h3>Loja de Gatos</h3>
-        <p>{{ motd }}</p> <!--Coloca teu bagulhete aqui-->
-        <button><a href="">Explorar</a></button>
-    </section>
-
-    <section id="feature" class="section-p1">
-
-        <div class="fe-box">
-            <img src="{% static 'loja/img/inicio/opçoes (1).png'%}" alt="">
-            <h6> Suporte 24/7</h6>
-        </div>
-        <div class="fe-box">
-            <img src="{% static 'loja/img/inicio/opçoes (2).png'%}" alt="">
-            <h6> Frete Gratis</h6>
-        </div>
-        <div class="fe-box">
-            <img src="{% static 'loja/img/inicio/opçoes (3).png'%}" alt="">
-            <h6>Entrega Rapida</h6>
-        </div>
-        <div class="fe-box">
-            <img src="{% static 'loja/img/inicio/opçoes (4).png'%}" alt="">
-            <h6>Economize Dinheiro</h6>
-        </div>
-        <div class="fe-box">
-            <img src="{% static 'loja/img/inicio/opçoes (5).png'%}" alt="">
-            <h6>Promoções</h6>
-        </div>
-        <div class="fe-box"> 
-            <img src="{% static 'loja/img/inicio/opçoes (6).png'%}" alt="">
-            <h6>Venda e Compra</h6>
-        </div>
-
-    </section>
-
-    <section id="product1" class="section-p1">
-        <h3>Principais Produtos</h3>
-
-        <div class="pro-container">
-            
-            <!--
-                <div class="pro">
-                <img src="/static/img/gatos/gatomorcego.webp" alt="">
-                <div class="des">
-                    <span>Raça: Morcego</span>
-                    <h5>Gato Morcego</h5>
-                    <div class="star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h4>Gratis</h4>
-                </div>
-                <a class="cart" href="#"><i class="fa fa-shopping-cart"></i></a>
+            <div class="fe-box">
+                <img src="{% static 'loja/img/inicio/opçoes (1).png'%}" alt="">
+                <h6> Suporte 24/7</h6>
+            </div>
+            <div class="fe-box">
+                <img src="{% static 'loja/img/inicio/opçoes (2).png'%}" alt="">
+                <h6> Frete Gratis</h6>
+            </div>
+            <div class="fe-box">
+                <img src="{% static 'loja/img/inicio/opçoes (3).png'%}" alt="">
+                <h6>Entrega Rapida</h6>
+            </div>
+            <div class="fe-box">
+                <img src="{% static 'loja/img/inicio/opçoes (4).png'%}" alt="">
+                <h6>Economize Dinheiro</h6>
+            </div>
+            <div class="fe-box">
+                <img src="{% static 'loja/img/inicio/opçoes (5).png'%}" alt="">
+                <h6>Promoções</h6>
+            </div>
+            <div class="fe-box"> 
+                <img src="{% static 'loja/img/inicio/opçoes (6).png'%}" alt="">
+                <h6>Venda e Compra</h6>
             </div>
 
-            <div class="pro">
-                <img src="/static/img/gatos/gatovampiro.png" alt="">
-                <div class="des">
-                    <span>Raça: Vampiro</span>
-                    <h5>Gato Vampiro</h5>
-                    <div class="star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h4>100,00 Dablons</h4>
-                </div>
-                <a class="cart" href="#"><i class="fa fa-shopping-cart"></i></a>
+        </section>
+
+        <section id="product1" class="section-p1">
+            <h3>Principais Produtos</h3>
+
+            <div class="pro-container">
+                {% for produto in produtos %}
+                {% include 'loja/snippets/caixa_produto.html' with produto=produto %}
+                {% endfor %}
             </div>
+        </section>
 
-            <div class="pro">
-                <img src="/static/img/gatos/gatodentuço.webp" alt="">
-                <div class="des">
-                    <span>Raça: Dentatis Grandis</span>
-                    <h5>Gato Dentuço</h5>
-                    <div class="star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h4>10.00 Tá caro</h4>
-                </div>
-                <a class="cart" href="#"><i class="fa fa-shopping-cart"></i></a>
+        <section id="banner" class="section-m1">
+            <h4> Venda de Gatos</h4>
+            <h2>Até <span>70% de Desconto</span> - Todas as Raças</h2>
+            <button class="normal">Ver Descontos</button>
+
+        </section>
+
+        <section id="newsletter" class="section-p1 section-m1">
+            <div class="newstext">
+                <h4>Se Inscreva para Noticias e Promoções</h4>
+                <p>Receba e-mails com atualizações e <span>promoções especiais.</span></p>
             </div>
-
-            <div class="pro">
-                <img src="/static/img/gatos/gatopirento.jpg" alt="">
-                <div class="des">
-                    <span>Raça: Sem Pelo</span>
-                    <h5>Gato Pirento</h5>
-                    <div class="star">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h4>100.000.000,00 R$</h4>
-                </div>
-                <a class="cart" href="#"><i class="fa fa-shopping-cart"></i></a>
+            <div class="form">
+                <input type="email" placeholder="Seu endereço de e-mail">
+                <button class="normal">Confirmar</button>
             </div>
+        </section>
 
-            <div class="pro">
-                <img src="/static/img/gatos/gatomorcego.webp" alt="">
-                <div class="des">
-                    <span>Raça: Morcego</span>
-                    <h5>Gato Morcego</h5>
-                    <div class="star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h4>Gratis</h4>
-                </div>
-                <a class="cart" href="#"><i class="fa fa-shopping-cart"></i></a>
-            </div>
-
-            <div class="pro">
-                <img src="/static/img/gatos/gatovampiro.png" alt="">
-                <div class="des">
-                    <span>Raça: Vampiro</span>
-                    <h5>Gato Vampiro</h5>
-                    <div class="star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h4>100,00 Dablons</h4>
-                </div>
-                <a class="cart" href="#"><i class="fa fa-shopping-cart"></i></a>
-            </div>
-
-            <div class="pro">
-                <img src="/static/img/gatos/gatodentuço.webp" alt="">
-                <div class="des">
-                    <span>Raça: Dentatis Grandis</span>
-                    <h5>Gato Dentuço</h5>
-                    <div class="star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h4>10.00 Tá caro</h4>
-                </div>
-                <a class="cart" href="#"><i class="fa fa-shopping-cart"></i></a>
-            </div>
-
-            <div class="pro">
-                <img src="/static/img/gatos/gatopirento.jpg" alt="">
-                <div class="des">
-                    <span>Raça: Sem Pelo</span>
-                    <h5>Gato Pirento</h5>
-                    <div class="star">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h4>100.000.000,00 R$</h4>
-                </div>
-                <a class="cart" href="#"><i class="fa fa-shopping-cart"></i></a>
-            </div>
-
-            -->
-        </div>
-    </section>
-
-    <section id="banner" class="section-m1">
-        <h4> Venda de Gatos</h4>
-        <h2>Até <span>70% de Desconto</span> - Todas as Raças</h2>
-        <button class="normal">Ver Descontos</button>
-
-    </section>
-
-    <section id="newsletter" class="section-p1 section-m1">
-        <div class="newstext">
-            <h4>Se Inscreva para Noticias e Promoções</h4>
-            <p>Receba e-mails com atualizações e <span>promoções especiais.</span></p>
-        </div>
-        <div class="form">
-            <input type="email" placeholder="Seu endereço de e-mail">
-            <button class="normal">Confirmar</button>
-        </div>
-    </section>
-
-    <footer class="section-p1">
-
-        <div class="col">
-            <img class="logo" src="{% static 'loja/img/icon/Nosferatulogog4.png'%}" alt="Logo">
-            <h4>Contato</h4>
-            <p><strong>Endereço: </strong>Faculade Meta</p>
-            <p><strong>Telefone: </strong>(96) 981112691</p>
-            <p><strong>Horas: </strong>8:00 - 18:00, Segunda - Sexta</p>
-            <div class="follow">
-                <h4>Siga a gente!</h4>
-                <div class="icon">
-                    <a href="https://github.com/naveganth/Projeto-Banco-de-Dados"><i class="fa-brands fa-square-github"></i></a>
-                    <i class="fa-brands fa-square-whatsapp"></i>
-                    <i class="fa-brands fa-square-youtube"></i>
-                    <i class="fa-brands fa-linkedin"></i>
-                    <i class="fa-brands fa-square-instagram"></i>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <h4>Sobre</h4>
-            <a href="#">Sobre Nós</a>
-            <a href="#">Informação de Entrega</a>
-            <a href="#">Política de Privacidade</a>
-            <a href="#">Termos e Condições</a>
-            <a href="#">Contate a gente</a>
-        </div>
-
-        <div class="col">
-            <h4>Adições Futuras</h4>
-            <a href="#">Lista de favoritos</a>
-            <a href="#">Rastreio de Encomenda</a>
-            <a href="#">Ajuda</a>
-            <a href="#">FAQ</a>
-            <a href="#">Ajuda</a>
-        </div>
-
-        <div class="install">
-            <h4>Instalar Aplicativo 💀</h4>
-            <p>Apple Store ou Google Play </p>
-            <div class="row">
-                <img src="{% static 'loja/img/footer/googleplay.png'%}" alt="">
-                <img src="{% static 'loja/img/footer/appstore.png'%}" alt="">
-            </div>
-        </div>
-
-        <div class="copyright">
-            <p>2024 - Galera do Projeti de Banco de Dados</p>
-        </div>
-    </footer>
-    
-    <script src="{% static 'loja/script.js'%}"></script>
-</body>
-
+        {% include 'loja/snippets/footer.html' %}
+        
+        <script src="{% static 'loja/script.js'%}"></script>
+    </body>
 </html>
