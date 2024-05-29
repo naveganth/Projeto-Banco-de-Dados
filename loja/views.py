@@ -22,3 +22,15 @@ def produto(request: HttpRequest, id_produto: int):
     
     print("Produto encontrados:", produto)
     return render(request, "loja/sprodutct.html", {"produto": produto})
+
+def login(request: HttpRequest):
+    if request.method == "POST":
+        pass
+    elif request.method == "GET":
+        return render(request, "loja/login.html", {"produto": produto})
+
+def signin(request: HttpRequest):
+    if request.method == "POST":
+        pass
+    elif request.method == "GET":
+        return render(request, "loja/signin.html", {"produto": produto})
