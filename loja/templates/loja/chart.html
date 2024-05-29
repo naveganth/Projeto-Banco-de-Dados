@@ -17,16 +17,24 @@
     }
 
     #sidebar {
-      width: 250px;
+      width: 300px;
       border-right: 2px solid black;
-      padding: 10px;
+      padding: 0px 0px;
       box-sizing: border-box;
       flex-shrink: 0;
       height: 100vh;
     }
 
     .sidebar-item {
-      margin-bottom: 20px;
+      text-align: start;
+      padding: 30px 20px;
+      background-color: yellowgreen;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .sidebar-item:hover {
+      filter: brightness(90%);
+      transition: 0.2s ease-in;
     }
 
     #chartContainer {
@@ -49,17 +57,10 @@
 
   <section>
     <div id="sidebar">
-      <div class="sidebar-item">COMPRA TOTAIS</div>
-      <div class="sidebar-item">COMPRA POR ESTADO</div>
-      <div class="sidebar-item">LUCROS TOTAIS</div>
-      <div class="sidebar-item">LUCROS POR ESTADO</div>
-      <div class="sidebar-item">
-        O RESTO DISSO AQUI <br>
-        DEVIA VIR DA PESQUISA DO <br>
-        GPC, MAS NGM <br>
-        MANDOU NADA <br>
-        AINDA <span>💀</span>
-      </div>
+      <div class="sidebar-item" id="ComprasTotais">COMPRAS TOTAIS</div>
+      <div class="sidebar-item" id="ComprasPorEstado">COMPRAS POR ESTADO</div>
+      <div class="sidebar-item" id="LucrosTotais">LUCROS TOTAIS</div>
+      <div class="sidebar-item" id="LucrosPorEstado">LUCROS POR ESTADO</div>
     </div>
   </section>
 
@@ -67,16 +68,15 @@
     <canvas id="myChart"></canvas>
   </section>
 
-
   <script>
     var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
+    var chartConfig = {
       type: 'bar',
       data: {
         labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
         datasets: [{
           label: 'Vendas',
-          data: [100, 120, 150, 170, 200, 180, 220],
+          data: [10, 120, 150, 170, 200, 180, 220],
           backgroundColor: 'rgba(255, 255, 0, 0.8)',
           borderColor: 'black',
           borderWidth: 1
@@ -102,6 +102,129 @@
           }]
         }
       }
+    };
+
+    var myChart = new Chart(ctx, chartConfig);
+    document.getElementById('ComprasTotais').addEventListener('click', function () {
+      myChart.destroy();
+      var newCtx = document.getElementById('myChart').getContext('2d');
+      myChart = new Chart(newCtx, chartConfig);
+    });
+
+    // Provavelmente adiconar mapa do brasil aqui
+    document.getElementById('ComprasPorEstado').addEventListener('click', function () {
+      myChart.destroy();
+      var newCtx = document.getElementById('myChart').getContext('2d');
+      myChart = new Chart(newCtx, {
+        type: 'bar',
+        data: {
+          labels: ['São Paulo', 'Rio de Janeiro', 'Minas Gerais', 'Bahia', 'Paraná'],
+          datasets: [{
+            label: 'Compras por Estado',
+            data: [300, 250, 200, 150, 100],
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          legend: {
+            labels: {
+              fontSize: 30
+            }
+          },
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+                fontSize: 18
+              }
+            }],
+            xAxes: [{
+              ticks: {
+                fontSize: 18
+              }
+            }]
+          }
+        }
+      });
+    });
+
+    document.getElementById('LucrosTotais').addEventListener('click', function () {
+      myChart.destroy();
+      var newCtx = document.getElementById('myChart').getContext('2d');
+      myChart = new Chart(newCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
+          datasets: [{
+            label: 'Vendas',
+            data: [100, 120, 150, 170, 200, 180, 220],
+            backgroundColor: 'rgba(255, 255, 0, 0.8)',
+            borderColor: 'black',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          legend: {
+            labels: {
+              fontSize: 30
+            }
+          },
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+                fontSize: 18
+              }
+            }],
+            xAxes: [{
+              ticks: {
+                fontSize: 18
+              }
+            }]
+          }
+        }
+      });
+    });
+
+    // Provavelmente adiconar mapa do brasil aqui
+    document.getElementById('LucrosPorEstado').addEventListener('click', function () {
+      myChart.destroy();
+      var newCtx = document.getElementById('myChart').getContext('2d');
+      myChart = new Chart(newCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
+          datasets: [{
+            label: 'Vendas',
+            data: [100, 120, 150, 170, 200, 180, 220],
+            backgroundColor: 'rgba(255, 255, 0, 0.8)',
+            borderColor: 'black',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          legend: {
+            labels: {
+              fontSize: 30
+            }
+          },
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+                fontSize: 18
+              }
+            }],
+            xAxes: [{
+              ticks: {
+                fontSize: 18
+              }
+            }]
+          }
+        }
+      });
     });
   </script>
 
