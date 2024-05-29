@@ -579,8 +579,8 @@ footer .copyright {
   margin-top: 20px;
 }
 
-#MainImg{
-  width:  56.2vh;
+#MainImg {
+  width: 56.2vh;
   height: 70vh;
 }
 
@@ -594,7 +594,7 @@ footer .copyright {
   justify-content: space-between;
 }
 
-.small-img{
+.small-img {
   width: 125px;
   height: 130px;
 }
@@ -609,26 +609,26 @@ footer .copyright {
   padding-top: 30px;
 }
 
-#prodetails .single-pro-details h6{
+#prodetails .single-pro-details h6 {
   font-size: 16px;
 }
 
-#prodetails .single-pro-details h4{
+#prodetails .single-pro-details h4 {
   padding: 20px 0 10px 0;
 }
 
-#prodetails .single-pro-details h2{
+#prodetails .single-pro-details h2 {
   font-size: 26px;
   padding-bottom: 10px;
 }
 
-#prodetails .single-pro-details select{
+#prodetails .single-pro-details select {
   display: block;
   padding: 5px 10px;
   margin-bottom: 10px;
 }
 
-#prodetails .single-pro-details input{
+#prodetails .single-pro-details input {
   width: 50px;
   height: 47px;
   padding-left: 10px;
@@ -636,18 +636,18 @@ footer .copyright {
   margin-right: 10px;
 }
 
-#prodetails .single-pro-details button{
+#prodetails .single-pro-details button {
   background: yellowgreen;
   color: black;
 }
 
-#prodetails .single-pro-details span{
+#prodetails .single-pro-details span {
   line-height: 25px;
   font-weight: 200;
 }
 
 /* Caixa de rastreio, provavelmente vou juntar isso na pagina de usuario igual na pichau */
-#tracking{
+#tracking {
   background-color: #424242;
   padding: 30px 100px;
   margin: 15%;
@@ -659,7 +659,7 @@ footer .copyright {
   padding: 20px;
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #tracking .order-info {
@@ -669,7 +669,7 @@ footer .copyright {
 
 #tracking .order-info h1 {
   font-size: 2.5rem;
-  color: #1c1717; 
+  color: #1c1717;
   margin-bottom: 10px;
 }
 
@@ -681,14 +681,14 @@ footer .copyright {
   display: flex;
   justify-content: space-around;
   font-size: 0.9rem;
-  color: #757575; 
+  color: #757575;
 }
 
 #tracking .arrival-info span {
   font-weight: 600;
 }
 
-    /* Botoes do tracking, consertar linha entre eles */
+/* Botoes do tracking, consertar linha entre eles */
 #tracking .track {
   position: relative;
 }
@@ -714,7 +714,7 @@ footer .copyright {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: gray; 
+  background-color: gray;
   color: white;
   margin: 0 auto 15px;
 }
@@ -723,7 +723,7 @@ footer .copyright {
   background-color: yellowgreen;
 }
 
-
+/* Estilos do chart */
 
 /* Palheta de cores */
 .modoclaro {
