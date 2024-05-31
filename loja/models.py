@@ -20,5 +20,13 @@ class Produto(models.Model):
     def __str__(self):
         return f"Produto: {self.nome}"
 
+class Cliente(models.Model):
+    nome = models.CharField(max_length=255, blank=False, null=False)
+    usuario = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE, blank=False, null=False)
+    cpf = models.CharField(max_length=15, blank=False, null=False)
+    nascimento = models.DateField(blank=False, null=False)
+    idade = models.IntegerField(max_length=3, blank=False, null=False)
+    sexo = models.CharField(max_length=1, blank=False, null=False, default="m")
+
 
 

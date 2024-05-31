@@ -16,10 +16,12 @@
             <h1> Faça o login</h1>
             <h2>Por favor preencha os campos abaixo.</h2>
 
-            <form method="post" action="/api/entrar_cliente">
+            <form method="post">
+                {{ erro }}
+                {% csrf_token %}
                 <fieldset class="loginput">
-                    <label for="">Seu e-mail: <input type="email" required></label>
-                    <label for="">Senha: <input type="password" required></label>
+                    <label for="">Seu e-mail: <input name="email" type="email" required></label>
+                    <label for="">Senha: <input name="senha" type="password" required></label>
                     <input type="submit">
                 </fieldset>
             </form>

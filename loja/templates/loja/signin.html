@@ -15,7 +15,9 @@
             <h1> Registrar-se</h1>
             <h2>Por favor preencha os campos abaixo.</h2>
 
-            <form method="post" action="/api/registrar_cliente">
+            <form method="post">
+                {{ erro }}
+                {% csrf_token %}
                 <fieldset class="signinput">
                     <label for="nome">Seu nome: <input id="nome" name="nome" type="text" required></label>
                     <label for="nascimento">Nascimento: <input id="nascimento "name="nascimento" type="date" required></label>
