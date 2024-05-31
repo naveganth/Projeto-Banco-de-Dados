@@ -103,3 +103,11 @@ def signin(request: HttpRequest):
         
     elif request.method == "GET":
         return render(request, "loja/signin.html", {"erro": ""})
+
+def profile(request: HttpRequest):
+    user = request.user
+    if user.is_authenticated:
+        return render(request, "loja/profile.html", {})
+    else:
+        return redirect("/")
+    

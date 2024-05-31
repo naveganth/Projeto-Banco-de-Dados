@@ -1,32 +1,30 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Nosferatu</title>
+        <link href="{% static 'loja/styles.css'%}" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        <link href="https://fonts.cdnfonts.com/css/renogare" rel="stylesheet">
+        <link rel="icon" href="{% static 'loja/img/icon/Frame 3.png'%}"> 
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nosferatu</title>
-    <link href="/static/css/styles.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link href="https://fonts.cdnfonts.com/css/renogare" rel="stylesheet">
-    <link rel="icon" href="/static/img/icon/Frame 3.png">
-</head>
-
-<body>
-    <section id="profile">
-        <h1>Profile</h1>
-        <form action="/api/update_profile" method="post">
-            <label for="name">Nome:<input type="name" name="name" required></label>
-            <label for="email">E-mail:<input type="email" name="email" required></label>
-            <label for="password">Senha:<input type="password" name="password" required></label>
-            <label for="address">Endereço:<input type="text" name="address" required></label>
-            <label for="profilepicture">Foto de perfil:<input type="file" name="profilepicture" required></label>
-            <button type="submit">Salvar</button>
+    <body>
+        <section id="profile">
+            <h1>Profile</h1>
+            <form action="/api/update_profile" method="post">
+                <label for="name">Nome:<input type="name" name="name" required></label>
+                <label for="email">E-mail:<input type="email" name="email" required></label>
+                <label for="password">Senha:<input type="password" name="password" required></label>
+                <label for="address">Endereço:<input type="text" name="address" required></label>
+                <label for="profilepicture">Foto de perfil:<input type="file" name="profilepicture" required></label>
+                <button type="submit">Salvar</button>
+            </form>
+            <button onclick="location.href='/logout'">Sair</button>
+        </section>
         </form>
-        <button onclick="location.href='/logout'">Sair</button>
-    </section>
-    </form>
-    </section>
-
-</body>
-
+        </section>
+    </body>
 </html>
