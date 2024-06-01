@@ -1,30 +1,179 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Nosferatu</title>
-        <link href="{% static 'loja/styles.css'%}" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-        <link href="https://fonts.cdnfonts.com/css/renogare" rel="stylesheet">
-        <link rel="icon" href="{% static 'loja/img/icon/Frame 3.png'%}"> 
-    </head>
 
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosferatu</title>
+    <link href="{% static 'loja/styles.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.cdnfonts.com/css/renogare" rel="stylesheet">
+    <link rel="icon" href="{% static 'loja/img/icon/Frame 3.png' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #profile {
+            background-color: #666;
+            border-radius: 10px;
+            padding: 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-content {
+            display: flex;
+            width: 100%;
+        }
+
+        .profile-picture-container {
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .profile-picture {
+            width: 300px;
+            height: 350px;
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        label {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        label span {
+            width: 100px;
+        }
+
+        label input {
+            flex: 1;
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        button {
+            width: 49%;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            color: white;
+        }
+
+        button.submit {
+            background-color: yellowgreen;
+        }
+
+        button.logout {
+            background-color: red;
+        }
+
+        #extra-buttons {
+            display: flex;
+            width: auto;
+            margin-top: 10px;
+        }
+
+        #extra-buttons div {
+            width: 280px;
+            height: 50px;
+            padding: 20px 0px;
+            background-color: #555;
+            text-align: center;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        #extra-buttons div:hover {
+            background-color: #444;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Perfil de Usuario</h1>
+
         <section id="profile">
-            <h1>Profile</h1>
-            <form action="/api/update_profile" method="post">
-                <label for="name">Nome:<input type="name" name="name" required></label>
-                <label for="email">E-mail:<input type="email" name="email" required></label>
-                <label for="password">Senha:<input type="password" name="password" required></label>
-                <label for="address">Endereço:<input type="text" name="address" required></label>
-                <label for="profilepicture">Foto de perfil:<input type="file" name="profilepicture" required></label>
-                <button type="submit">Salvar</button>
-            </form>
-            <button onclick="location.href='/logout'">Sair</button>
+            <div class="profile-content">
+                <div class="profile-picture-container">
+                    <img src="https://pbs.twimg.com/media/EW8e7HlWoAA4YP4.jpg:large" alt="Profile Picture" class="profile-picture" id="profileImage">
+                    <label for="profilepicture">
+                        <input type="file" name="profilepicture" id="profilepicture" required>
+                    </label>
+                </div>
+                <form method="post">
+                    <label for="name"><span>Nome:</span><input type="text" name="name" placeholder="Seu Nome" required></label>
+                    <label for="email"><span>E-mail:</span><input type="email" name="email" placeholder="email@exemplo.com" required></label>
+                    <label for="password"><span>Senha:</span><input type="password" name="password" placeholder="senha123" required></label>
+                    <label for="address"><span>Endereço:</span><input type="text" name="address" placeholder="Rua Exemplo, 123" required></label>
+                    <div class="buttons">
+                        <button class="submit" type="submit">Salvar</button>
+                        <button class="logout" type="reset">Sair</button>
+                    </div>
+                </form>
+            </div>
         </section>
-        </form>
+
+        <section id="extra-buttons">
+            <div>Meus Pedidos</div>
+            <div>Rastreio</div>
+            <div>Estatísticas</div>
         </section>
-    </body>
+    </div>
+
+    <script>
+        document.getElementById('profilepicture').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('profileImage').src = e.target.result;
+            }
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+
+</body>
+
 </html>
