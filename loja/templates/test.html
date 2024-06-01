@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Nosferatu</title>
+        <link href="{% static 'loja/styles.css'%}" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        <link href="https://fonts.cdnfonts.com/css/renogare" rel="stylesheet">
+        <link rel="icon" href="{% static 'loja/img/icon/Frame 3.png'%}"> 
+        <style>
+
+            #cartcontainer{
+                height: 400px;
+                background-color: red;
+                position: absolute;
+                right: 50px;
+                top: 100px;
+                width: 400px;
+                border-radius: 10px;
+                z-index: 99999;
+            }
+
+
+        </style>
+    </head>
+
+    <body>
+<h1>SIM</h1>
+
+        <section id="cartcontainer">
+            <div id="productcart"></div>
+            <img src="https://placehold.jp/50x50.png" alt="Produto">
+            foto
+            nome
+            preço
+            quantidade
+            +botoes de adicionar e remover
+            botao de comprar e limpar carrinho
+        </section>
+
+    </body>
+    </html>
