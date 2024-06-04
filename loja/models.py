@@ -25,8 +25,61 @@ class Cliente(models.Model):
     usuario = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE, blank=False, null=False)
     cpf = models.CharField(max_length=15, blank=False, null=False)
     nascimento = models.DateField(blank=False, null=False)
-    idade = models.IntegerField(max_length=3, blank=False, null=False)
+    idade = models.IntegerField(blank=False, null=False)
     sexo = models.CharField(max_length=1, blank=False, null=False, default="m")
+    
+    def __str__(self):
+        return f"Cliente: {self.nome}"
 
+class Endereco(models.Model):
+    nome = models.CharField(max_length=255, blank=False, null=False)
+    logradouro = models.CharField(max_length=255, blank=False, null=False)
+    cep = models.CharField(max_length=255, blank=False, null=False)
+    bairro = models.CharField(max_length=255, blank=False, null=False)
+    cidade = models.CharField(max_length=255, blank=False, null=False)
+    estado = models.CharField(max_length=255, blank=False, null=False)
+    pais = models.CharField(max_length=255, blank=False, null=False)
+    referencia = models.CharField(max_length=255, blank=False, null=False)
+    numero = models.CharField(max_length=255, blank=False, null=False)
+    observacao = models.CharField(max_length=255, blank=False, null=False)
+    cliente = models.OneToOneField(Cliente, on_delete=models.CASCADE, blank=False, null=False)
+
+    def __str__(self):
+        return f"Endereço: {self.nome} - {self.cliente.nome}"
+
+class Compra(models.Model):
+    valor_pago = models.DecimalField(max_digits=11, decimal_places=2, blank=False, null=False, default=0.0)
+    forma_pagamento = models.CharField(max_length=255, blank=False, null=False)
+    data = models.DateTimeField(auto_now=True, blank=False, null=False)
+    endereco = models.OneToOneField(Endereco, on_delete=models.CASCADE, blank=False, null=False)
+    cliente = models.OneToOneField(Cliente, on_delete=models.CASCADE, blank=False, null=False)
+    
+    def __str__(self):
+        return f"Compra: Produto: {self.produto}, Cliente: {self.cliente}, Endereco:{self.endereco}"
+    
+class CompraProduto(models.Model):
+    compra = models.OneToOneField(Compra, primary_key=True, on_delete=models.CASCADE, blank=False, null=False)
+    produto = models.OneToOneField(Produto, on_delete=models.CASCADE, blank=False, null=False)
+
+class NFE(models.Model):
+    servico = models.CharField(max_length=255, blank=False, null=False)
+    cnpj_empresa = models.CharField(max_length=255, blank=False, null=False)
+    cod_municipio = models.CharField(max_length=255, blank=False, null=False)
+    valor_liquido = models.DecimalField(max_digits=11, decimal_places=2, blank=False, null=False, default=0.0)
+    pis = models.DecimalField(max_digits=11, decimal_places=2, blank=False, null=False, default=0.0)
+    cofins = models.DecimalField(max_digits=11, decimal_places=2, blank=False, null=False, default=0.0)
+    ir = models.DecimalField(max_digits=11, decimal_places=2, blank=False, null=False, default=0.0)
+    csll = models.DecimalField(max_digits=11, decimal_places=2, blank=False, null=False, default=0.0)
+    iss = models.DecimalField(max_digits=11, decimal_places=2, blank=False, null=False, default=0.0)
+    desconto = models.DecimalField(max_digits=11, decimal_places=2, blank=False, null=False, default=0.0)
+    compra = models.OneToOneField(Compra, on_delete=models.CASCADE, blank=False, null=False)
+    
+    def __str__(self):
+        return f"Nota fiscal: Compra: {self.compra}"
+
+class rastreio(models.Model):
+    codigo = models.CharField(max_length=255, blank=False, null=False)
+    transportadora = models.CharField(max_length=255, blank=False, null=False)
+    compra = models.OneToOneField(Compra, on_delete=models.CASCADE, blank=False, null=False)
 
 
