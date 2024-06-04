@@ -107,19 +107,34 @@ def signin(request: HttpRequest):
 def profile(request: HttpRequest):
     user = request.user
     if user.is_authenticated:
+        dados = {}
+        
+        if user.is_authenticated:
+            try:
+                dados["cliente"] = Cliente.objects.get(usuario=user)
+            except Exception as e:
+                pass
+        
         cliente = Cliente.objects.get(usuario=user)
-        pedidos = Compra.objects.filter(cliente=cliente)
-        print("Pedidos encontrados:", pedidos)
-        return render(request, "loja/profile.html", {"pedidos": pedidos})
+        dados["pedidos"] = Compra.objects.filter(cliente=cliente)
+        return render(request, "loja/profile.html", dados)
     else:
         return redirect("/login")
 
 def cart(request: HttpRequest):
     user = request.user
     if user.is_authenticated:
+        dados = {}
+        
+        if user.is_authenticated:
+            try:
+                dados["cliente"] = Cliente.objects.get(usuario=user)
+            except Exception as e:
+                pass
+        
         cliente = Cliente.objects.get(usuario=user)
-        produtos = Carrinho.objects.get(cliente=cliente).produto
-        return render(request, "loja/cart.html", {"produtos": produtos})
+        dados["produtos"] = Carrinho.objects.get(cliente=cliente).produto
+        return render(request, "loja/cart.html", dados)
     else:
         return redirect("/login")
     
