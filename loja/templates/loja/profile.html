@@ -11,24 +11,33 @@
     <link href="https://fonts.cdnfonts.com/css/renogare" rel="stylesheet">
     <link rel="icon" href="{% static 'loja/img/icon/Frame 3.png' %}">
     <style>
+        .h1profile {
+            text-align: center;
+            width: 100%;
+            margin: 20px 0px;
+            font-size: 40px;
+        }
 
         .container {
-            width: 100%;
-            max-width: 800px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            align-content: center;
+            justify-content: space-between;
+            max-width: 95%;
+            margin: 0 auto;
         }
 
         #profile {
-            background-color: #666;
+            background-color: #c4c4c4;
             border-radius: 10px;
             padding: 20px;
-            width: 100%;
+            width: 49%;
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+
+        .profile-picture-container {
+            width: 300px;
+            height: 400px;
         }
 
         .profile-content {
@@ -36,14 +45,9 @@
             width: 100%;
         }
 
-        .profile-picture-container {
-            align-items: center;
-            margin-right: 20px;
-        }
-
         .profile-picture {
-            width: 300px;
-            height: 350px;
+            max-width: 300px;
+            max-height: 350px;
             margin-bottom: 20px;
             object-fit: cover;
         }
@@ -54,6 +58,10 @@
             flex: 1;
         }
 
+        label ::placeholder {
+            color: #c4c4c4;
+        }
+
         label {
             margin-bottom: 10px;
             display: flex;
@@ -61,7 +69,7 @@
         }
 
         label span {
-            width: 100px;
+            width: 95px;
         }
 
         label input {
@@ -96,26 +104,45 @@
         }
 
         #extra-buttons {
+            width: 49%;
             display: flex;
-            width: auto;
-            margin-top: 10px;
+            flex-direction: column;
+            gap: 10px;
+            background-color: #c4c4c4;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+            padding: 20px;
         }
 
         #extra-buttons div {
-            width: 280px;
-            height: 50px;
-            padding: 20px 0px;
-            background-color: #555;
             text-align: center;
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
-        #extra-buttons div:hover {
-            background-color: #444;
+        #orders-container {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -123,9 +150,9 @@
 <body>
     {% include 'loja/snippets/header.html' %}
 
-    <div class="container">
-        <h1>Perfil de Usuario</h1>
+    <h1 class="h1profile">Perfil de Usuario</h1>
 
+    <div class="container">
         <section id="profile">
             <div class="profile-content">
                 <div class="profile-picture-container">
@@ -135,6 +162,7 @@
                         <input type="file" name="profilepicture" id="profilepicture" required>
                     </label>
                 </div>
+
                 <form method="post">
                     <label for="name"><span>Nome:</span><input type="text" name="name" placeholder="Seu Nome"
                             required></label>
@@ -152,17 +180,47 @@
             </div>
         </section>
 
-
         <section id="extra-buttons">
             <div>Meus Pedidos</div>
-            <div>Rastreio</div>
-            <div>Estatísticas</div>
+            <div id="orders-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Imagem</th>
+                            <th>Número do Pedido</th>
+                            <th>Data</th>
+                            <th>Valor</th>
+                            <th>Forma de Pagamento</th>
+                            <th>Detalhes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><img src="https://via.placeholder.com/50" alt="Produto"></td>
+                            <td>966961584</td>
+                            <td>19/05/2024 10:56:35</td>
+                            <td>R$ 311,51</td>
+                            <td>Pix</td>
+                            <td><a href="#">Abrir</a></td>
+                        </tr>
+                        <!--
+                        Só criar outra assim:  
+                        <tr>
+                            <td><img src="https://via.placeholder.com/50" alt="Produto"></td>
+                            <td>966961584</td>
+                            <td>19/05/2024 10:56:35</td>
+                            <td>R$ 311,51</td>
+                            <td>Pix</td>
+                            <td><a href="#">Abrir</a></td>
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>
         </section>
     </div>
 
     {% include 'loja/snippets/newsletter.html' %}
     {% include 'loja/snippets/footer.html' %}
-
 
     <script>
         document.getElementById('profilepicture').addEventListener('change', function (event) {
