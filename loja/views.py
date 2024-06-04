@@ -109,7 +109,8 @@ def profile(request: HttpRequest):
     if user.is_authenticated:
         cliente = Cliente.objects.get(usuario=user)
         pedidos = Compra.objects.filter(cliente=cliente)
-        return render(request, "loja/profile.html", {pedidos: pedidos})
+        print("Pedidos encontrados:", pedidos)
+        return render(request, "loja/profile.html", {"pedidos": pedidos})
     else:
         return redirect("/login")
 
@@ -118,7 +119,7 @@ def cart(request: HttpRequest):
     if user.is_authenticated:
         cliente = Cliente.objects.get(usuario=user)
         produtos = Carrinho.objects.get(cliente=cliente).produto
-        return render(request, "loja/cart.html", {produtos: produtos})
+        return render(request, "loja/cart.html", {"produtos": produtos})
     else:
         return redirect("/login")
     

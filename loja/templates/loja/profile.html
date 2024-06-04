@@ -190,7 +190,6 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Imagem</th>
                             <th>Número do Pedido</th>
                             <th>Data</th>
                             <th>Valor</th>
@@ -199,14 +198,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><img src="https://via.placeholder.com/50" alt="Produto"></td>
-                            <td>966961584</td>
-                            <td>19/05/2024 10:56:35</td>
-                            <td>R$ 311,51</td>
-                            <td>Pix</td>
-                            <td><a href="#">Abrir</a></td>
-                        </tr>
+                        {% for pedido in pedidos %}
+                            <tr>
+                                <td>{{ pedido.id }}</td>
+                                <td>{{ pedido.data|date:"Y-m-d f" }}</td>
+                                <td>{{ pedido.valor_pago }}</td>
+                                <td>{{ pedido.forma_pagamento }}</td>
+                                <td><a href="#">Abrir</a></td>
+                            </tr>
+                        {% endfor %}
+                        
                         <!--
                         Só criar outra assim:  
                         <tr>
