@@ -77,9 +77,11 @@ class NFE(models.Model):
     def __str__(self):
         return f"Nota fiscal: Compra: {self.compra}"
 
-class rastreio(models.Model):
+class Rastreio(models.Model):
     codigo = models.CharField(max_length=255, blank=False, null=False)
     transportadora = models.CharField(max_length=255, blank=False, null=False)
     compra = models.OneToOneField(Compra, on_delete=models.CASCADE, blank=False, null=False)
 
-
+class Carrinho(models.Model):
+    cliente = models.OneToOneField(Cliente, on_delete=models.CASCADE, blank=False, null=False)
+    produto = models.OneToOneField(Produto, on_delete=models.CASCADE, blank=False, null=False)

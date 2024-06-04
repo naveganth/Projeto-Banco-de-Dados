@@ -107,7 +107,18 @@ def signin(request: HttpRequest):
 def profile(request: HttpRequest):
     user = request.user
     if user.is_authenticated:
-        return render(request, "loja/profile.html", {})
+        cliente = Cliente.objects.get(usuario=user)
+        pedidos = Compra.objects.filter(cliente=cliente)
+        return render(request, "loja/profile.html", {pedidos: pedidos})
     else:
-        return redirect("/")
+        return redirect("/login")
+
+def cart(request: HttpRequest):
+    user = request.user
+    if user.is_authenticated:
+        cliente = Cliente.objects.get(usuario=user)
+        produtos = Carrinho.objects.get(cliente=cliente).produto
+        return render(request, "loja/cart.html", {produtos: produtos})
+    else:
+        return redirect("/login")
     
