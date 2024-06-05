@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -16,12 +16,13 @@
             background-color: #fff;
             position: absolute;
             right: 50px;
-            top: 100px;
+            top: 50px;
             width: 600px;
             border-radius: 10px;
             z-index: 99999;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none;
         }
 
         table {
@@ -47,14 +48,8 @@
             height: auto;
         }
 
-        .cartitem span{
+        .cartitem span {
             margin-left: 10px;
-        }
-
-        #cartcontainer>table>thead>tr>th:nth-child(2),
-        .cartprice {
-            border: 1px #ddd;
-            border-style: none solid solid;
         }
 
         .removebutton {
@@ -71,12 +66,13 @@
             max-width: 40px;
             text-align: center;
             border-radius: 10px;
+            border: 1px solid grey;
         }
 
         .cartbuttons {
             margin-top: 20px;
             display: flex;
-            justify-content: space-between;
+            justify-content: right;
         }
 
         .cartbuttons button {
@@ -94,20 +90,43 @@
         .clearbutton {
             background-color: rgb(212, 212, 212);
             color: black;
+            margin-right: 10px;
+        }
+
+        .carttotals {
+            margin-top: 20px;
+        }
+
+        .carttotal h1,
+        .carttotal p {
+            display: inline;
+            margin: 0;
+        }
+
+        .carttotal {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0px;
         }
     </style>
 </head>
 
 <body>
+
+<!-- Faz com que seja o botao do header @Gabriel -->
+    <button id="cartButton" style="position: absolute; top: 20px; right: 20px;">abrir aarrinho</button>
+
     <section id="cartcontainer">
 
         <table>
-
+            <h1>Carrinho</h1>
             <thead>
                 <tr>
                     <th>Item</th>
                     <th>Preço</th>
                     <th>Quantidade</th>
+                    <th>Total</th>
                 </tr>
             </thead>
 
@@ -115,25 +134,120 @@
                 <tr>
                     <td class="cartitem">
                         <img src="https://placehold.jp/50x50.png" alt="Produto">
-                        <span>Gato pirento</span>
+                        <span>Gato Pirento</span>
                     </td>
                     <td class="cartprice">
                         R$: 100.000,00
                     </td>
                     <td class="cartquantity">
-                        <input type="number" class="quantityinput" min="1" value="1">
-                        <button class="removebutton">Remover</i></button>
+                        <input type="number" class="quantityinput" min="1" value="1" oninput="updateCartTotal()">
+                        <button class="removebutton" onclick="removeItem(this)">Remover</button>
+                    </td>
+                    <td class="producttotal">
+                        R$: 100.000,00
                     </td>
                 </tr>
+                <tr>
+                    <td class="cartitem">
+                        <img src="https://placehold.jp/50x50.png" alt="Produto">
+                        <span>Gato Pirento</span>
+                    </td>
+                    <td class="cartprice">
+                        R$: 100.000,00
+                    </td>
+                    <td class="cartquantity">
+                        <input type="number" class="quantityinput" min="1" value="1" oninput="updateCartTotal()">
+                        <button class="removebutton" onclick="removeItem(this)">Remover</button>
+                    </td>
+                    <td class="producttotal">
+                        R$: 100.000,00
+                    </td>
+                </tr>
+
             </tbody>
         </table>
 
+        <div class="carttotals">
+            <div class="carttotal">
+                <h1>Subtotal</h1>
+                <p id="carttotal">R$: 100.000,00</p>
+            </div>
+            <div class="carttotal">
+                <h1>Frete</h1>
+                <p id="frete">R$: 20,00</p>
+            </div>
+            <div class="carttotal">
+                <h1>Total</h1>
+                <p id="cartgrandtotal">R$: 100.015,00</p>
+            </div>
+        </div>
+
         <div class="cartbuttons">
+            <button class="clearbutton" onclick="clearCart()">Limpar Carrinho</button>
             <button class="buybutton">Comprar</button>
-            <button class="clearbutton">Limpar Carrinho</button>
         </div>
 
     </section>
+
+    <script>
+        // Define o valor do frete naqueles pique
+        const FRETE = 15.00;
+
+        // Separa os numeros por ponto a cada 3 digitos
+        function formatNumber(number) {
+            return number.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        // Atualiza o total do carrinho
+        function updateCartTotal() {
+            let productTotals = document.querySelectorAll('.producttotal');
+            let total = 0;
+            productTotals.forEach((productTotal) => {
+                let row = productTotal.closest('tr');
+                let quantity = row.querySelector('.quantityinput').value;
+                let price = parseFloat(productTotal.innerText.replace('R$: ', '').replace('.', '').replace(',', '.'));
+                total += price * quantity;
+            });
+
+            // Atualiza o html com o valor
+            document.getElementById('carttotal').innerText = 'R$: ' + formatNumber(total);
+            let grandTotal = total + FRETE;
+            document.getElementById('cartgrandtotal').innerText = 'R$: ' + formatNumber(grandTotal);
+        }
+
+        // Botão que limpa uma linha da tabela
+        function removeItem(button) {
+            let row = button.closest('tr');
+            row.remove();
+            updateCartTotal();
+        }
+
+        // Limpa todo o carrinho
+        function clearCart() {
+            let tbody = document.querySelector('tbody');
+            tbody.innerHTML = '';
+            updateCartTotal();
+        }
+
+        // Carrega os bagulhetes no site
+        document.addEventListener('DOMContentLoaded', updateCartTotal);
+
+        // Função para alternar a visibilidade do carrinho
+        function toggleCart() {
+            const cartContainer = document.getElementById('cartcontainer');
+            if (cartContainer.style.display === 'none' || cartContainer.style.display === '') {
+                cartContainer.style.display = 'block';
+            } else {
+                cartContainer.style.display = 'none';
+            }
+        }
+
+        // Adiciona evento de clique ao botão do carrinho
+        document.getElementById('cartButton').addEventListener('click', function(event) {
+            event.preventDefault();
+            toggleCart();
+        });
+    </script>
 </body>
 
 </html>
