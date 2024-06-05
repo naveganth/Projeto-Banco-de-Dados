@@ -133,8 +133,21 @@ def cart(request: HttpRequest):
                 pass
         
         cliente = Cliente.objects.get(usuario=user)
-        dados["produtos"] = Carrinho.objects.get(cliente=cliente).produto
+        dados["produtos"] = Carrinho.objects.filter(cliente=cliente)
         return render(request, "loja/cart.html", dados)
     else:
         return redirect("/login")
+
+def chart(request: HttpRequest):
+    dados = {}
+    dados["compras_por_mes_totais"] = None
+    dados["compras_por_estado"] = None
+    dados["lucros_totais_por_mes"] = None
+    dados["lucro_por_estado"] = None
+    dados["compras_por_sexo"] = None
+    dados["compras_por_nascimento"] = None
+    dados["compras_por_idade"] = None
+    dados["lucro_por_signo"] = None
+    
+    return render(request, "loja/chart.html", {"dados": dados})
     

@@ -14,15 +14,8 @@
         #cartcontainer {
             height: auto;
             background-color: #fff;
-            position: absolute;
-            right: 50px;
-            top: 50px;
-            width: 600px;
             border-radius: 10px;
-            z-index: 99999;
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: none;
         }
 
         table {
@@ -97,7 +90,11 @@
             margin-top: 20px;
         }
 
-        .carttotal h1,
+        .carttotal h1 {
+            display: inline;
+            margin: 0;
+            font-size: 30px;
+        };
         .carttotal p {
             display: inline;
             margin: 0;
@@ -113,10 +110,6 @@
 </head>
 
 <body>
-
-<!-- Faz com que seja o botao do header @Gabriel -->
-    <button id="cartButton" style="position: absolute; top: 20px; right: 20px;">abrir aarrinho</button>
-
     <section id="cartcontainer">
 
         <table>
@@ -231,22 +224,6 @@
 
         // Carrega os bagulhetes no site
         document.addEventListener('DOMContentLoaded', updateCartTotal);
-
-        // Função para alternar a visibilidade do carrinho
-        function toggleCart() {
-            const cartContainer = document.getElementById('cartcontainer');
-            if (cartContainer.style.display === 'none' || cartContainer.style.display === '') {
-                cartContainer.style.display = 'block';
-            } else {
-                cartContainer.style.display = 'none';
-            }
-        }
-
-        // Adiciona evento de clique ao botão do carrinho
-        document.getElementById('cartButton').addEventListener('click', function(event) {
-            event.preventDefault();
-            toggleCart();
-        });
     </script>
 </body>
 
