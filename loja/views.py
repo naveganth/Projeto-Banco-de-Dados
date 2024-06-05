@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest
 from django.contrib.auth.models import User, UserManager
 from django.contrib.auth import authenticate, login, logout
+from django.views.decorators.clickjacking import xframe_options_exempt
 from datetime import date
 from dateutils import relativedelta
 from .models import *
@@ -121,6 +122,7 @@ def profile(request: HttpRequest):
     else:
         return redirect("/login")
 
+@xframe_options_exempt
 def cart(request: HttpRequest):
     user = request.user
     if user.is_authenticated:

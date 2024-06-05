@@ -1,7 +1,16 @@
 {% load static %}
+<style>
+    .dummy-iframe {
+        display: None;
+        position: absolute;
+        right: 20px;
+        top: 50px;
+        width: 600px;
+        height: 300px;
+    }
+</style>
 <section id="header">
     <a href="/"><img style=" width: 30vh;" src="{% static 'loja/img/icon/Nosferatulogog4.png'%}" alt="gato lindao"></a> 
-
     <div>
         <ul id="navbar">
             <li> <a {% if request.path == '/' %} class="active" {% endif %} href="/">Inicio</a></li>
@@ -16,8 +25,24 @@
             <li> <a href="/login">Entrar</a></li>
             <li> <a href="/signin">Cadastrar-se</a></li>
             {% endif %}
-            <li> <a href="/cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
+            <form target="dummy" action="/cart">
+                <li> <button onclick="mostrar_carrinho()" style="border: none; padding: 10px"><i class="fa-solid fa-cart-shopping"></i></button></li>
+            </form>
+            <iframe id="dummy" name="dummy" class="dummy-iframe"></iframe>
         </ul>
     </div>
-
 </section>
+<script>
+    let carrinho_visivel = false;
+    function mostrar_carrinho() {
+        let iframe = document.getElementById("dummy");
+
+        if (carrinho_visivel) {
+            iframe.style.display = "none";
+            carrinho_visivel = false;
+        } else {
+            iframe.style.display = "block";
+            carrinho_visivel = true;
+        }
+    }
+</script>
