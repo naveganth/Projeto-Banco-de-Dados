@@ -1,3 +1,6 @@
+{% load static %}
+{% load loja_extras %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,6 +64,9 @@
       <div class="sidebar-item" id="ComprasPorEstado">COMPRAS POR ESTADO</div>
       <div class="sidebar-item" id="LucrosTotais">LUCROS TOTAIS</div>
       <div class="sidebar-item" id="LucrosPorEstado">LUCROS POR ESTADO</div>
+      {% for dado in dados%}
+      <div class="sidebar-item" id="LucrosPorEstado">{{ dado|string_para_titulo }}</div>
+      {% endfor %}
     </div>
   </section>
 
