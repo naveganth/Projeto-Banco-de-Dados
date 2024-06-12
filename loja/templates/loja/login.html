@@ -1,31 +1,51 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Nosferatu</title>
-        <link href="{% static 'loja/styles.css'%}" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-        <link href="https://fonts.cdnfonts.com/css/renogare" rel="stylesheet">
-        <link rel="icon" href="{% static 'loja/img/icon/Frame 3.png'%}"> 
-    </head>
-    <body>
-        
-        <section id="login">
-            <h1> Faça o login</h1>
-            <h2>Por favor preencha os campos abaixo.</h2>
 
-            <form method="post">
-                {{ erro }}
-                {% csrf_token %}
-                <fieldset class="loginput">
-                    <label for="">Seu e-mail: <input name="email" type="email" required></label>
-                    <label for="">Senha: <input name="senha" type="password" required></label>
-                    <input type="submit">
-                </fieldset>
-            </form>
-        </section>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosferatu</title>
+    <link href="{% static 'loja/styles.css'%}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.cdnfonts.com/css/renogare" rel="stylesheet">
+    <link rel="icon" href="{% static 'loja/img/icon/Frame 3.png'%}">
+</head>
 
-    </body>
+<body>
+
+    {% include 'loja/snippets/header.html' %}
+
+    <div class="login-container">
+
+        <div class="image-side-left">
+            <img src="{% static 'loja/img/banner/gatoecachorro1.jpg' %}" alt="Imagem de fundo dos pets">
+        </div>
+
+        <div class="login-form-side-right">
+            <div class="login-form-container">
+                <div class="nosf-logo">
+                    <img src="{% static 'loja/img/icon/Nosferatu.png' %}" alt="daniels">
+                </div>
+                <h1>Faça o login</h1>
+                <h2>Por favor preencha os campos abaixo.</h2>
+                <form method="post">
+                    {{ erro }}
+                    {% csrf_token %}
+                    <fieldset>
+                        <label for="email">Seu e-mail:</label><input name="email" type="email" required>
+                        <label for="password">Senha:</label><input name="senha" type="password" required>
+                        <input type="submit">
+                    </fieldset>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% include 'loja/snippets/newsletter.html' %}
+    {% include 'loja/snippets/footer.html' %}
+
+</body>
+
 </html>

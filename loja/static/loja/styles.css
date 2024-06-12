@@ -470,8 +470,7 @@ footer i {
 }
 
 footer .install .row img {
-  border: 1px solid #f32323;
-  border-radius: 6px;
+  border-radius: 10px;
 }
 
 footer .install img {
@@ -557,20 +556,97 @@ footer .copyright {
 }
 
 /* #estilo da pagina login */
-#login {
+
+.login-container {
+  display: flex;
+  width: 100%;
+  height: 91vh;
+}
+
+.nosf-logo {
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.nosf-logo img {
+  width: 100px;
+  height: 100px;
+}
+
+.image-side-left {
+  width: 50%;
+}
+
+.image-side-left img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.login-form-side-right {
+  width: 50%;
   display: flex;
   justify-content: center;
+  background-color: #f8f8f8;
+}
+
+.login-form-container {
+  width: 80%;
+  max-width: 400px;
   text-align: center;
-  flex-direction: column;
-  color: yellowgreen;
 }
 
-#login fieldset {
-  border: none;
+h1, h2{
+  color: #333;
 }
 
-#login label {
+h1{
+  font-weight: 700;
+  font-size: 40px;
+}
+
+h2{
+  font-weight: 400;
+  font-size: 16px;
+}
+
+fieldset {
+  border:  1px #333 solid; 
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 10px;
+  background-color: #e4e4e4;
+}
+
+label {
   display: block;
+  margin: 0px;
+  color: #555;
+  text-align: left;
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-family: renogare;
+}
+
+input[type="submit"] {
+  padding: 10px 25vh;
+  border: none;
+  background-color: yellowgreen;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+input[type="submit"]:hover {
+  background-color: #333;
+  transition: 0.1s ease-in-out;
 }
 
 /* Unico produto */
