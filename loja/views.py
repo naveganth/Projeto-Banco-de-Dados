@@ -68,6 +68,14 @@ def logar(request: HttpRequest):
     elif request.method == "GET":
         return render(request, "loja/login.html", {})
 
+def deslogar(request: HttpRequest):
+    print("Logour chamado")
+    usuario = request.user
+    print("Usuário:", usuario)
+    if usuario.is_authenticated:
+        logout(request)
+    return redirect("/")
+
 def signin(request: HttpRequest):
     if request.method == "POST":
         nome = request.POST.get("nome")
