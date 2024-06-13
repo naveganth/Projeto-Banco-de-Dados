@@ -555,7 +555,7 @@ footer .copyright {
   display: block;
 }
 
-/* #estilo da pagina login */
+/* Estilo da pagina login */
 
 .login-container {
   display: flex;
@@ -597,7 +597,8 @@ footer .copyright {
   text-align: center;
 }
 
-h1, h2 {
+h1,
+h2 {
   color: #333;
 }
 
@@ -613,9 +614,9 @@ h2 {
 
 fieldset {
   width: 100%;
-  margin: 0 auto;
-  border: 1px #333 solid; 
+  border: 1px #333 solid;
   padding: 20px;
+  margin: 0 auto;
   border-radius: 10px;
   background-color: #e4e4e4;
 }
