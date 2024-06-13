@@ -538,29 +538,12 @@ footer .copyright {
   font-size: 16px;
 }
 
-/* Estilo pagina de cadastro */
-#signin {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  flex-direction: column;
-  color: yellowgreen;
-}
+/* Estilos da pagina login e cadastro*/
 
-#signin fieldset {
-  border: none;
-}
-
-#signin label {
-  display: block;
-}
-
-/* Estilo da pagina login */
-
-.login-container {
+.signin-container ,.login-container {
   display: flex;
   width: 100%;
-  height: 91vh;
+  height: 95vh;
 }
 
 .nosf-logo {
@@ -575,15 +558,21 @@ footer .copyright {
 
 .image-side-left {
   width: 50%;
+  float: left;
 }
 
-.image-side-left img {
+.image-side-right {
+  width: 50%;
+  float: right;
+}
+
+.image-side-left img, .image-side-right img{
   width: 100%;
-  height: 100%;
+  height: 95vh;
   object-fit: cover;
 }
 
-.login-form-side-right {
+.login-form-side-right, .signin-form-side-left  {
   width: 50%;
   display: flex;
   justify-content: center;
@@ -591,51 +580,80 @@ footer .copyright {
   background-color: #f8f8f8;
 }
 
-.login-form-container {
+.login-form-container, .signin-form-container {
   width: 80%;
   max-width: 400px;
   text-align: center;
 }
 
-h1,
-h2 {
+.signin-container h1, h2, .login-container h1, h2 {
   color: #333;
+  text-align: center;
 }
 
-h1 {
+.signin-container h1, .login-container h1{
   font-weight: 700;
-  font-size: 40px;
+  font-size: 35px;
+  margin: none;
 }
 
-h2 {
+.signin-container h2, .login-container h2{
   font-weight: 400;
-  font-size: 16px;
+  font-size: 15px;
+  margin-bottom: 5px;
 }
 
-fieldset {
-  width: 100%;
+form .fieldset-login, form .fieldset-signin {
+  width: 100% ;
+  min-width: 400px ;
   border: 1px #333 solid;
   padding: 20px;
-  margin: 0 auto;
+  margin: 20px 0px auto;
   border-radius: 10px;
   background-color: #e4e4e4;
+  align-self: center;
 }
 
-label {
-  display: block;
-  margin: 0px;
+form .fieldset-login{
+  width: auto !important;
+  min-width: none !important;
+}
+
+.fieldset-login label, .fieldset-signin label {
+  margin-bottom: 5px;
   color: #555;
   text-align: left;
+  display: block;
 }
 
-input[type="email"],
-input[type="password"] {
+fieldset input {
   width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
   border: 1px solid #ddd;
   border-radius: 10px;
   font-family: renogare;
+}
+
+.sexo-container {
+  display: flex;
+  align-items: center;
+  margin:  20px 0px 10px 0px;
+}
+
+.radio-group {
+  display: flex;
+  align-items: center;
+}
+
+.radio-label {
+  display: flex !important;
+  flex-direction: row-reverse;
+  align-items: center;
+  margin: 0px 10px;
+}
+
+#masculino, #feminino{
+  margin-right: 5px;
 }
 
 input[type="submit"] {

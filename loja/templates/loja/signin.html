@@ -1,36 +1,75 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Nosferatu</title>
-        <link href="{% static 'loja/styles.css'%}" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-        <link href="https://fonts.cdnfonts.com/css/renogare" rel="stylesheet">
-        <link rel="icon" href="{% static 'loja/img/icon/Frame 3.png'%}"> 
-    </head>
-    <body>
-        <section id="signin">
-            <h1> Registrar-se</h1>
-            <h2>Por favor preencha os campos abaixo.</h2>
 
-            <form method="post">
-                {{ erro }}
-                {% csrf_token %}
-                <fieldset class="signinput">
-                    <label for="nome">Seu nome: <input id="nome" name="nome" type="text" required></label>
-                    <label for="nascimento">Nascimento: <input id="nascimento "name="nascimento" type="date" required></label>
-                    <label>Sexo: 
-                        <label style="display:inline" for="masculino"><input id="masculino" name="sexo" type="radio" value="m" required>Masculino</label>
-                        <label style="display:inline" for="feminino"><input id="feminino" name="sexo" type="radio" value="f" required>feminino</label>
-                    </label>
-                    <label for="">Seu CPF: <input name="cpf" type="text" required></label>
-                    <label for="">Seu e-mail: <input name="email" type="email" required></label>
-                    <label for="">Senha: <input name="senha" type="password" required></label>
-                    <input type="submit">
-                </fieldset>
-            </form>
-        </section>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosferatu</title>
+    <link href="{% static 'loja/styles.css'%}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.cdnfonts.com/css/renogare" rel="stylesheet">
+    <link rel="icon" href="{% static 'loja/img/icon/Frame 3.png'%}">
+</head>
+
+<body>
+
+    {% include 'loja/snippets/header.html' %}
+
+    <div class="signin-container">
+
+        <div class="signin-form-side-left">
+            <div id="signin-form-container">
+                <div class="nosf-logo">
+                    <img src="{% static 'loja/img/icon/Nosferatu.png' %}" alt="daniels">
+                </div>
+                <h1> Registrar-se</h1>
+                <h2>Por favor preencha os campos abaixo.</h2>
+                <form method="post">
+                    {{ erro }}
+                    {% csrf_token %}
+
+                    <fieldset class="fieldset-signin">
+                        <label for="nome">Seu nome: 
+                            <input id="nome" name="nome" type="text" required>
+                        </label>
+                        <label for="nascimento">Nascimento: 
+                            <input id="nascimento" name="nascimento" type="date" required>
+                        </label>
+                        <div class="sexo-container">
+                            <label>Sexo:</label>
+                            <div class="radio-group">
+                                <label class="radio-label" for="masculino"> Masculino
+                                    <input id="masculino" name="sexo" type="radio" value="m" required> 
+                                </label>
+                                <label class="radio-label" for="feminino"> Feminino
+                                    <input id="feminino" name="sexo" type="radio" value="f" required> 
+                                </label>
+                            </div>
+                        </div>
+                        <label for="cpf">Seu CPF: 
+                            <input id="cpf" name="cpf" type="text" required>
+                        </label>
+                        <label for="email">Seu e-mail: 
+                            <input id="email" name="email" type="email" required>
+                        </label>
+                        <label for="senha">Senha: 
+                            <input id="senha" name="senha" type="password" required>
+                        </label>
+                        <input type="submit">
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div class="image-side-right">
+            <img src="{% static 'loja/img/banner/cachorros.jpg' %}" alt="Imagem de fundo dos pets">
+        </div>
+
+    </div>
+
+    {% include 'loja/snippets/newsletter.html' %}
+    {% include 'loja/snippets/footer.html' %}
+
+</body>
+
 </html>

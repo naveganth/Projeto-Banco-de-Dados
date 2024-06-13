@@ -32,9 +32,13 @@
                 <form method="post">
                     {{ erro }}
                     {% csrf_token %}
-                    <fieldset>
-                        <label for="email">Seu e-mail:</label><input name="email" type="email" required>
-                        <label for="password">Senha:</label><input name="senha" type="password" required>
+                    <fieldset class="fieldset-login">
+                        <label for="email">Seu e-mail:
+                            <input name="email" type="email" required>
+                        </label>
+                        <label for="password">Senha:
+                            <input name="senha" type="password" required>
+                        </label>
                         <input type="submit">
                     </fieldset>
 
