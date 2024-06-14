@@ -6,7 +6,11 @@
         right: 20px;
         top: 50px;
         width: 600px;
-        height: 300px;
+        height: 600px;
+        border-color: #848384;
+        border-style: solid; 
+        border-width: 2px; 
+        border-radius: 10px;
     }
 </style>
 <section id="header">
@@ -15,10 +19,6 @@
         <ul id="navbar">
             <li> <a {% if request.path == '/' %} class="active" {% endif %} href="/">Inicio</a></li>
             <li> <a {% if request.path == '/shop' %} class="active" {% endif %} href="/shop">Produtos</a></li>
-            <!--
-            <li> <a href="/about">Sobre</a></li>
-            <li> <a href="/contact">Contato</a></li>
-            -->
             {% if cliente %}
             <li> <a href="/profile">{{ cliente.nome }}</a></li>
             {% else %}
@@ -28,7 +28,7 @@
             <form target="dummy" action="/cart">
                 <li> <button onclick="mostrar_carrinho()" style="border: none; padding: 10px"><i class="fa-solid fa-cart-shopping"></i></button></li>
             </form>
-            <iframe id="dummy" name="dummy" class="dummy-iframe" frameborder="0"></iframe>
+            <iframe id="dummy" name="dummy" class="dummy-iframe"></iframe>
         </ul>
     </div>
 </section>
