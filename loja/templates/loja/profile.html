@@ -168,17 +168,27 @@
                 </div>
                 -->
                 <form method="post">
-                    <label for="name"><span>Nome:</span><input type="text" name="name" placeholder="Seu Nome"
-                            required></label>
-                    <label for="email"><span>E-mail:</span><input type="email" name="email"
-                            placeholder="email@exemplo.com" required></label>
-                    <label for="password"><span>Senha:</span><input type="password" name="password"
-                            placeholder="senha123" required></label>
-                    <label for="address"><span>Endereço:</span><input type="text" name="address"
-                            placeholder="Rua Exemplo, 123" required></label>
+                    {% csrf_token %}
+                    <span style="color: red;">{{ erro }}</span>
+                    <label for="name">
+                        <span>Nome:</span>
+                        <input type="text" name="nome" placeholder="Seu Nome" value="{{ cliente.nome }}" required>
+                    </label>
+                    <label for="email">
+                        <span>E-mail:</span>
+                        <input type="email" name="email" placeholder="email@exemplo.com" value="{{ cliente.usuario.username }}" required>
+                    </label>
+                    <label for="password">
+                        <span>Senha:</span>
+                        <input type="password" name="senha" placeholder="senha123" required>
+                    </label>
+                    <label for="address">
+                        <span>Endereço:</span>
+                        <input type="text" name="endereco" placeholder="Rua Exemplo, 123" value="{{ cliente.endereco }}" required>
+                    </label>
                     <div class="buttons">
                         <button class="submit" type="submit">Salvar</button>
-                        <button class="logout" type="reset">Sair</button>
+                        <button class="logout" type="reset" onclick="location.href = '/logout';">Sair</button>
                     </div>
                 </form>
             </div>
