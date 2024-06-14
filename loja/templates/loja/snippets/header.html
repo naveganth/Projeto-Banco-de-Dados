@@ -22,8 +22,8 @@
             {% if cliente %}
             <li> <a href="/profile">{{ cliente.nome }}</a></li>
             {% else %}
-            <li> <a href="/login">Entrar</a></li>
-            <li> <a href="/signin">Cadastrar-se</a></li>
+            <li> <a class="header-button" href="/login">Entrar</a></li>
+            <li> <a class="header-button" href="/signin">Cadastrar-se</a></li>
             {% endif %}
             <form target="dummy" action="/cart">
                 <li> <button onclick="mostrar_carrinho()" style="border: none; padding: 10px"><i class="fa-solid fa-cart-shopping"></i></button></li>
