@@ -1,7 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
+class acesso(models.Model):
+    usuario = models.ForeignKey(User, primary_key=True, on_delete=models.CASCADE, blank=False, null=False)
+    data = models.DateTimeField(auto_now=True, blank=False, null=False)
+    endereco = models.CharField(max_length=255, blank=False, null=False)
+    
+    def __str__(self):
+        return f"Acesso: {self.usuario} ({self.endereco})"
+
 class Produto(models.Model):
     nome = models.CharField(max_length=255, blank=False, null=False, default="Produto sem nome")
     descricao = models.CharField(max_length=2048, blank=False, null=False, default="")
@@ -23,6 +30,8 @@ class Produto(models.Model):
 class Cliente(models.Model):
     nome = models.CharField(max_length=255, blank=False, null=False)
     usuario = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE, blank=False, null=False)
+    nome = models.CharField(max_length=255, blank=False, null=False)
+    endereco = models.CharField(max_length=255, blank=False, null=False)
     cpf = models.CharField(max_length=15, blank=False, null=False)
     nascimento = models.DateField(blank=False, null=False)
     idade = models.IntegerField(blank=False, null=False)
@@ -31,27 +40,10 @@ class Cliente(models.Model):
     def __str__(self):
         return f"Cliente: {self.nome}"
 
-class Endereco(models.Model):
-    nome = models.CharField(max_length=255, blank=False, null=False)
-    logradouro = models.CharField(max_length=255, blank=False, null=False)
-    cep = models.CharField(max_length=255, blank=False, null=False)
-    bairro = models.CharField(max_length=255, blank=False, null=False)
-    cidade = models.CharField(max_length=255, blank=False, null=False)
-    estado = models.CharField(max_length=255, blank=False, null=False)
-    pais = models.CharField(max_length=255, blank=False, null=False)
-    referencia = models.CharField(max_length=255, blank=False, null=False)
-    numero = models.CharField(max_length=255, blank=False, null=False)
-    observacao = models.CharField(max_length=255, blank=False, null=False)
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, blank=False, null=False)
-
-    def __str__(self):
-        return f"Endereço: {self.nome} - {self.cliente.nome}"
-
 class Compra(models.Model):
     valor_pago = models.DecimalField(max_digits=11, decimal_places=2, blank=False, null=False, default=0.0)
     forma_pagamento = models.CharField(max_length=255, blank=False, null=False)
     data = models.DateTimeField(auto_now=True, blank=False, null=False)
-    endereco = models.ForeignKey(Endereco, on_delete=models.CASCADE, blank=False, null=False)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, blank=False, null=False)
     
     def __str__(self):

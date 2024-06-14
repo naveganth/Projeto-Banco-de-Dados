@@ -68,6 +68,14 @@ def logar(request: HttpRequest):
     elif request.method == "GET":
         return render(request, "loja/login.html", {})
 
+def deslogar(request: HttpRequest):
+    print("Logour chamado")
+    usuario = request.user
+    print("Usuário:", usuario)
+    if usuario.is_authenticated:
+        logout(request)
+    return redirect("/")
+
 def signin(request: HttpRequest):
     if request.method == "POST":
         nome = request.POST.get("nome")
@@ -109,12 +117,36 @@ def profile(request: HttpRequest):
     user = request.user
     if user.is_authenticated:
         dados = {}
+         
+        # Se o usuário apertou o botão de salvar pra lá
+        if request.method == "POST":
+            nome = request.POST.get("nome")
+            email = request.POST.get("email")
+            senha = request.POST.get("senha")
+            endereco = request.POST.get("endereco")
+            
+            cliente = Cliente.objects.get(usuario=user)
+            
+            if nome is None or email is None or senha is None or endereco is None:
+                dados["pedidos"] = Compra.objects.filter(cliente=cliente)
+                dados["erro"] = "Preencha o formulário"
+                return render(request, "loja/profile.html", dados)
+            
+            cliente.endereco = endereco
+            cliente.nome = nome
+            
+            user.set_password(senha)
+            user.username = email
         
-        if user.is_authenticated:
-            try:
-                dados["cliente"] = Cliente.objects.get(usuario=user)
-            except Exception as e:
-                pass
+            cliente.save()
+            user.save()
+            
+            return redirect("/profile")
+        
+        try:
+            dados["cliente"] = Cliente.objects.get(usuario=user)
+        except Exception as e:
+            pass
         
         cliente = Cliente.objects.get(usuario=user)
         dados["pedidos"] = Compra.objects.filter(cliente=cliente)
