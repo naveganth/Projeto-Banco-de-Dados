@@ -126,7 +126,7 @@
                     <tr>
                         <td class="cartitem">
                             <img src="{{ carrinho.produto.url_imagem }}" alt="Produto" style="width: 50px; heigth: 50px;">
-                            <span>{{ carrinho.produto.nome }}</span>
+                            <a style="color: black" onclick="window.top.location.href = '/produto/{{ carrinho.produto.id }}';">{{ carrinho.produto.nome }}</a>
                         </td>
                         <td class="cartprice">
                             {{ carrinho.produto.preco }}
