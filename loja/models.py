@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class acesso(models.Model):
-    usuario = models.ForeignKey(User, primary_key=True, on_delete=models.CASCADE, blank=False, null=False)
+    usuario = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE, blank=False, null=False)
     data = models.DateTimeField(auto_now=True, blank=False, null=False)
     endereco = models.CharField(max_length=255, blank=False, null=False)
     
@@ -50,7 +50,7 @@ class Compra(models.Model):
         return f"Compra: Cliente: {self.cliente}, Endereco:{self.endereco}"
     
 class CompraProduto(models.Model):
-    compra = models.ForeignKey(Compra, primary_key=True, on_delete=models.CASCADE, blank=False, null=False)
+    compra = models.OneToOneField(Compra, primary_key=True, on_delete=models.CASCADE, blank=False, null=False)
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE, blank=False, null=False)
 
 class NFE(models.Model):
@@ -77,3 +77,4 @@ class Rastreio(models.Model):
 class Carrinho(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, blank=False, null=False)
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE, blank=False, null=False)
+    quantidade = models.IntegerField(default=1, blank=False, null=False)

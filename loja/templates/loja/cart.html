@@ -1,230 +1,246 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Nosferatu</title>
+        <link href="{% static 'loja/styles.css'%}" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        <link href="https://fonts.cdnfonts.com/css/renogare" rel="stylesheet">
+        <link rel="icon" href="{% static 'loja/img/icon/Frame 3.png'%}">
+        <style>
+            #cartcontainer {
+                height: auto;
+                background-color: #fff;
+                border-radius: 10px;
+                padding: 20px;
+            }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nosferatu</title>
-    <link href="{% static 'loja/styles.css'%}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link href="https://fonts.cdnfonts.com/css/renogare" rel="stylesheet">
-    <link rel="icon" href="{% static 'loja/img/icon/Frame 3.png'%}">
-    <style>
-        #cartcontainer {
-            height: auto;
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 20px;
-        }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+            th,
+            td {
+                padding: 10px;
+                text-align: center;
+                border-bottom: 1px solid #ddd;
+            }
 
-        th,
-        td {
-            padding: 10px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
-        }
+            th {
+                background-color: #f4f4f4;
+            }
 
-        th {
-            background-color: #f4f4f4;
-        }
+            .cartitem {
+                display: flex;
+                align-items: center;
+                width: auto;
+                height: auto;
+            }
 
-        .cartitem {
-            display: flex;
-            align-items: center;
-            width: auto;
-            height: auto;
-        }
+            .cartitem span {
+                margin-left: 10px;
+            }
 
-        .cartitem span {
-            margin-left: 10px;
-        }
+            .removebutton {
+                background-color: red;
+                color: white;
+                border: none;
+                padding: 10px 10px;
+                cursor: pointer;
+                border-radius: 10px;
+            }
 
-        .removebutton {
-            background-color: red;
-            color: white;
-            border: none;
-            padding: 10px 10px;
-            cursor: pointer;
-            border-radius: 10px;
-        }
+            .quantityinput {
+                padding: 10px 0px;
+                max-width: 40px;
+                text-align: center;
+                border-radius: 10px;
+                border: 1px solid grey;
+            }
 
-        .quantityinput {
-            padding: 10px 0px;
-            max-width: 40px;
-            text-align: center;
-            border-radius: 10px;
-            border: 1px solid grey;
-        }
+            .cartbuttons {
+                margin-top: 20px;
+                display: flex;
+                justify-content: right;
+            }
 
-        .cartbuttons {
-            margin-top: 20px;
-            display: flex;
-            justify-content: right;
-        }
+            .cartbuttons button {
+                padding: 10px 20px;
+                border: none;
+                cursor: pointer;
+                border-radius: 5px;
+            }
 
-        .cartbuttons button {
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
+            .buybutton {
+                background-color: green;
+                color: white;
+            }
 
-        .buybutton {
-            background-color: green;
-            color: white;
-        }
+            .clearbutton {
+                background-color: rgb(212, 212, 212);
+                color: black;
+                margin-right: 10px;
+            }
 
-        .clearbutton {
-            background-color: rgb(212, 212, 212);
-            color: black;
-            margin-right: 10px;
-        }
+            .carttotals {
+                margin-top: 20px;
+            }
 
-        .carttotals {
-            margin-top: 20px;
-        }
+            .carttotal h1 {
+                display: inline;
+                margin: 0;
+                font-size: 30px;
+            };
+            .carttotal p {
+                display: inline;
+                margin: 0;
+            }
 
-        .carttotal h1 {
-            display: inline;
-            margin: 0;
-            font-size: 30px;
-        };
-        .carttotal p {
-            display: inline;
-            margin: 0;
-        }
+            .carttotal {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 0px;
+            }
+        </style>
+    </head>
 
-        .carttotal {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 0px;
-        }
-    </style>
-</head>
+    <body>
+        <section id="cartcontainer">
+            <table>
+                <h1>Carrinho</h1>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Preço</th>
+                        <th>Quantidade</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
 
-<body>
-    <section id="cartcontainer">
+                <tbody>
+                    {% for carrinho in carrinhos %}
+                    <tr>
+                        <td class="cartitem">
+                            <img src="{{ carrinho.produto.url_imagem }}" alt="Produto" style="width: 50px; heigth: 50px;">
+                            <span>{{ carrinho.produto.nome }}</span>
+                        </td>
+                        <td class="cartprice">
+                            {{ carrinho.produto.preco }}
+                        </td>
+                        <td class="cartquantity">
+                            <input type="number" class="quantityinput" min="1" max="{{ carrinho.produto.estoque }}" value="{{ carrinho.quantidade }}" oninput="updateCartTotal()">
+                            <button class="removebutton" onclick="removeItem(this)">Remover</button>
+                        </td>
+                        <td class="producttotal">
+                            {{ carrinho.produto.preco }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <!--
+                    <tr>
+                        <td class="cartitem">
+                            <img src="https://placehold.jp/50x50.png" alt="Produto">
+                            <span>Gato Pirento</span>
+                        </td>
+                        <td class="cartprice">
+                            R$: 100.000,00
+                        </td>
+                        <td class="cartquantity">
+                            <input type="number" class="quantityinput" min="1" value="1" oninput="updateCartTotal()">
+                            <button class="removebutton" onclick="removeItem(this)">Remover</button>
+                        </td>
+                        <td class="producttotal">
+                            R$: 100.000,00
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="cartitem">
+                            <img src="https://placehold.jp/50x50.png" alt="Produto">
+                            <span>Gato Pirento</span>
+                        </td>
+                        <td class="cartprice">
+                            R$: 100.000,00
+                        </td>
+                        <td class="cartquantity">
+                            <input type="number" class="quantityinput" min="1" value="1" oninput="updateCartTotal()">
+                            <button class="removebutton" onclick="removeItem(this)">Remover</button>
+                        </td>
+                        <td class="producttotal">
+                            R$: 100.000,00
+                        </td>
+                    </tr> 
+                    -->
+                </tbody>
+            </table>
 
-        <table>
-            <h1>Carrinho</h1>
-            <thead>
-                <tr>
-                    <th>Item</th>
-                    <th>Preço</th>
-                    <th>Quantidade</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td class="cartitem">
-                        <img src="https://placehold.jp/50x50.png" alt="Produto">
-                        <span>Gato Pirento</span>
-                    </td>
-                    <td class="cartprice">
-                        R$: 100.000,00
-                    </td>
-                    <td class="cartquantity">
-                        <input type="number" class="quantityinput" min="1" value="1" oninput="updateCartTotal()">
-                        <button class="removebutton" onclick="removeItem(this)">Remover</button>
-                    </td>
-                    <td class="producttotal">
-                        R$: 100.000,00
-                    </td>
-                </tr>
-                <tr>
-                    <td class="cartitem">
-                        <img src="https://placehold.jp/50x50.png" alt="Produto">
-                        <span>Gato Pirento</span>
-                    </td>
-                    <td class="cartprice">
-                        R$: 100.000,00
-                    </td>
-                    <td class="cartquantity">
-                        <input type="number" class="quantityinput" min="1" value="1" oninput="updateCartTotal()">
-                        <button class="removebutton" onclick="removeItem(this)">Remover</button>
-                    </td>
-                    <td class="producttotal">
-                        R$: 100.000,00
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-
-        <div class="carttotals">
-            <div class="carttotal">
-                <h1>Subtotal</h1>
-                <p id="carttotal">R$: 100.000,00</p>
+            <div class="carttotals">
+                <div class="carttotal">
+                    <h1>Subtotal</h1>
+                    <p id="carttotal">R$: 100.000,00</p>
+                </div>
+                <div class="carttotal">
+                    <h1>Frete</h1>
+                    <p id="frete">R$: 20,00</p>
+                </div>
+                <div class="carttotal">
+                    <h1>Total</h1>
+                    <p id="cartgrandtotal">R$: 100.015,00</p>
+                </div>
             </div>
-            <div class="carttotal">
-                <h1>Frete</h1>
-                <p id="frete">R$: 20,00</p>
+
+            <div class="cartbuttons">
+                <button class="clearbutton" onclick="clearCart()">Limpar Carrinho</button>
+                <button class="buybutton">Comprar</button>
             </div>
-            <div class="carttotal">
-                <h1>Total</h1>
-                <p id="cartgrandtotal">R$: 100.015,00</p>
-            </div>
-        </div>
 
-        <div class="cartbuttons">
-            <button class="clearbutton" onclick="clearCart()">Limpar Carrinho</button>
-            <button class="buybutton">Comprar</button>
-        </div>
+        </section>
 
-    </section>
+        <script>
+            // Define o valor do frete naqueles pique
+            const FRETE = 15.00;
 
-    <script>
-        // Define o valor do frete naqueles pique
-        const FRETE = 15.00;
+            // Separa os numeros por ponto a cada 3 digitos
+            function formatNumber(number) {
+                return number.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            }
 
-        // Separa os numeros por ponto a cada 3 digitos
-        function formatNumber(number) {
-            return number.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        }
+            // Atualiza o total do carrinho
+            function updateCartTotal() {
+                let productTotals = document.querySelectorAll('.producttotal');
+                let total = 0;
+                productTotals.forEach((productTotal) => {
+                    let row = productTotal.closest('tr');
+                    let quantity = row.querySelector('.quantityinput').value;
+                    let price = parseFloat(productTotal.innerText.replace('R$: ', '').replace('.', '').replace(',', '.'));
+                    total += price * quantity;
+                });
 
-        // Atualiza o total do carrinho
-        function updateCartTotal() {
-            let productTotals = document.querySelectorAll('.producttotal');
-            let total = 0;
-            productTotals.forEach((productTotal) => {
-                let row = productTotal.closest('tr');
-                let quantity = row.querySelector('.quantityinput').value;
-                let price = parseFloat(productTotal.innerText.replace('R$: ', '').replace('.', '').replace(',', '.'));
-                total += price * quantity;
-            });
+                // Atualiza o html com o valor
+                document.getElementById('carttotal').innerText = 'R$: ' + formatNumber(total);
+                let grandTotal = total + FRETE;
+                document.getElementById('cartgrandtotal').innerText = 'R$: ' + formatNumber(grandTotal);
+            }
 
-            // Atualiza o html com o valor
-            document.getElementById('carttotal').innerText = 'R$: ' + formatNumber(total);
-            let grandTotal = total + FRETE;
-            document.getElementById('cartgrandtotal').innerText = 'R$: ' + formatNumber(grandTotal);
-        }
+            // Botão que limpa uma linha da tabela
+            function removeItem(button) {
+                let row = button.closest('tr');
+                row.remove();
+                updateCartTotal();
+            }
 
-        // Botão que limpa uma linha da tabela
-        function removeItem(button) {
-            let row = button.closest('tr');
-            row.remove();
-            updateCartTotal();
-        }
+            // Limpa todo o carrinho
+            function clearCart() {
+                let tbody = document.querySelector('tbody');
+                tbody.innerHTML = '';
+                updateCartTotal();
+            }
 
-        // Limpa todo o carrinho
-        function clearCart() {
-            let tbody = document.querySelector('tbody');
-            tbody.innerHTML = '';
-            updateCartTotal();
-        }
-
-        // Carrega os bagulhetes no site
-        document.addEventListener('DOMContentLoaded', updateCartTotal);
-    </script>
-</body>
-
+            // Carrega os bagulhetes no site
+            document.addEventListener('DOMContentLoaded', updateCartTotal);
+        </script>
+    </body>
 </html>

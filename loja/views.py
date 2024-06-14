@@ -51,6 +51,26 @@ def produto(request: HttpRequest, id_produto: int):
             dados["cliente"] = Cliente.objects.get(usuario=user)
         except Exception as e:
             pass
+        
+        # Guardar algo no carrinho
+        if request.method == "POST":
+            cliente = Cliente.objects.get(usuario=user)
+            produto = Produto.objects.get(id=request.POST.get("id"))
+            quantidade = request.POST.get("quantidade")
+            
+            # se já tiver esse item no carrinho, só adicionar mais uma na quantidade
+            consulta_previa = Carrinho.objects.filter(cliente=cliente, produto=produto).first()
+            if consulta_previa:
+                try: # só no caso de um dos int() dar erro
+                    consulta_previa.quantidade += int(quantidade)
+                    # se a quantidade for maior doq tem, limita
+                    if consulta_previa.quantidade > produto.estoque:
+                        consulta_previa.quantidade = produto.estoque
+                    consulta_previa.save()
+                except ValueError as e:
+                    print("De algum jeito alguem conseguiu colocar uma quantide que não seja um número")
+            else:
+                Carrinho.objects.create(cliente=cliente, produto=produto, quantidade=quantidade)
     
     print("Produto encontrados:", produto)
     return render(request, "loja/sprodutct.html", dados)
@@ -167,7 +187,7 @@ def cart(request: HttpRequest):
                 pass
         
         cliente = Cliente.objects.get(usuario=user)
-        dados["produtos"] = Carrinho.objects.filter(cliente=cliente)
+        dados["carrinhos"] = Carrinho.objects.filter(cliente=cliente)
         return render(request, "loja/cart.html", dados)
     else:
         return redirect("/login")

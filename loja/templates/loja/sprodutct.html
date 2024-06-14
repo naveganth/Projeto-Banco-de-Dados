@@ -34,27 +34,24 @@
 
                 </div>
             </div>
-
-            <div class="single-pro-details">
-                <h6>Animais / Pets</h6>
+            <div class="single-pro-details">    
+                <h6>Animais / Pets</h6>     <!-- nem sabia que exisita algo acima de h3-->
                 <h4>{{ produto.nome }}</h4>
-                <h2>R$: {{ produto.preco }}</h2>
-
-                <!--
-                <select>
-                    <option>Escolha cor</option>
-                    <option>Bege</option>
-                    <option>Preto</option>
-                    <option>Caramelo</option>
-                    <option>Vampiresco</option>
-                </select>
-                -->
-                
-                <div>
-                    <span>Em estoque: {{ produto.estoque }}</span>
-                    <input type="number" value="1">
-                </div>
-                <button class="normal">Adicionar ao Carrinho</button>
+                <h4>R$: {{ produto.preco }}</h4> 
+                <form method="post" target="dummy-iframe">
+                    {% csrf_token %}
+                    <div>
+                        <span>Em estoque: {{ produto.estoque }}</span>
+                        <input type="number" value="1" name="quantidade">
+                        <input type="hidden" value="{{ produto.id }}" name="id">
+                    </div>
+                    {% if cliente %}
+                        <button class="normal">Adicionar ao Carrinho</button>
+                    {% else %}
+                        <button class="normal" type="button" onclick="location.href = '/login';">Adicionar ao Carrinho</button>
+                    {% endif %}
+                </form>
+                <iframe style="display:none;" name="dummy-iframe"></iframe>
                 <h4>Descrição do Produto</h4>
                 <span>{{ produto.descricao }}</span>
 
