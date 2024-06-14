@@ -158,15 +158,6 @@
     <div class="container">
         <section id="profile">
             <div class="profile-content">
-                <!--
-                <div class="profile-picture-container">
-                    <img src="https://pbs.twimg.com/media/EW8e7HlWoAA4YP4.jpg:large" alt="Profile Picture"
-                        class="profile-picture" id="profileImage">
-                    <label for="profilepicture">
-                        <input type="file" name="profilepicture" id="profilepicture" required>
-                    </label>
-                </div>
-                -->
                 <form method="post">
                     {% csrf_token %}
                     <span style="color: red;">{{ erro }}</span>
