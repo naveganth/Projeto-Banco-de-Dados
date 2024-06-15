@@ -10,144 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://fonts.cdnfonts.com/css/renogare" rel="stylesheet">
     <link rel="icon" href="{% static 'loja/img/icon/Frame 3.png' %}">
-    <style>
-        .h1profile {
-            text-align: center;
-            width: 100%;
-            margin: 20px 0px;
-            font-size: 40px;
-        }
-
-        .container {
-            display: flex;
-            justify-content: space-between;
-            max-width: 95%;
-            margin: 0 auto;
-            
-        }
-
-        #profile {
-            background-color: #c4c4c4;
-            border-radius: 10px;
-            padding: 20px;
-            width: 49%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .profile-picture-container {
-            width: 300px;
-            height: 400px;
-        }
-
-        .profile-content {
-            display: flex;
-            width: 100%;
-        }
-
-        .profile-picture {
-            max-width: 300px;
-            max-height: 350px;
-            margin-bottom: 20px;
-            object-fit: cover;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-
-        label ::placeholder {
-            color: #c4c4c4;
-        }
-
-        label {
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
-
-        label span {
-            width: 95px;
-        }
-
-        label input {
-            flex: 1;
-            padding: 5px;
-            border-radius: 5px;
-            border: none;
-        }
-
-        .buttons {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            margin-top: auto;
-        }
-
-        button {
-            width: 49%;
-            border: none;
-            padding: 10px;
-            border-radius: 10px;
-            cursor: pointer;
-            color: white;
-        }
-
-        button.submit {
-            background-color: yellowgreen;
-        }
-
-        button.logout {
-            background-color: red;
-        }
-
-        #extra-buttons {
-            width: 49%;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            background-color: #c4c4c4;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        #extra-buttons div {
-            text-align: center;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #orders-container {
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        table th, table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        table th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-        }
-    </style>
 </head>
 
 <body>
@@ -181,6 +43,7 @@
                         <button class="submit" type="submit">Salvar</button>
                         <button class="logout" type="reset" onclick="location.href = '/logout';">Sair</button>
                     </div>
+                    <button class="deleteall" type="button" onclick="confirmDelete()">Apagar todos os dados</button>
                 </form>
             </div>
         </section>
@@ -228,17 +91,13 @@
     {% include 'loja/snippets/newsletter.html' %}
     {% include 'loja/snippets/footer.html' %}
 
+    <!-- Eu não sei como fazer com que apague dados do Django -->
     <script>
-        document.getElementById('profilepicture').addEventListener('change', function (event) {
-            const file = event.target.files[0];
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                document.getElementById('profileImage').src = e.target.result;
+        function confirmDelete() {
+            if (confirm('Você realmente deseja apagar todos os dados?')) {
+                window.location.href = '/apagar-usuario';
             }
-            if (file) {
-                reader.readAsDataURL(file);
-            }
-        });
+        }
     </script>
 </body>
 
