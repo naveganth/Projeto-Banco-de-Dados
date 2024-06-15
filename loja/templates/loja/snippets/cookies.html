@@ -1,0 +1,82 @@
+
+<link rel="stylesheet" href="/loja/static/loja/styles.css">
+<style>
+  #cookies {
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.1);
+        z-index: 9999;
+    }
+
+    .cookies-container {
+        width: 100%;
+        min-height: 70px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: 10px;
+    }
+
+    .cookies {
+        display: flex;
+        align-items: center;
+        justify-content: space-around; 
+        width: 100%; 
+        margin: 0;
+    }
+
+    .cookies a {
+        color: yellowgreen;
+        font-weight: 500;
+        text-decoration: underline;
+        font-style: italic;
+    }
+    
+    .cookies p{
+        display: inline;
+        white-space: nowrap;
+        font-size: 16px;
+    }
+
+    #cookies button {
+        border-radius: 15px;
+        padding: 10px;
+        font-size: 16px;
+        font-family: inherit;
+        cursor: pointer;
+        border: 3px solid white;
+        background-color: #333;
+        color: white;
+        margin-left: 10px;
+    }
+        </style>
+
+<body>
+    <div id="cookies">
+        <div class="cookies-container">
+            <div class="cookies-sub-container">
+                <h5>Esse site utiliza <i>cookies</i></h5>
+                <div class="cookies">
+                    <p>Armazenamos alguns dados temporariamente para melhorar a sua experiência. <a
+                            href="#">Mais informações.</a></p>
+                            <button id="cookies-confirm"> Tudo bem!</button>
+                        </div>
+            </div>
+        </div>
+    </div>
+ 
+    <script>
+        const setCookie = (cName, cValue, expDays) => {
+            let date = new Date();
+            date.setTime(date.getTime() + (expDays * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + date.toUTCString();
+            document.cookie = cName + "=" + cValue + "; " + expires + "; path=/";
+        }
+
+        document.querySelector("#cookies button").addEventListener("click", () => {
+            document.querySelector("#cookies").style.display = "none";
+            setCookie("cookies", true, 30);
+        });
+    </script>
+</body>
