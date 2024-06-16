@@ -10,6 +10,39 @@ from .models import *
 import uuid
 import time
 
+def pega_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+def tentar_rastrear(view):
+    def _decorated(request: HttpRequest, *args, **kwargs):
+        user = request.user
+        print(f"View acessada: '{view.__qualname__}' Usuário do acesso: '{user}'")
+        
+        print(f"user: {user}, booleano: {bool(user)}")
+        cookie = request.COOKIES.get("cookies")
+        if cookie:            
+            print("Usuário aceitou os termos")
+            acesso = Acesso.objects.create(
+                usuario=user if user.is_authenticated else None,
+                endereco_ip=f"{pega_ip(request)}",
+                pagina=f"{view.__qualname__}"
+            )
+            print(f"Acesso criado: {acesso}")
+            acesso.save()
+        else:
+            print("Usuário não aceitou os termos. Fazer oq né")
+        
+        # Retorna a view que foi requisitada
+        return view(request,*args, **kwargs)
+    
+    return _decorated
+
+@tentar_rastrear
 def index(request: HttpRequest):
     #Pega primeiros quatros produtos
     produtos = Produto.objects.all()
@@ -26,8 +59,7 @@ def index(request: HttpRequest):
         
     print("Produtos encontrados:", produtos)
     return render(request, "loja/index.html", dados)
-    
-
+@tentar_rastrear
 def shop(request: HttpRequest):
     produtos = Produto.objects.all().order_by("nome")
     
@@ -43,6 +75,7 @@ def shop(request: HttpRequest):
     print("Produtos encontrados:", produtos)
     return render(request, "loja/shop.html", dados)
 
+@tentar_rastrear
 def produto(request: HttpRequest, id_produto: int):
     produto = Produto.objects.filter(id = id_produto).first()
     user = request.user
@@ -76,6 +109,7 @@ def produto(request: HttpRequest, id_produto: int):
     print("Produto encontrados:", produto)
     return render(request, "loja/sprodutct.html", dados)
 
+@tentar_rastrear
 def logar(request: HttpRequest):
     if request.method == "POST":
         email = request.POST.get("email")
@@ -97,6 +131,7 @@ def deslogar(request: HttpRequest):
         logout(request)
     return redirect("/")
 
+@tentar_rastrear
 def signin(request: HttpRequest):
     if request.method == "POST":
         nome = request.POST.get("nome")
@@ -135,6 +170,7 @@ def signin(request: HttpRequest):
     elif request.method == "GET":
         return render(request, "loja/signin.html", {"erro": ""})
 
+@tentar_rastrear
 def profile(request: HttpRequest):
     user = request.user
     if user.is_authenticated:
@@ -176,6 +212,7 @@ def profile(request: HttpRequest):
     else:
         return redirect("/login")
 
+@tentar_rastrear
 @xframe_options_exempt
 @csrf_exempt
 def cart(request: HttpRequest):
@@ -214,11 +251,15 @@ def cart(request: HttpRequest):
 def apagar_usuario(request: HttpRequest):
     user = request.user
     
-    if user.is_authenticated:
-        user.delete()
+    if user.username == "admin":
+        return HttpResponse("Tu tá ficando doido??")
+    else:
+        if user.is_authenticated:
+            user.delete()
     
     return redirect("/")
 
+@tentar_rastrear
 def termos(request: HttpRequest):
     return render(request, "loja/terms.html", {})
 

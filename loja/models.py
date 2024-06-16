@@ -1,13 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class acesso(models.Model):
-    usuario = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE, blank=False, null=False)
-    data = models.DateTimeField(auto_now=True, blank=False, null=False)
-    endereco = models.CharField(max_length=255, blank=False, null=False)
+class Acesso(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, null=True, unique=False)
+    data = models.DateTimeField(auto_now_add=True, blank=False, null=False)
+    endereco_ip = models.CharField(max_length=255, blank=False, null=False)
+    pagina = models.CharField(max_length=255, blank=False, null=False)
     
     def __str__(self):
-        return f"Acesso: {self.usuario} ({self.endereco})"
+        return f"Acesso: {self.usuario if self.usuario else 'Anônimo'} - {self.pagina} ({self.endereco_ip})"
 
 class Produto(models.Model):
     nome = models.CharField(max_length=255, blank=False, null=False, default="Produto sem nome")
@@ -36,6 +37,7 @@ class Cliente(models.Model):
     nascimento = models.DateField(blank=False, null=False)
     idade = models.IntegerField(blank=False, null=False)
     sexo = models.CharField(max_length=1, blank=False, null=False, default="m")
+    aceitou_cookies = models.BooleanField(blank=False, null=False, default=False)
     
     def __str__(self):
         return f"Cliente: {self.nome}"
