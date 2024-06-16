@@ -33,6 +33,7 @@
       padding: 30px 20px;
       background-color: yellowgreen;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
     }
 
     .sidebar-item:hover {
@@ -48,6 +49,14 @@
       border-color: red;
     }
 
+    .chart-div {
+      display: none;
+    }
+
+    .chart-div.active {
+      display: block;
+    }
+
     canvas {
       width: 100% !important;
       max-height: 600px;
@@ -60,23 +69,61 @@
 
   <section>
     <div id="sidebar">
-      <div class="sidebar-item" id="ComprasTotais">COMPRAS TOTAIS</div>
-      <div class="sidebar-item" id="ComprasPorEstado">COMPRAS POR ESTADO</div>
-      <div class="sidebar-item" id="LucrosTotais">LUCROS TOTAIS</div>
-      <div class="sidebar-item" id="LucrosPorEstado">LUCROS POR ESTADO</div>
-      {% for dado in dados%}
+      <div class="sidebar-item" id="ComprasTotaisItem">COMPRAS TOTAIS</div>
+      <div class="sidebar-item" id="ComprasPorEstadoItem">COMPRAS POR ESTADO</div>
+      <div class="sidebar-item" id="LucrosTotaisItem">LUCROS TOTAIS</div>
+      <div class="sidebar-item" id="LucrosPorEstadoItem">LUCROS POR ESTADO</div>
+      <!-- {% for dado in dados%}
       <div class="sidebar-item" id="LucrosPorEstado">{{ dado|string_para_titulo }}</div>
-      {% endfor %}
+      {% endfor %} -->
     </div>
   </section>
 
   <section id="chartContainer">
-    <canvas id="myChart"></canvas>
+    <div id="ComprasTotais" class="chart-div active">
+      <canvas id="grafico1"></canvas>
+    </div>
+    <div id="ComprasPorEstado" class="chart-div">
+      <canvas id="grafico2"></canvas>
+    </div>
+    <div id="LucrosTotais" class="chart-div">
+      <canvas id="grafico3"></canvas>
+    </div>
+    <div id="LucrosPorEstado" class="chart-div">
+      <canvas id="grafico4"></canvas>
+    </div>
   </section>
 
   <script>
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var chartConfig = {
+    function toggleVisibility(id) {
+      const charts = document.querySelectorAll('.chart-div');
+      charts.forEach(chart => {
+        if (chart.id === id) {
+          chart.classList.add('active');
+        } else {
+          chart.classList.remove('active');
+        }
+      });
+    }
+
+    document.getElementById('ComprasTotaisItem').addEventListener('click', function () {
+      toggleVisibility('ComprasTotais');
+    });
+
+    document.getElementById('ComprasPorEstadoItem').addEventListener('click', function () {
+      toggleVisibility('ComprasPorEstado');
+    });
+
+    document.getElementById('LucrosTotaisItem').addEventListener('click', function () {
+      toggleVisibility('LucrosTotais');
+    });
+
+    document.getElementById('LucrosPorEstadoItem').addEventListener('click', function () {
+      toggleVisibility('LucrosPorEstado');
+    });
+
+    var ctx1 = document.getElementById('grafico1').getContext('2d');
+    new Chart(ctx1, {
       type: 'bar',
       data: {
         labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
@@ -108,59 +155,46 @@
           }]
         }
       }
-    };
-
-    var myChart = new Chart(ctx, chartConfig);
-    document.getElementById('ComprasTotais').addEventListener('click', function () {
-      myChart.destroy();
-      var newCtx = document.getElementById('myChart').getContext('2d');
-      myChart = new Chart(newCtx, chartConfig);
     });
 
-    // Provavelmente adiconar mapa do brasil aqui
-    document.getElementById('ComprasPorEstado').addEventListener('click', function () {
-      myChart.destroy();
-      var newCtx = document.getElementById('myChart').getContext('2d');
-      myChart = new Chart(newCtx, {
-        type: 'bar',
-        data: {
-          labels: ['São Paulo', 'Rio de Janeiro', 'Minas Gerais', 'Bahia', 'Paraná'],
-          datasets: [{
-            label: 'Compras por Estado',
-            data: [300, 250, 200, 150, 100],
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1
-          }]
-        },
-        options: {
-          legend: {
-            labels: {
-              fontSize: 30
-            }
-          },
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: true,
-                fontSize: 18
-              }
-            }],
-            xAxes: [{
-              ticks: {
-                fontSize: 18
-              }
-            }]
+    var ctx2 = document.getElementById('grafico2').getContext('2d');
+    new Chart(ctx2, {
+      type: 'bar',
+      data: {
+        labels: ['São Paulo', 'Rio de Janeiro', 'Minas Gerais', 'Bahia', 'Paraná'],
+        datasets: [{
+          label: 'Compras por Estado',
+          data: [300, 250, 200, 150, 100],
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        legend: {
+          labels: {
+            fontSize: 30
           }
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              fontSize: 18
+            }
+          }],
+          xAxes: [{
+            ticks: {
+              fontSize: 18
+            }
+          }]
         }
-      });
+      }
     });
 
-    document.getElementById('LucrosTotais').addEventListener('click', function () {
-      myChart.destroy();
-      var newCtx = document.getElementById('myChart').getContext('2d');
-      myChart = new Chart(newCtx, {
-        type: 'bar',
+    var ctx3 = document.getElementById('grafico3').getContext('2d');
+    new Chart(ctx3, {
+      type: 'bar',
         data: {
           labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
           datasets: [{
@@ -192,19 +226,15 @@
           }
         }
       });
-    });
 
-    // Provavelmente adiconar mapa do brasil aqui
-    document.getElementById('LucrosPorEstado').addEventListener('click', function () {
-      myChart.destroy();
-      var newCtx = document.getElementById('myChart').getContext('2d');
-      myChart = new Chart(newCtx, {
-        type: 'bar',
+    var ctx4 = document.getElementById('grafico4').getContext('2d');
+    new Chart(ctx4, {
+      type: 'bar',
         data: {
           labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
           datasets: [{
             label: 'Vendas',
-            data: [100, 120, 150, 170, 200, 180, 220],
+            data: [1000, 120, 150, 170, 200, 180, 220],
             backgroundColor: 'rgba(255, 255, 0, 0.8)',
             borderColor: 'black',
             borderWidth: 1
@@ -231,7 +261,6 @@
           }
         }
       });
-    });
   </script>
 
 </body>
