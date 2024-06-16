@@ -137,7 +137,8 @@
                             {{ carrinho.produto.preco }}
                         </td>
                         <td class="cartquantity">
-                            <input type="number" class="quantityinput" min="1" max="{{ carrinho.produto.estoque }}" value="{{ carrinho.quantidade }}" oninput="updateCartTotal()">
+                            <input type="number" class="quantityinput" min="1" max="{{ carrinho.produto.estoque }}" 
+                                value="{{ carrinho.quantidade }}" oninput="updateCartTotal(this)" data-carrinho={{ carrinho.id }}>
                             <button class="removebutton" onclick="removeItem(this)" data-carrinho="{{ carrinho.id }}">Remover</button>
                         </td>
                         <td class="producttotal">
@@ -180,7 +181,8 @@
             }
 
             // Atualiza o total do carrinho
-            function updateCartTotal() {
+            function updateCartTotal(botao) {
+                console.log("Chamador:", botao)
                 let productTotals = document.querySelectorAll('.producttotal');
                 let total = 0;
                 productTotals.forEach((productTotal) => {
@@ -194,13 +196,28 @@
                 document.getElementById('carttotal').innerText = 'R$: ' + formatNumber(total);
                 let grandTotal = total + FRETE;
                 document.getElementById('cartgrandtotal').innerText = 'R$: ' + formatNumber(grandTotal);
+                
+                if (botao) {
+                    console.log("Chamado foi o botão")
+
+                    // requisição que tira o item pra valer no backend
+                    const formData = new FormData();
+                    formData.append('operacao', 1);
+                    formData.append('nova-qtd', botao.value)
+                    formData.append('carrinho', botao.getAttribute("data-carrinho"));
+
+                    return fetch('/cart', {
+                        method: 'POST',
+                        body: formData
+                    }).then(response => response.json())
+                }
             }
 
             // Botão que limpa uma linha da tabela
             function removeItem(button) {
                 let row = button.closest('tr');
                 row.remove();
-                updateCartTotal();
+                updateCartTotal(null);
 
                 // requisição que tira o item pra valer no backend
                 const formData = new FormData();
@@ -217,7 +234,7 @@
             function clearCart() {
                 let tbody = document.querySelector('tbody');
                 tbody.innerHTML = '';
-                updateCartTotal();
+                updateCartTotal(null);
             }
 
             // Carrega os bagulhetes no site

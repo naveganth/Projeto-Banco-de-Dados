@@ -212,7 +212,6 @@ def profile(request: HttpRequest):
     else:
         return redirect("/login")
 
-@tentar_rastrear
 @xframe_options_exempt
 @csrf_exempt
 def cart(request: HttpRequest):
@@ -237,7 +236,15 @@ def cart(request: HttpRequest):
                     carrinho = Carrinho.objects.get(id=id_carrinho)
                     carrinho.delete()
                 case "1":
-                    pass
+                    id_carrinho = request.POST.get("carrinho")
+                    nova_qtd = request.POST.get("nova-qtd")
+                    print(f"Alterando carrinho carrinho: {id_carrinho}, nova quantidade: {nova_qtd}")
+                    carrinho = Carrinho.objects.get(id=id_carrinho)
+                    try:
+                        carrinho.quantidade = int(nova_qtd)
+                        carrinho.save()
+                    except ValueError:
+                        print(f"Erro ao converter nova quantidade ({nova_qtd}) para int")
                 case _:
                     pass
                     
