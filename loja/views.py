@@ -219,6 +219,8 @@ def apagar_usuario(request: HttpRequest):
     
     return redirect("/")
 
+def termos(request: HttpRequest):
+    return render(request, "loja/terms.html", {})
 
 def chart(request: HttpRequest):
     dados = {}
