@@ -200,8 +200,8 @@
                 let grandTotal = total + FRETE;
                 document.getElementById('cartgrandtotal').innerText = 'R$: ' + formatNumber(grandTotal);
                 
-                if (botao) {
-                    console.log("Chamado foi o botão")
+                if (botao && !botao.target) {
+                    console.log("Chamado foi o botão");
 
                     // requisição que tira o item pra valer no backend
                     const formData = new FormData();

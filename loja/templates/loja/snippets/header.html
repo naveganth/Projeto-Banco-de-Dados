@@ -25,14 +25,14 @@
             <li> <a class="header-button" href="/login">Entrar</a></li>
             <li> <a class="header-button" href="/signin">Cadastrar-se</a></li>
             {% endif %}
-            <li> <button onclick="mostrar_carrinho()" style="border: none; padding: 10px"><i class="fa-solid fa-cart-shopping"></i></button></li>
+            <li> <button onclick="mostrar_carrinho_header()" style="border: none; padding: 10px"><i class="fa-solid fa-cart-shopping"></i></button></li>
             <iframe id="dummy-carrinho" name="dummy" class="dummy-iframe"></iframe>
         </ul>
     </div>
 </section>
 <script>
     let carrinho_visivel = false;
-    function mostrar_carrinho() {
+    function mostrar_carrinho_header() {
         let iframe = document.getElementById("dummy-carrinho");
 
         if (carrinho_visivel) {
