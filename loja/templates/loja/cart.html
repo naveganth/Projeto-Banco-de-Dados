@@ -105,6 +105,11 @@
                 align-items: center;
                 margin-top: 0px;
             }
+            .cartquantity {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+            }
         </style>
     </head>
 
@@ -133,47 +138,13 @@
                         </td>
                         <td class="cartquantity">
                             <input type="number" class="quantityinput" min="1" max="{{ carrinho.produto.estoque }}" value="{{ carrinho.quantidade }}" oninput="updateCartTotal()">
-                            <button class="removebutton" onclick="removeItem(this)">Remover</button>
+                            <button class="removebutton" onclick="removeItem(this)" data-carrinho="{{ carrinho.id }}">Remover</button>
                         </td>
                         <td class="producttotal">
                             {{ carrinho.produto.preco }}
                         </td>
                     </tr>
                     {% endfor %}
-                    <!--
-                    <tr>
-                        <td class="cartitem">
-                            <img src="https://placehold.jp/50x50.png" alt="Produto">
-                            <span>Gato Pirento</span>
-                        </td>
-                        <td class="cartprice">
-                            R$: 100.000,00
-                        </td>
-                        <td class="cartquantity">
-                            <input type="number" class="quantityinput" min="1" value="1" oninput="updateCartTotal()">
-                            <button class="removebutton" onclick="removeItem(this)">Remover</button>
-                        </td>
-                        <td class="producttotal">
-                            R$: 100.000,00
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="cartitem">
-                            <img src="https://placehold.jp/50x50.png" alt="Produto">
-                            <span>Gato Pirento</span>
-                        </td>
-                        <td class="cartprice">
-                            R$: 100.000,00
-                        </td>
-                        <td class="cartquantity">
-                            <input type="number" class="quantityinput" min="1" value="1" oninput="updateCartTotal()">
-                            <button class="removebutton" onclick="removeItem(this)">Remover</button>
-                        </td>
-                        <td class="producttotal">
-                            R$: 100.000,00
-                        </td>
-                    </tr> 
-                    -->
                 </tbody>
             </table>
 
@@ -230,6 +201,16 @@
                 let row = button.closest('tr');
                 row.remove();
                 updateCartTotal();
+
+                // requisição que tira o item pra valer no backend
+                const formData = new FormData();
+                formData.append('operacao', 0);
+                formData.append('carrinho', button.getAttribute("data-carrinho"));
+
+                return fetch('/cart', {
+                    method: 'POST',
+                    body: formData
+                }).then(response => response.json())
             }
 
             // Limpa todo o carrinho

@@ -5,8 +5,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.clickjacking import xframe_options_exempt
 from datetime import date
 from dateutils import relativedelta
+from django.views.decorators.csrf import csrf_exempt
 from .models import *
 import uuid
+import time
 
 def index(request: HttpRequest):
     #Pega primeiros quatros produtos
@@ -71,7 +73,6 @@ def produto(request: HttpRequest, id_produto: int):
                     print("De algum jeito alguem conseguiu colocar uma quantide que não seja um número")
             else:
                 Carrinho.objects.create(cliente=cliente, produto=produto, quantidade=quantidade)
-    
     print("Produto encontrados:", produto)
     return render(request, "loja/sprodutct.html", dados)
 
@@ -175,6 +176,7 @@ def profile(request: HttpRequest):
         return redirect("/login")
 
 @xframe_options_exempt
+@csrf_exempt
 def cart(request: HttpRequest):
     user = request.user
     if user.is_authenticated:
@@ -185,6 +187,23 @@ def cart(request: HttpRequest):
                 dados["cliente"] = Cliente.objects.get(usuario=user)
             except Exception as e:
                 pass
+            
+            # Alterar o carrinho
+            if request.method == "POST":
+                print("Post no carrinho")
+                operacao = request.POST.get("operacao")
+                print(f"Operacao: {operacao}")
+                match operacao:
+                    case "0":
+                        id_carrinho = request.POST.get("carrinho")
+                        print(f"Apagando carrinho: {id_carrinho}")
+                        carrinho = Carrinho.objects.get(id=id_carrinho)
+                        carrinho.delete()
+                    case "1":
+                        pass
+                    case _:
+                        pass
+                    
         
         cliente = Cliente.objects.get(usuario=user)
         dados["carrinhos"] = Carrinho.objects.filter(cliente=cliente)
