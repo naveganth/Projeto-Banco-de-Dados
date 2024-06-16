@@ -169,7 +169,7 @@
 
             <div class="cartbuttons">
                 <button class="clearbutton" onclick="clearCart()">Limpar Carrinho</button>
-                <button class="buybutton">Comprar</button>
+                <button class="buybutton" onclick="comprar_tudo()">Comprar</button>
             </div>
 
         </section>
@@ -248,6 +248,15 @@
                 }).then(response => response.json())
             }
 
+            function comprar_tudo(button) {
+                const formData = new FormData();
+                formData.append('operacao', 3);
+
+                return fetch('/cart', {
+                    method: 'POST',
+                    body: formData
+                }).then(response => window.top.location.href = '/profile')
+            }
             // Carrega os bagulhetes no site
             document.addEventListener('DOMContentLoaded', updateCartTotal);
         </script>

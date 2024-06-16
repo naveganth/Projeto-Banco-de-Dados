@@ -59,6 +59,7 @@ def index(request: HttpRequest):
         
     print("Produtos encontrados:", produtos)
     return render(request, "loja/index.html", dados)
+
 @tentar_rastrear
 def shop(request: HttpRequest):
     produtos = Produto.objects.all().order_by("nome")
@@ -172,6 +173,7 @@ def signin(request: HttpRequest):
 
 @tentar_rastrear
 def profile(request: HttpRequest):
+    
     user = request.user
     if user.is_authenticated:
         dados = {}
@@ -185,9 +187,14 @@ def profile(request: HttpRequest):
             
             cliente = Cliente.objects.get(usuario=user)
             
-            if nome is None or email is None or senha is None or endereco is None:
-                dados["pedidos"] = Compra.objects.filter(cliente=cliente)
-                dados["erro"] = "Preencha o formulário"
+            if nome is None or email is None or senha is None or endereco is None or user.username == "admin":
+                compras = Compra.objects.filter(cliente=cliente)
+                dados["pedidos"] = []
+                for compra in compras:
+                    produtos = CompraProduto.objects.filter(compra=compra)
+                    dados["cliente"] = cliente
+                    dados["pedidos"].append({"compra": compra, "produtos": produtos, "soma": sum([p.produto.preco for p in produtos]) + 20})
+                    dados["erro"] = "formulario inválido"
                 return render(request, "loja/profile.html", dados)
             
             cliente.endereco = endereco
@@ -201,13 +208,14 @@ def profile(request: HttpRequest):
             
             return redirect("/profile")
         
-        try:
-            dados["cliente"] = Cliente.objects.get(usuario=user)
-        except Exception as e:
-            pass
-        
+        dados["cliente"] = Cliente.objects.get(usuario=user)
         cliente = Cliente.objects.get(usuario=user)
-        dados["pedidos"] = Compra.objects.filter(cliente=cliente)
+        compras = Compra.objects.filter(cliente=cliente)
+        dados["pedidos"] = []
+        for compra in compras:
+            produtos = CompraProduto.objects.filter(compra=compra)
+            dados["pedidos"].append({"compra": compra, "produtos": produtos, "soma": sum([p.produto.preco for p in produtos]) + 20})
+        
         return render(request, "loja/profile.html", dados)
     else:
         return redirect("/login")
@@ -250,6 +258,23 @@ def cart(request: HttpRequest):
                     carrinhos = Carrinho.objects.filter(cliente=cliente)
                     for carrinho in carrinhos:
                         carrinho.delete()
+                case "3":
+                    cliente = Cliente.objects.get(usuario=user)
+                    carrinhos = Carrinho.objects.filter(cliente=cliente)
+                    
+                    if len(carrinhos) > 0:
+                        compra = Compra.objects.create(
+                            cliente=cliente
+                        )
+                        compra.save()
+                        
+                        for carrinho in carrinhos:
+                            CompraProduto.objects.create(
+                                compra=compra,
+                                produto=carrinho.produto,
+                                quantidade=carrinho.quantidade
+                            ).save()
+                            carrinho.delete()
                 case _:
                     pass
                     

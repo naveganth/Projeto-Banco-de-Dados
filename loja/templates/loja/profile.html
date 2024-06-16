@@ -54,28 +54,39 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Número do Pedido</th>
+                            <th>Código</th>
                             <th>Data</th>
                             <th>Valor</th>
-                            <th>Forma de Pagamento</th>
+                            <th>Produtos</th>
                             <th>Detalhes</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for pedido in pedidos %}
-                            <tr>
+                        <tr>
+                            <td>{{ pedido.compra.id }}</td>
+                            <td>{{ pedido.compra.data|date:"f d/m/Y" }}</td>
+                            <td>{{ pedido.soma }}</td>
+                            <td>
+                            {% for produto in pedido.produtos %}
+                                {{produto.produto.nome}} ({{produto.quantidade}})<br>
+                            {% endfor %}
+                            </td>
+                            <td><a href="#">Abrir</a></td>
+                        </tr>
+                        {% endfor %}
+                        
+                        <!--
+                        Só criar outra assim:  
+                                                    <tr>
                                 <td>{{ pedido.id }}</td>
                                 <td>{{ pedido.data|date:"Y-m-d f" }}</td>
                                 <td>{{ pedido.valor_pago }}</td>
                                 <td>{{ pedido.forma_pagamento }}</td>
                                 <td><a href="#">Abrir</a></td>
                             </tr>
-                        {% endfor %}
-                        
-                        <!--
-                        Só criar outra assim:  
+
                         <tr>
-                            <td><img src="https://via.placeholder.com/50" alt="Produto"></td>
                             <td>966961584</td>
                             <td>19/05/2024 10:56:35</td>
                             <td>R$ 311,51</td>
@@ -91,11 +102,9 @@
     {% include 'loja/snippets/newsletter.html' %}
     {% include 'loja/snippets/footer.html' %}
 
-    <!-- Eu não sei como fazer com que apague dados do Django -->
     <script>
         function confirmDelete() {
             if (confirm('Você realmente deseja apagar todos os dados?')) {
-                // Substituir pelo metodo de apagar dados do django
                 window.location.href = '/apagar_usuario_1234567890';
             }
         }
