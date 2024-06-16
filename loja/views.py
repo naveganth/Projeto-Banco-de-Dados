@@ -245,6 +245,11 @@ def cart(request: HttpRequest):
                         carrinho.save()
                     except ValueError:
                         print(f"Erro ao converter nova quantidade ({nova_qtd}) para int")
+                case "2":
+                    cliente = Cliente.objects.get(usuario=user)
+                    carrinhos = Carrinho.objects.filter(cliente=cliente)
+                    for carrinho in carrinhos:
+                        carrinho.delete()
                 case _:
                     pass
                     

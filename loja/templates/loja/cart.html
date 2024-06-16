@@ -235,6 +235,14 @@
                 let tbody = document.querySelector('tbody');
                 tbody.innerHTML = '';
                 updateCartTotal(null);
+
+                const formData = new FormData();
+                formData.append('operacao', 2);
+
+                return fetch('/cart', {
+                    method: 'POST',
+                    body: formData
+                }).then(response => response.json())
             }
 
             // Carrega os bagulhetes no site
