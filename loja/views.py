@@ -126,6 +126,7 @@ def signin(request: HttpRequest):
                     nome=nome,
                 )
                 novo_cliente.save()
+                login(request, novo_usuario)
                 return redirect("/")
             except Exception as e:
                 return render(request, "loja/signin.html", {"erro": f"Erro criando usuário: {e}"})
@@ -182,27 +183,26 @@ def cart(request: HttpRequest):
     if user.is_authenticated:
         dados = {}
         
-        if user.is_authenticated:
-            try:
-                dados["cliente"] = Cliente.objects.get(usuario=user)
-            except Exception as e:
-                pass
-            
-            # Alterar o carrinho
-            if request.method == "POST":
-                print("Post no carrinho")
-                operacao = request.POST.get("operacao")
-                print(f"Operacao: {operacao}")
-                match operacao:
-                    case "0":
-                        id_carrinho = request.POST.get("carrinho")
-                        print(f"Apagando carrinho: {id_carrinho}")
-                        carrinho = Carrinho.objects.get(id=id_carrinho)
-                        carrinho.delete()
-                    case "1":
-                        pass
-                    case _:
-                        pass
+        try:
+            dados["cliente"] = Cliente.objects.get(usuario=user)
+        except Exception as e:
+            pass
+        
+        # Alterar o carrinho
+        if request.method == "POST":
+            print("Post no carrinho")
+            operacao = request.POST.get("operacao")
+            print(f"Operacao: {operacao}")
+            match operacao:
+                case "0":
+                    id_carrinho = request.POST.get("carrinho")
+                    print(f"Apagando carrinho: {id_carrinho}")
+                    carrinho = Carrinho.objects.get(id=id_carrinho)
+                    carrinho.delete()
+                case "1":
+                    pass
+                case _:
+                    pass
                     
         
         cliente = Cliente.objects.get(usuario=user)
@@ -210,6 +210,15 @@ def cart(request: HttpRequest):
         return render(request, "loja/cart.html", dados)
     else:
         return redirect("/login")
+
+def apagar_usuario(request: HttpRequest):
+    user = request.user
+    
+    if user.is_authenticated:
+        user.delete()
+    
+    return redirect("/")
+
 
 def chart(request: HttpRequest):
     dados = {}
