@@ -46,7 +46,7 @@
                         <input type="hidden" value="{{ produto.id }}" name="id">
                     </div>
                     {% if cliente %}
-                        <button class="normal">Adicionar ao Carrinho</button>
+                        <button class="normal" onclick="mostrar_carrinho()">Adicionar ao Carrinho</button>
                     {% else %}
                         <button class="normal" type="button" onclick="location.href = '/login';">Adicionar ao Carrinho</button>
                     {% endif %}
@@ -86,5 +86,19 @@
 
     smallimg[4].onclick = function(){
         MainImg.src = smallimg[4].src;
+    }
+
+    function mostrar_carrinho() {
+        setTimeout(function(){
+            let iframe = document.getElementById("dummy-carrinho");
+
+            if (!carrinho_visivel) {
+                iframe.style.display = "block";
+                iframe.contentWindow.location.replace("/cart");
+                carrinho_visivel = true;
+            } else {
+                iframe.contentWindow.location.replace("/cart");
+            }
+        }, 500);
     }
 </script>
