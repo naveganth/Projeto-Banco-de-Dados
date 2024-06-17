@@ -3,203 +3,112 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nosferatu</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <link href="https://fonts.cdnfonts.com/css/renogare" rel="stylesheet">
-  <style>
-    body {
-      display: flex;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-
-    #sidebar {
-      width: 300px;
-      border-right: 2px solid black;
-      padding: 0px 0px;
-      box-sizing: border-box;
-      flex-shrink: 0;
-      height: 100vh;
-    }
-
-    .sidebar-item {
-      text-align: start;
-      padding: 30px 20px;
-      background-color: yellowgreen;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-      cursor: pointer;
-    }
-
-    .sidebar-item:hover {
-      filter: brightness(90%);
-      transition: 0.2s ease-in;
-    }
-
-    #chartContainer {
-      flex-grow: 1;
-      padding: 50px;
-      box-sizing: border-box;
-      border: 10px solid;
-      border-color: red;
-    }
-
-    .chart-div {
-      display: none;
-    }
-
-    .chart-div.active {
-      display: block;
-    }
-
-    canvas {
-      width: 100% !important;
-      max-height: 600px;
-      border: black 1px;
-    }
-  </style>
-</head>
-
-<body>
-
-  <section>
-    <div id="sidebar">
-      <div class="sidebar-item" id="ComprasTotaisItem">COMPRAS TOTAIS</div>
-      <div class="sidebar-item" id="ComprasPorEstadoItem">COMPRAS POR ESTADO</div>
-      <div class="sidebar-item" id="LucrosTotaisItem">LUCROS TOTAIS</div>
-      <div class="sidebar-item" id="LucrosPorEstadoItem">LUCROS POR ESTADO</div>
-      <!-- {% for dado in dados%}
-      <div class="sidebar-item" id="LucrosPorEstado">{{ dado|string_para_titulo }}</div>
-      {% endfor %} -->
-    </div>
-  </section>
-
-  <section id="chartContainer">
-    <div id="ComprasTotais" class="chart-div active">
-      <canvas id="grafico1"></canvas>
-    </div>
-    <div id="ComprasPorEstado" class="chart-div">
-      <canvas id="grafico2"></canvas>
-    </div>
-    <div id="LucrosTotais" class="chart-div">
-      <canvas id="grafico3"></canvas>
-    </div>
-    <div id="LucrosPorEstado" class="chart-div">
-      <canvas id="grafico4"></canvas>
-    </div>
-  </section>
-
-  <script>
-    function toggleVisibility(id) {
-      const charts = document.querySelectorAll('.chart-div');
-      charts.forEach(chart => {
-        if (chart.id === id) {
-          chart.classList.add('active');
-        } else {
-          chart.classList.remove('active');
-        }
-      });
-    }
-
-    document.getElementById('ComprasTotaisItem').addEventListener('click', function () {
-      toggleVisibility('ComprasTotais');
-    });
-
-    document.getElementById('ComprasPorEstadoItem').addEventListener('click', function () {
-      toggleVisibility('ComprasPorEstado');
-    });
-
-    document.getElementById('LucrosTotaisItem').addEventListener('click', function () {
-      toggleVisibility('LucrosTotais');
-    });
-
-    document.getElementById('LucrosPorEstadoItem').addEventListener('click', function () {
-      toggleVisibility('LucrosPorEstado');
-    });
-
-    var ctx1 = document.getElementById('grafico1').getContext('2d');
-    new Chart(ctx1, {
-      type: 'bar',
-      data: {
-        labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
-        datasets: [{
-          label: 'Vendas',
-          data: [10, 120, 150, 170, 200, 180, 220],
-          backgroundColor: 'rgba(255, 255, 0, 0.8)',
-          borderColor: 'black',
-          borderWidth: 1
-        }]
-      },
-      options: {
-        legend: {
-          labels: {
-            fontSize: 30
-          }
-        },
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true,
-              fontSize: 18
-            }
-          }],
-          xAxes: [{
-            ticks: {
-              fontSize: 18
-            }
-          }]
-        }
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosferatu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.cdnfonts.com/css/renogare" rel="stylesheet">
+    <style>
+      body {
+        display: flex;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
       }
-    });
 
-    var ctx2 = document.getElementById('grafico2').getContext('2d');
-    new Chart(ctx2, {
-      type: 'bar',
-      data: {
-        labels: ['São Paulo', 'Rio de Janeiro', 'Minas Gerais', 'Bahia', 'Paraná'],
-        datasets: [{
-          label: 'Compras por Estado',
-          data: [300, 250, 200, 150, 100],
-          backgroundColor: 'rgba(75, 192, 192, 0.2)',
-          borderColor: 'rgba(75, 192, 192, 1)',
-          borderWidth: 1
-        }]
-      },
-      options: {
-        legend: {
-          labels: {
-            fontSize: 30
-          }
-        },
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true,
-              fontSize: 18
-            }
-          }],
-          xAxes: [{
-            ticks: {
-              fontSize: 18
-            }
-          }]
-        }
+      #sidebar {
+        width: 300px;
+        border-right: 2px solid black;
+        padding: 0px 0px;
+        box-sizing: border-box;
+        flex-shrink: 0;
+        height: 100vh;
       }
-    });
 
-    var ctx3 = document.getElementById('grafico3').getContext('2d');
-    new Chart(ctx3, {
-      type: 'bar',
+      .sidebar-item {
+        text-align: start;
+        padding: 30px 20px;
+        background-color: yellowgreen;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        cursor: pointer;
+      }
+
+      .sidebar-item:hover {
+        filter: brightness(90%);
+        transition: 0.2s ease-in;
+      }
+
+      #chartContainer {
+        flex-grow: 1;
+        padding: 50px;
+        box-sizing: border-box;
+        border: 10px solid;
+        border-color: red;
+      }
+
+      .chart-div {
+        display: none;
+      }
+
+      .chart-div.active {
+        display: block;
+      }
+
+      canvas {
+        width: 100% !important;
+        max-height: 600px;
+        border: black 1px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <section>
+      <div id="sidebar">
+        <div class="sidebar-item" id="ComprasTotaisItem" onclick="toggleVisibility('ComprasTotais')">COMPRAS TOTAIS</div>
+        <div class="sidebar-item" id="ComprasPorEstadoItem" onclick="toggleVisibility('ComprasPorEstado')">COMPRAS POR ESTADO</div>
+        <div class="sidebar-item" id="LucrosTotaisItem" onclick="toggleVisibility('LucrosTotais')">LUCROS TOTAIS</div>
+        <div class="sidebar-item" id="LucrosPorEstadoItem" onclick="toggleVisibility('LucrosPorEstado')">LUCROS POR ESTADO</div>
+      </div>
+    </section>
+
+    <section id="chartContainer">
+      <div id="ComprasTotais" class="chart-div active">
+        <canvas id="grafico1"></canvas>
+      </div>
+      <div id="ComprasPorEstado" class="chart-div">
+        <canvas id="grafico2"></canvas>
+      </div>
+      <div id="LucrosTotais" class="chart-div">
+        <canvas id="grafico3"></canvas>
+      </div>
+      <div id="LucrosPorEstado" class="chart-div">
+        <canvas id="grafico4"></canvas>
+      </div>
+    </section>
+
+    <script>
+      function toggleVisibility(id) {
+        const charts = document.querySelectorAll('.chart-div');
+        charts.forEach(chart => {
+          if (chart.id === id) {
+            chart.classList.add('active');
+          } else {
+            chart.classList.remove('active');
+          }
+        });
+      }
+
+      var ctx1 = document.getElementById('grafico1').getContext('2d');
+      new Chart(ctx1, {
+        type: 'bar',
         data: {
           labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
           datasets: [{
             label: 'Vendas',
-            data: [100, 120, 150, 170, 200, 180, 220],
+            data: [10, 120, 150, 170, 200, 180, 220],
             backgroundColor: 'rgba(255, 255, 0, 0.8)',
             borderColor: 'black',
             borderWidth: 1
@@ -227,16 +136,16 @@
         }
       });
 
-    var ctx4 = document.getElementById('grafico4').getContext('2d');
-    new Chart(ctx4, {
-      type: 'bar',
+      var ctx2 = document.getElementById('grafico2').getContext('2d');
+      new Chart(ctx2, {
+        type: 'bar',
         data: {
-          labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
+          labels: ['São Paulo', 'Rio de Janeiro', 'Minas Gerais', 'Bahia', 'Paraná'],
           datasets: [{
-            label: 'Vendas',
-            data: [1000, 120, 150, 170, 200, 180, 220],
-            backgroundColor: 'rgba(255, 255, 0, 0.8)',
-            borderColor: 'black',
+            label: 'Compras por Estado',
+            data: [300, 250, 200, 150, 100],
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1
           }]
         },
@@ -261,8 +170,76 @@
           }
         }
       });
-  </script>
 
-</body>
+      var ctx3 = document.getElementById('grafico3').getContext('2d');
+      new Chart(ctx3, {
+        type: 'bar',
+          data: {
+            labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
+            datasets: [{
+              label: 'Vendas',
+              data: [100, 120, 150, 170, 200, 180, 220],
+              backgroundColor: 'rgba(255, 255, 0, 0.8)',
+              borderColor: 'black',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            legend: {
+              labels: {
+                fontSize: 30
+              }
+            },
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  fontSize: 18
+                }
+              }],
+              xAxes: [{
+                ticks: {
+                  fontSize: 18
+                }
+              }]
+            }
+          }
+        });
 
+      var ctx4 = document.getElementById('grafico4').getContext('2d');
+      new Chart(ctx4, {
+        type: 'bar',
+          data: {
+            labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
+            datasets: [{
+              label: 'Vendas',
+              data: [1000, 120, 150, 170, 200, 180, 220],
+              backgroundColor: 'rgba(255, 255, 0, 0.8)',
+              borderColor: 'black',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            legend: {
+              labels: {
+                fontSize: 30
+              }
+            },
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  fontSize: 18
+                }
+              }],
+              xAxes: [{
+                ticks: {
+                  fontSize: 18
+                }
+              }]
+            }
+          }
+        });
+    </script>
+  </body>
 </html>
