@@ -327,3 +327,9 @@ def admin_geral(request: HttpRequest):
     dados["compras_hoje"] = Compra.objects.filter(data__date = hoje).count()
     dados["compras_mes"] = Compra.objects.filter(data__month = mes_atual).count()
     return render(request, "loja/admin/geral.html", dados)
+
+@xframe_options_exempt
+def admin_produtos(request: HttpRequest):
+    dados = {}
+    dados["produtos"] = Produto.objects.all().order_by("id")
+    return render(request, "loja/admin/produtos.html", dados)
