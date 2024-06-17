@@ -13,5 +13,6 @@ urlpatterns = [
     path("cart", views.cart, name="cart"),
     path("admin/", views.chart, name="admin"),
     path("termos/", views.termos, name="termos"),
-    path("apagar_usuario_1234567890", views.apagar_usuario, name="apagar usuário")
+    path("apagar_usuario_1234567890", views.apagar_usuario, name="apagar usuário"),
+    path("admin/geral", views.admin_geral, name="admin geral"),
 ]

@@ -53,7 +53,8 @@
       }
 
       .chart-div.active {
-        display: block;
+        display: flex;
+        flex-direction: column;
       }
 
       canvas {
@@ -77,23 +78,28 @@
 
     <section id="chartContainer">
       <div id="gerais" class="chart-div active">
-        Estatísticas gerais
-        acessos
-        Compras
-        clientes
-        dados externos aqui tbm
+        <iframe frameBorder="0" src="/admin/geral" height="300"></iframe>
+        <h3>Dados externos</h3>
+        <form method="POST">
+          {% csrf_token %}
+          <div>
+            <input type="hidden" name="dados_externos" value="0">
+            <label for="teste">Investimentos em marketing:</label>
+            <input id="teste" name="investimentos" type="number">
+          </div>
+        </form>
       </div>
       <div id="produtos" class="chart-div">
-        Produtos
-        só uma lista de todos os produtos
+        <h1>Produtos</h1>
+        Criar uma tabelinha aqui
       </div>
       <div id="clientes" class="chart-div">
-        Clientes
-        lista de todos os clientes
+        <h1>Clientes</h1>>
+        tabelinha aqui também
       </div>
       <div id="kpis" class="chart-div">
-        lista de todos os kpis
-        atualiza automático?
+        <h1>KPIs</h1>
+        <h3>Acessos no mês:</h3>
       </div>
       <div id="importacao" class="chart-div">
         Importação e exportação

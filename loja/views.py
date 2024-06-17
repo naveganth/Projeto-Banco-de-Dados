@@ -10,6 +10,9 @@ from .models import *
 import uuid
 import time
 
+
+meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "dezembro"]
+
 def pega_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
@@ -312,4 +315,15 @@ def chart(request: HttpRequest):
     dados["lucro_por_signo"] = None
     
     return render(request, "loja/chart.html", {"dados": dados})
-    
+
+@xframe_options_exempt
+def admin_geral(request: HttpRequest):
+    dados = {}
+    hoje = date.today()
+    mes_atual = date.today().month
+    dados["acessos_hoje"] = Acesso.objects.filter(data__date=hoje).count()
+    dados["mes_atual"] = meses[mes_atual]
+    dados["acessos_mes"] = Acesso.objects.filter(data__month = mes_atual).count()
+    dados["compras_hoje"] = Compra.objects.filter(data__date = hoje).count()
+    dados["compras_mes"] = Compra.objects.filter(data__month = mes_atual).count()
+    return render(request, "loja/admin/geral.html", dados)
