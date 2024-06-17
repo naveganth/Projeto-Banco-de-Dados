@@ -16,4 +16,5 @@ urlpatterns = [
     path("apagar_usuario_1234567890", views.apagar_usuario, name="apagar usuário"),
     path("admin/geral", views.admin_geral, name="admin geral"),
     path("admin/produtos", views.admin_produtos, name="admin produto"),
+    path("admin/clientes", views.admin_clientes, name="admin clientes"),
 ]

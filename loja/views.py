@@ -333,3 +333,9 @@ def admin_produtos(request: HttpRequest):
     dados = {}
     dados["produtos"] = Produto.objects.all().order_by("id")
     return render(request, "loja/admin/produtos.html", dados)
+
+@xframe_options_exempt
+def admin_clientes(request: HttpRequest):
+    dados = {}
+    dados["clientes"] = Cliente.objects.all().order_by("usuario__id")
+    return render(request, "loja/admin/clientes.html", dados)
