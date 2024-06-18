@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpResponse, HttpRequest, JsonResponse
 from django.contrib.auth.models import User, UserManager
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.clickjacking import xframe_options_exempt
@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import *
 import uuid
 import time
+import ast
 
 
 meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "dezembro"]
@@ -339,3 +340,36 @@ def admin_clientes(request: HttpRequest):
     dados = {}
     dados["clientes"] = Cliente.objects.all().order_by("usuario__id")
     return render(request, "loja/admin/clientes.html", dados)
+
+@xframe_options_exempt
+def admin_kpis(request: HttpRequest):
+    dados = {}
+    mes_atual = date.today().month
+    dados["mes_atual"] = meses[mes_atual]
+    dados["visitantes_hoje"] = Acesso.objects.filter(data__date=date.today()).count()
+    dados["visitantes_mes"] = Acesso.objects.filter(data__month=date.today().month).count()
+    dados["vendas_hoje"] = Compra.objects.filter(data__date=date.today()).count()
+    dados["vendas_mes"] = Compra.objects.filter(data__month=date.today().month).count()
+    dados["conversao_hoje"] = ((dados["visitantes_hoje"] / dados["vendas_hoje"]) * 100) if dados["vendas_hoje"] else "0,0"
+    dados["conversao_mes"] = ((dados["visitantes_mes"] / dados["vendas_mes"]) * 100) if dados["vendas_mes"] else "0,0"
+    
+    total_mes = sum(x.preco for x in CompraProduto.objects.filter(compra__data__month=date.today().month))
+    total_hoje = sum(x.preco for x in CompraProduto.objects.filter(compra__data__date=date.today()))
+    config = Configuracoes.objects.get()
+    
+    dados["roi_mes"] = (total_mes - float(config.custo_geral)) / float(config.custo_geral) * 100
+    dados["cac_mes"] = (float(config.custo_geral) + float(config.orcamento_marketing)) / Cliente.objects.filter(criacao__month=date.today().month).count()
+    dados["ticket_medio_hoje"] = (total_hoje / dados["vendas_hoje"]) if dados["vendas_hoje"] else "0,0"
+    dados["ticket_medio_mes"] = (total_mes / dados["vendas_mes"]) if dados["vendas_mes"] else "0,0"
+    return render(request, "loja/admin/kpis.html", dados)
+
+# def exportar_produtos(request: HttpRequest):
+#     produtos = Produto.objects.all()
+#     retorno = {}
+#     for indice, produto in enumerate(produtos):
+#         treco = dict(produto.__dict__)
+#         del treco["_state"]
+#         retorno.update({indice: treco})
+#     print("Retorno:", retorno)
+#     return JsonResponse(retorno, safe=False)
+        

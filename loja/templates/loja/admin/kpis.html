@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="refresh" content="20">
+        <link rel="stylesheet" href="">
+        <style>
+            table th, table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                margin: 0px;
+                text-align: left;
+            }
+        </style>
+    </head>
+    <body style="display: flex; flex-direction: column;">
+        <span>Visitantes hoje: {{ visitantes_hoje }}</span>
+        <span>Visitantes {{ mes_atual }}: {{ visitantes_mes }}</span>
+        <span>Vendas hoje: {{ vendas_hoje }}</span>
+        <span>Vendas {{ mes_atual }}: {{ vendas_mes }}</span>
+        <span>Taxa de conversão hoje: {{ conversao_hoje }}%</span>
+        <span>Taxa de conversão {{ mes_atual }}: {{ conversao_mes }}%</span>
+        <span>ROI {{ mes_atual }}: {{ roi_mes }}%</span>
+        <span>CAC {{ mes_atual }}: R$ {{ cac_mes }}</span>
+        <span>Ticket Médio hoje: R$ {{ ticket_medio_hoje }}</span>
+        <span>Ticket Médio {{ mes_atual }}: R$ {{ ticket_medio_mes }}</span>
+    </body>
+</html>

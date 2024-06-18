@@ -1,6 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User
+from solo.models import SingletonModel
 
+class Configuracoes(SingletonModel):
+    orcamento_marketing = models.DecimalField(max_digits=20, decimal_places=4, blank=False, null=False, default=0.0)
+    custo_geral = models.DecimalField(max_digits=20, decimal_places=4, blank=False, null=False, default=0.0)
+
+    def __str__(self):
+        return "Configurações"
+
+    class Meta:
+        verbose_name = "Configurações"
+        
 class Acesso(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, null=True, unique=False)
     data = models.DateTimeField(auto_now_add=True, blank=False, null=False)
@@ -29,6 +40,7 @@ class Produto(models.Model):
         return f"Produto: {self.nome}"
 
 class Cliente(models.Model):
+    criacao = models.DateTimeField(auto_now_add=True, blank=False, null=False)
     nome = models.CharField(max_length=255, blank=False, null=False)
     usuario = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE, blank=False, null=False)
     nome = models.CharField(max_length=255, blank=False, null=False)
@@ -47,7 +59,7 @@ class Compra(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, blank=False, null=False)
     
     def __str__(self):
-        return f"Compra: {self.cliente}"
+        return f"Compra: {self.cliente}{self.id}"
     
 class CompraProduto(models.Model):
     compra = models.ForeignKey(Compra, on_delete=models.CASCADE, blank=False, null=False)
@@ -55,24 +67,8 @@ class CompraProduto(models.Model):
     quantidade = models.IntegerField(default=1, blank=False, null=False)
     
     def __str__(self):
-        return f"Produto de {self.compra} {str(self.produto)[:30]}... (qtd: {self.quantidade})"
+        return f"{self.id}Produto de {self.compra} {str(self.produto)[:30]}... (qtd: {self.quantidade})"
 
-# Não tamo usando
-# class NFE(models.Model):
-#     servico = models.CharField(max_length=255, blank=False, null=False)
-#     cnpj_empresa = models.CharField(max_length=255, blank=False, null=False)
-#     cod_municipio = models.CharField(max_length=255, blank=False, null=False)
-#     valor_liquido = models.DecimalField(max_digits=11, decimal_places=2, blank=False, null=False, default=0.0)
-#     pis = models.DecimalField(max_digits=11, decimal_places=2, blank=False, null=False, default=0.0)
-#     cofins = models.DecimalField(max_digits=11, decimal_places=2, blank=False, null=False, default=0.0)
-#     ir = models.DecimalField(max_digits=11, decimal_places=2, blank=False, null=False, default=0.0)
-#     csll = models.DecimalField(max_digits=11, decimal_places=2, blank=False, null=False, default=0.0)
-#     iss = models.DecimalField(max_digits=11, decimal_places=2, blank=False, null=False, default=0.0)
-#     desconto = models.DecimalField(max_digits=11, decimal_places=2, blank=False, null=False, default=0.0)
-#     compra = models.ForeignKey(Compra, on_delete=models.CASCADE, blank=False, null=False)
-    
-#     def __str__(self):
-#         return f"Nota fiscal: Compra: {self.compra}"
 
 class Rastreio(models.Model):
     codigo = models.CharField(max_length=255, blank=False, null=False)

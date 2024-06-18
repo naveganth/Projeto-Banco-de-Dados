@@ -32,6 +32,7 @@ CSRF_TRUSTED_ORIGINS = ["http://*.com", "https://*.com"]
 # Application definition
 
 INSTALLED_APPS = [
+    'solo.apps.SoloAppConfig',
     'loja.apps.LojaConfig',
     'django.contrib.admin',
     'django.contrib.auth',
