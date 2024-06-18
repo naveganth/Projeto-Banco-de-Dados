@@ -18,4 +18,5 @@ urlpatterns = [
     path("admin/produtos", views.admin_produtos, name="admin produto"),
     path("admin/clientes", views.admin_clientes, name="admin clientes"),
     path("admin/kpis", views.admin_kpis, name="admin kpis"),
+    path("admin/importacao", views.admin_importacao, name="admin importação"),
 ]

@@ -305,17 +305,25 @@ def termos(request: HttpRequest):
     return render(request, "loja/terms.html", {})
 
 def chart(request: HttpRequest):
-    dados = {}
-    dados["compras_por_mes_totais"] = None
-    dados["compras_por_estado"] = None
-    dados["lucros_totais_por_mes"] = None
-    dados["lucro_por_estado"] = None
-    dados["compras_por_sexo"] = None
-    dados["compras_por_nascimento"] = None
-    dados["compras_por_idade"] = None
-    dados["lucro_por_signo"] = None
-    
-    return render(request, "loja/chart.html", {"dados": dados})
+    user = request.user
+    print("Tentando acessar menu admin")
+    print("Usuário:", user)
+    print("Grupos", user.groups.all())
+    print("Admin lá dentro:", user.groups.filter(name = "admin").exists() )
+    if user.is_authenticated and user.groups.filter(name = "admin").exists():
+        dados = {}
+        dados["compras_por_mes_totais"] = None
+        dados["compras_por_estado"] = None
+        dados["lucros_totais_por_mes"] = None
+        dados["lucro_por_estado"] = None
+        dados["compras_por_sexo"] = None
+        dados["compras_por_nascimento"] = None
+        dados["compras_por_idade"] = None
+        dados["lucro_por_signo"] = None
+        
+        return render(request, "loja/chart.html", {"dados": dados})
+    else:
+        return redirect("/")
 
 @xframe_options_exempt
 def admin_geral(request: HttpRequest):
@@ -363,13 +371,8 @@ def admin_kpis(request: HttpRequest):
     dados["ticket_medio_mes"] = (total_mes / dados["vendas_mes"]) if dados["vendas_mes"] else "0,0"
     return render(request, "loja/admin/kpis.html", dados)
 
-# def exportar_produtos(request: HttpRequest):
-#     produtos = Produto.objects.all()
-#     retorno = {}
-#     for indice, produto in enumerate(produtos):
-#         treco = dict(produto.__dict__)
-#         del treco["_state"]
-#         retorno.update({indice: treco})
-#     print("Retorno:", retorno)
-#     return JsonResponse(retorno, safe=False)
+@xframe_options_exempt
+def admin_importacao(request: HttpRequest):
+    dados = {}
+    return render(request, "loja/admin/importacao.html", dados)
         
