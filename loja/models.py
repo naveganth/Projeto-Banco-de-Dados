@@ -69,7 +69,6 @@ class CompraProduto(models.Model):
     def __str__(self):
         return f"{self.id}Produto de {self.compra} {str(self.produto)[:30]}... (qtd: {self.quantidade})"
 
-
 class Rastreio(models.Model):
     codigo = models.CharField(max_length=255, blank=False, null=False)
     transportadora = models.CharField(max_length=255, blank=False, null=False)

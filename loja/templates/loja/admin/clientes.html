@@ -32,7 +32,7 @@
                 {% for cliente in clientes %}
                 <tr>
                     <td>{{cliente.nome}}</td>
-                    <td>{{cliente.cpf}}</td>
+                    <td>{% for _ in cliente.cpf%}*{% endfor %}</td>
                     <td>{{cliente.nascimento}}</td>
                     <td>{{cliente.idade}}</td>
                     <td>{{cliente.endereco}}</td>
