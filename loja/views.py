@@ -380,8 +380,8 @@ def admin_kpis(request: HttpRequest):
     dados["conversao_hoje"] = ((dados["visitantes_hoje"] / dados["vendas_hoje"]) * 100) if dados["vendas_hoje"] else "0,0"
     dados["conversao_mes"] = ((dados["visitantes_mes"] / dados["vendas_mes"]) * 100) if dados["vendas_mes"] else "0,0"
     
-    total_mes = sum(x.preco for x in CompraProduto.objects.filter(compra__data__month=date.today().month))
-    total_hoje = sum(x.preco for x in CompraProduto.objects.filter(compra__data__date=date.today()))
+    total_mes = float(sum(x.produto.preco for x in CompraProduto.objects.filter(compra__data__month=date.today().month)))
+    total_hoje = float(sum(x.produto.preco for x in CompraProduto.objects.filter(compra__data__date=date.today())))
     config = Configuracoes.objects.get()
     
     dados["roi_mes"] = (total_mes - float(config.custo_geral)) / float(config.custo_geral) * 100
@@ -396,8 +396,6 @@ def admin_kpis(request: HttpRequest):
     grafico_visitantes = []
     grafico_vendas = []
     grafico_conversao = []
-    grafico_roi = []
-    grafico_cac = []
     grafico_ticket = []
     
     config = Configuracoes.objects.get()
@@ -414,7 +412,7 @@ def admin_kpis(request: HttpRequest):
         
         grafico_conversao.append(((visitantes / vendas) * 100) if vendas else "0.0")
         
-        receita = sum(x.preco for x in CompraProduto.objects.filter(compra__data__date=data))
+        receita = float(sum(x.produto.preco for x in CompraProduto.objects.filter(compra__data__date=data)))
         grafico_ticket.append((receita / vendas) if vendas else "0.0")
         
     
