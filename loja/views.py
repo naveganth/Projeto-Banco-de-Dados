@@ -3,10 +3,12 @@ from django.http import HttpResponse, HttpRequest, JsonResponse
 from django.contrib.auth.models import User, UserManager
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.clickjacking import xframe_options_exempt
-from datetime import date
+from datetime import date, timedelta
 from dateutils import relativedelta
 from django.views.decorators.csrf import csrf_exempt
+from django.core.serializers.json import DjangoJSONEncoder
 from .models import *
+import json
 import uuid
 import time
 import ast
@@ -335,6 +337,27 @@ def admin_geral(request: HttpRequest):
     dados["acessos_mes"] = Acesso.objects.filter(data__month = mes_atual).count()
     dados["compras_hoje"] = Compra.objects.filter(data__date = hoje).count()
     dados["compras_mes"] = Compra.objects.filter(data__month = mes_atual).count()
+    
+    dias_grafico = 30
+    data_grafico_inicio = date.today() - timedelta(days=dias_grafico)
+    
+    grafico_labels = []
+    grafico_acessos = []
+    grafico_compras = []
+    
+    for i in range(dias_grafico + 1):
+        data = data_grafico_inicio + timedelta(days=i)
+        grafico_acessos.append(Acesso.objects.filter(data__date=data).count())
+        grafico_compras.append(Compra.objects.filter(data__date=data).count())
+        grafico_labels.append(str(data))
+    
+    print("Datas:", grafico_labels)
+    print("Dados de acessos", grafico_acessos)
+    print("Dados de compras", grafico_compras)
+    
+    dados["labels"] = json.dumps(list(grafico_labels), cls=DjangoJSONEncoder)
+    dados["grafico_acessos"] = grafico_acessos
+    dados["grafico_compras"] = grafico_compras
     return render(request, "loja/admin/geral.html", dados)
 
 @xframe_options_exempt

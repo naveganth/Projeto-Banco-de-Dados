@@ -7,15 +7,107 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="refresh" content="5">
-        <link rel="stylesheet" href="">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     </head>
     <body style="display: flex; flex-direction: column">
         <h1 style="margin-bottom: 0px">Geral</h1>
-        <h3>Acessos</h3>
-        <span>hoje: {{ acessos_hoje }}</span>
-        <span>{{ mes_atual }}: {{ acessos_mes }}</span>
-        <h3>Compras</h3>
-        <span>hoje: {{ compras_hoje}}</span>
-        <span>{{ mes_atual }}: {{ compras_mes }}</span>
+        <div style="display: flex; flex-direction: row;">
+            <div>
+                <h3>Acessos</h3>
+                <span>hoje: {{ acessos_hoje }}</span>
+                <span>{{ mes_atual }}: {{ acessos_mes }}</span>
+            </div>
+            <div style="margin-left: 3rem;">
+                <h3>Compras</h3>
+                <span>hoje: {{ compras_hoje}}</span>
+                <span>{{ mes_atual }}: {{ compras_mes }}</span>
+            </div>
+        </div>
+        <div style="display:flex; flex-direction: row; max-width: 600px;">
+            <canvas id="grafico-acessos"></canvas>
+            <canvas id="grafico-compras"></canvas>
+        </div>
     </body>
 </html>
+<script>
+    var labels = {{ labels|safe  }};
+    var acessos_data = {{ grafico_acessos|safe }};
+    var compras_data = {{ grafico_compras|safe }};
+
+    var grafico_acessos = document.getElementById('grafico-acessos').getContext('2d');
+    var grafico_compras = document.getElementById('grafico-compras').getContext('2d');
+
+    new Chart(grafico_acessos, {
+      type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Acessos',
+            data: acessos_data,
+            backgroundColor: 'rgba(255, 255, 0, 0.8)',
+            borderColor: 'black',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          animation: {
+              duration: 0
+          },
+          legend: {
+            labels: {
+              fontSize: 30
+            }
+          },
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+                fontSize: 18
+              }
+            }],
+            xAxes: [{
+              ticks: {
+                fontSize: 18
+              }
+            }]
+          }
+        }
+      });
+    
+    new Chart(grafico_compras, {
+        type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Compras',
+              data: compras_data,
+              backgroundColor: 'rgba(0, 255, 255, 0.8)',
+              borderColor: 'black',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            animation: {
+                duration: 0
+            },
+            legend: {
+              labels: {
+                fontSize: 30
+              }
+            },
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  fontSize: 18
+                }
+              }],
+              xAxes: [{
+                ticks: {
+                  fontSize: 18
+                }
+              }]
+            }
+          }
+        });
+</script>
