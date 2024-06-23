@@ -147,6 +147,7 @@ def signin(request: HttpRequest):
         cpf = request.POST.get("cpf")
         email = request.POST.get("email")
         senha = request.POST.get("senha")
+        endereco = request.POST.get("endereco")
         
         print("dados do POST:", request.POST)
         
@@ -166,6 +167,7 @@ def signin(request: HttpRequest):
                     sexo=sexo,
                     idade=idade.years,
                     nome=nome,
+                    endereco=endereco
                 )
                 novo_cliente.save()
                 login(request, novo_usuario)
