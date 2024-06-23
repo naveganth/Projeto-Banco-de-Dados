@@ -280,6 +280,7 @@ def cart(request: HttpRequest):
                                 produto=carrinho.produto,
                                 quantidade=carrinho.quantidade
                             ).save()
+                            
                             carrinho.delete()
                 case _:
                     pass
