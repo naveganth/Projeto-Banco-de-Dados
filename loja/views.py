@@ -380,8 +380,8 @@ def admin_kpis(request: HttpRequest):
     dados["visitantes_mes"] = Acesso.objects.filter(data__month=date.today().month).count()
     dados["vendas_hoje"] = Compra.objects.filter(data__date=date.today()).count()
     dados["vendas_mes"] = Compra.objects.filter(data__month=date.today().month).count()
-    dados["conversao_hoje"] = ((dados["visitantes_hoje"] / dados["vendas_hoje"]) * 100) if dados["vendas_hoje"] else "0,0"
-    dados["conversao_mes"] = ((dados["visitantes_mes"] / dados["vendas_mes"]) * 100) if dados["vendas_mes"] else "0,0"
+    dados["conversao_hoje"] = ((dados["vendas_hoje"] / dados["visitantes_hoje"]) * 100) if dados["vendas_hoje"] else 0.0
+    dados["conversao_mes"] = ((dados["vendas_mes"] / dados["visitantes_mes"]) * 100) if dados["vendas_mes"] else 0.0
     
     total_mes = float(sum(x.produto.preco for x in CompraProduto.objects.filter(compra__data__month=date.today().month)))
     total_hoje = float(sum(x.produto.preco for x in CompraProduto.objects.filter(compra__data__date=date.today())))
@@ -389,8 +389,8 @@ def admin_kpis(request: HttpRequest):
     
     dados["roi_mes"] = (total_mes - float(config.custo_geral)) / float(config.custo_geral) * 100
     dados["cac_mes"] = (float(config.custo_geral) + float(config.orcamento_marketing)) / Cliente.objects.filter(criacao__month=date.today().month).count()
-    dados["ticket_medio_hoje"] = (total_hoje / dados["vendas_hoje"]) if dados["vendas_hoje"] else "0,0"
-    dados["ticket_medio_mes"] = (total_mes / dados["vendas_mes"]) if dados["vendas_mes"] else "0,0"
+    dados["ticket_medio_hoje"] = (total_hoje / dados["vendas_hoje"]) if dados["vendas_hoje"] else 0.0
+    dados["ticket_medio_mes"] = (total_mes / dados["vendas_mes"]) if dados["vendas_mes"] else 0.0
     
     dias_grafico = 30
     data_grafico_inicio = date.today() - timedelta(days=dias_grafico)
@@ -413,12 +413,13 @@ def admin_kpis(request: HttpRequest):
         vendas = Compra.objects.filter(data__date=data).count()
         grafico_vendas.append(vendas)
         
-        grafico_conversao.append(((visitantes / vendas) * 100) if vendas else "0.0")
+        grafico_conversao.append(((vendas / visitantes) * 100) if vendas else 0.0)
         
         receita = float(sum(x.produto.preco for x in CompraProduto.objects.filter(compra__data__date=data)))
-        grafico_ticket.append((receita / vendas) if vendas else "0.0")
+        grafico_ticket.append((receita / vendas) if vendas else 0.0)
         
-    
+    print("Labels:", grafico_labels)
+    print("Taxa deconversão:", grafico_conversao)
     dados["labels"] = json.dumps(list(grafico_labels), cls=DjangoJSONEncoder)
     dados["grafico_visitantes"] = json.dumps(list(grafico_visitantes), cls=DjangoJSONEncoder)
     dados["grafico_vendas"] = json.dumps(list(grafico_vendas), cls=DjangoJSONEncoder)

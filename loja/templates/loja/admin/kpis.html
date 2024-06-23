@@ -59,6 +59,12 @@
     var conversao_data = {{ grafico_conversao|safe }};
     var ticket_data = {{ grafico_ticket|safe }};
 
+    console.log("Labels:", labels);
+    console.log("Visitantes:", visitantes_data);
+    console.log("Vendas:", vendas_data);
+    console.log("Conversão:", conversao_data);
+    console.log("Ticket:", ticket_data)
+
     var grafico_visitantes = document.getElementById('grafico-visitantes').getContext('2d');
     var grafico_vendas = document.getElementById('grafico-vendas').getContext('2d');
     var grafico_conversao = document.getElementById('grafico-conversao').getContext('2d');
@@ -143,7 +149,7 @@
         labels: labels,
         datasets: [{
             label: 'Taxa de conversão',
-            data: grafico_conversao,
+            data: conversao_data,
             backgroundColor: 'rgba(255, 0, 255, 0.8)',
             borderColor: 'black',
             borderWidth: 1
