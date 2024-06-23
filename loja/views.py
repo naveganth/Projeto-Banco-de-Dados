@@ -351,13 +351,9 @@ def admin_geral(request: HttpRequest):
         grafico_compras.append(Compra.objects.filter(data__date=data).count())
         grafico_labels.append(str(data))
     
-    print("Datas:", grafico_labels)
-    print("Dados de acessos", grafico_acessos)
-    print("Dados de compras", grafico_compras)
-    
     dados["labels"] = json.dumps(list(grafico_labels), cls=DjangoJSONEncoder)
-    dados["grafico_acessos"] = grafico_acessos
-    dados["grafico_compras"] = grafico_compras
+    dados["grafico_acessos"] = json.dumps(grafico_acessos, cls=DjangoJSONEncoder)
+    dados["grafico_compras"] = json.dumps(grafico_compras, cls=DjangoJSONEncoder)
     return render(request, "loja/admin/geral.html", dados)
 
 @xframe_options_exempt
@@ -392,6 +388,42 @@ def admin_kpis(request: HttpRequest):
     dados["cac_mes"] = (float(config.custo_geral) + float(config.orcamento_marketing)) / Cliente.objects.filter(criacao__month=date.today().month).count()
     dados["ticket_medio_hoje"] = (total_hoje / dados["vendas_hoje"]) if dados["vendas_hoje"] else "0,0"
     dados["ticket_medio_mes"] = (total_mes / dados["vendas_mes"]) if dados["vendas_mes"] else "0,0"
+    
+    dias_grafico = 30
+    data_grafico_inicio = date.today() - timedelta(days=dias_grafico)
+    
+    grafico_labels = []
+    grafico_visitantes = []
+    grafico_vendas = []
+    grafico_conversao = []
+    grafico_roi = []
+    grafico_cac = []
+    grafico_ticket = []
+    
+    config = Configuracoes.objects.get()
+    
+    for i in range(dias_grafico + 1):
+        data = data_grafico_inicio + timedelta(days=i)
+        grafico_labels.append(str(data))
+        
+        visitantes = Acesso.objects.filter(data__date=data).count()
+        grafico_visitantes.append(visitantes)
+        
+        vendas = Compra.objects.filter(data__date=data).count()
+        grafico_vendas.append(vendas)
+        
+        grafico_conversao.append(((visitantes / vendas) * 100) if vendas else "0.0")
+        
+        receita = sum(x.preco for x in CompraProduto.objects.filter(compra__data__date=data))
+        grafico_ticket.append((receita / vendas) if vendas else "0.0")
+        
+    
+    dados["labels"] = json.dumps(list(grafico_labels), cls=DjangoJSONEncoder)
+    dados["grafico_visitantes"] = json.dumps(list(grafico_visitantes), cls=DjangoJSONEncoder)
+    dados["grafico_vendas"] = json.dumps(list(grafico_vendas), cls=DjangoJSONEncoder)
+    dados["grafico_conversao"] = json.dumps(list(grafico_conversao), cls=DjangoJSONEncoder)
+    dados["grafico_ticket"] = json.dumps(list(grafico_ticket), cls=DjangoJSONEncoder)
+    
     return render(request, "loja/admin/kpis.html", dados)
 
 @xframe_options_exempt

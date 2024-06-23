@@ -7,7 +7,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="refresh" content="20">
-        <link rel="stylesheet" href="">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
         <style>
             table th, table td {
                 border: 1px solid #ddd;
@@ -18,15 +18,196 @@
         </style>
     </head>
     <body style="display: flex; flex-direction: column;">
-        <span>Visitantes hoje: {{ visitantes_hoje }}</span>
-        <span>Visitantes {{ mes_atual }}: {{ visitantes_mes }}</span>
-        <span>Vendas hoje: {{ vendas_hoje }}</span>
-        <span>Vendas {{ mes_atual }}: {{ vendas_mes }}</span>
-        <span>Taxa de conversão hoje: {{ conversao_hoje }}%</span>
-        <span>Taxa de conversão {{ mes_atual }}: {{ conversao_mes }}%</span>
-        <span>ROI {{ mes_atual }}: {{ roi_mes }}%</span>
-        <span>CAC {{ mes_atual }}: R$ {{ cac_mes }}</span>
-        <span>Ticket Médio hoje: R$ {{ ticket_medio_hoje }}</span>
-        <span>Ticket Médio {{ mes_atual }}: R$ {{ ticket_medio_mes }}</span>
+        <div style="display: flex; flex-direction: row;">
+            <div style="display: flex; flex-direction: column;">
+                <span>Visitantes hoje: {{ visitantes_hoje }}</span>
+                <span>Visitantes {{ mes_atual }}: {{ visitantes_mes }}</span>
+            </div>
+            <div style="display: flex; flex-direction: column; margin-left: 3rem;">
+                <span>Vendas hoje: {{ vendas_hoje }}</span>
+                <span>Vendas {{ mes_atual }}: {{ vendas_mes }}</span>
+            </div>
+            <div style="display: flex; flex-direction: column; margin-left: 3rem;">
+                <span>Taxa de conversão hoje: {{ conversao_hoje }}%</span>
+                <span>Taxa de conversão {{ mes_atual }}: {{ conversao_mes }}%</span>
+            </div>
+            <div style="display: flex; flex-direction: column; margin-left: 3rem;">
+                <span>Ticket Médio hoje: R$ {{ ticket_medio_hoje }}</span>
+                <span>Ticket Médio {{ mes_atual }}: R$ {{ ticket_medio_mes }}</span>
+            </div>
+            <div style="display: flex; flex-direction: column; margin-left: 3rem;">
+                <span>ROI {{ mes_atual }}: {{ roi_mes }}%</span>
+                <span>CAC {{ mes_atual }}: R$ {{ cac_mes }}</span>
+            </div>
+
+        </div>
+        <div style="display:flex; flex-direction: row; max-width: 600px;">
+            <canvas id="grafico-visitantes"></canvas>
+            <canvas id="grafico-vendas"></canvas>
+        </div>
+        <div style="display:flex; flex-direction: row; max-width: 600px;">
+            <canvas id="grafico-conversao"></canvas>
+            <canvas id="grafico-ticket"></canvas>
+        </div>
+        
     </body>
 </html>
+<script>
+    var labels = {{ labels|safe }};
+    var visitantes_data = {{ grafico_visitantes|safe }};
+    var vendas_data = {{ grafico_vendas|safe }};
+    var conversao_data = {{ grafico_conversao|safe }};
+    var ticket_data = {{ grafico_ticket|safe }};
+
+    var grafico_visitantes = document.getElementById('grafico-visitantes').getContext('2d');
+    var grafico_vendas = document.getElementById('grafico-vendas').getContext('2d');
+    var grafico_conversao = document.getElementById('grafico-conversao').getContext('2d');
+    var grafico_ticket = document.getElementById('grafico-ticket').getContext('2d');
+
+    new Chart(grafico_visitantes, {
+        type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Visitantes',
+              data: visitantes_data,
+              backgroundColor: 'rgba(255, 255, 0, 0.8)',
+              borderColor: 'black',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            animation: {
+                duration: 0
+            },
+            legend: {
+              labels: {
+                fontSize: 30
+              }
+            },
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  fontSize: 18
+                }
+              }],
+              xAxes: [{
+                ticks: {
+                  fontSize: 18
+                }
+              }]
+            }
+          }
+        });
+      
+    new Chart(grafico_vendas, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+            label: 'Vendas',
+            data: vendas_data,
+            backgroundColor: 'rgba(0, 255, 255, 0.8)',
+            borderColor: 'black',
+            borderWidth: 1
+            }]
+        },
+        options: {
+            animation: {
+                duration: 0
+            },
+            legend: {
+            labels: {
+                fontSize: 30
+            }
+            },
+            scales: {
+            yAxes: [{
+                ticks: {
+                beginAtZero: true,
+                fontSize: 18
+                }
+            }],
+            xAxes: [{
+                ticks: {
+                fontSize: 18
+                }
+            }]
+            }
+        }
+        });
+    new Chart(grafico_conversao, {
+    type: 'bar',
+        data: {
+        labels: labels,
+        datasets: [{
+            label: 'Conversão',
+            data: grafico_conversao,
+            backgroundColor: 'rgba(255, 0, 255, 0.8)',
+            borderColor: 'black',
+            borderWidth: 1
+        }]
+        },
+        options: {
+        animation: {
+            duration: 0
+        },
+        legend: {
+            labels: {
+            fontSize: 30
+            }
+        },
+        scales: {
+            yAxes: [{
+            ticks: {
+                beginAtZero: true,
+                fontSize: 18
+            }
+            }],
+            xAxes: [{
+            ticks: {
+                fontSize: 18
+            }
+            }]
+        }
+        }
+    });
+    
+    new Chart(grafico_ticket, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+            label: 'Ticket',
+            data: ticket_data,
+            backgroundColor: 'rgba(0, 255, 0, 0.8)',
+            borderColor: 'black',
+            borderWidth: 1
+            }]
+        },
+        options: {
+            animation: {
+                duration: 0
+            },
+            legend: {
+            labels: {
+                fontSize: 30
+            }
+            },
+            scales: {
+            yAxes: [{
+                ticks: {
+                beginAtZero: true,
+                fontSize: 18
+                }
+            }],
+            xAxes: [{
+                ticks: {
+                fontSize: 18
+                }
+            }]
+            }
+        }
+        });
+</script>
