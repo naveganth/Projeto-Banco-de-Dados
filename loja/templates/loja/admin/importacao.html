@@ -10,12 +10,24 @@
     </head>
     <body style="display: flex; flex-direction: column">
         <h1>Importação</h1>
-        <h3>Produtos</h3>
-        <input type="file">
-        <h3>Clientes</h3>
-        <input type="file">
-        <h3>Compras</h3>
-        <input type="file">
+        
+        <form method="post" enctype="multipart/form-data">
+            <div style="display: flex; flex-direction: row; align-items: center;">
+                <div style="margin-left: 1rem;">
+                    <h3>Clientes</h3>
+                    <input type="file" name="cliente">
+                </div>
+                <div style="margin-left: 1rem;">
+                    <h3>Compras</h3>
+                    <input type="file" name="compra">
+                </div>
+                <div style="margin-left: 1rem;">
+                    <h3>Produtos</h3>
+                    <input type="file" name="produto">
+                </div>
+                <button style="margin-left: 1rem; height: 2rem;">Importar</button>
+            </div>
+        </form>
 
         <h1>Exportação</h1>
         <h3>Produtos</h3>

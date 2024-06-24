@@ -8,6 +8,7 @@ from dateutils import relativedelta
 from django.views.decorators.csrf import csrf_exempt
 from django.core.serializers.json import DjangoJSONEncoder
 from .models import *
+import pandas as pd
 import json
 import uuid
 import time
@@ -418,8 +419,6 @@ def admin_kpis(request: HttpRequest):
         receita = float(sum(x.produto.preco for x in CompraProduto.objects.filter(compra__data__date=data)))
         grafico_ticket.append((receita / vendas) if vendas else 0.0)
         
-    print("Labels:", grafico_labels)
-    print("Taxa deconversão:", grafico_conversao)
     dados["labels"] = json.dumps(list(grafico_labels), cls=DjangoJSONEncoder)
     dados["grafico_visitantes"] = json.dumps(list(grafico_visitantes), cls=DjangoJSONEncoder)
     dados["grafico_vendas"] = json.dumps(list(grafico_vendas), cls=DjangoJSONEncoder)
@@ -429,7 +428,89 @@ def admin_kpis(request: HttpRequest):
     return render(request, "loja/admin/kpis.html", dados)
 
 @xframe_options_exempt
+@csrf_exempt
 def admin_importacao(request: HttpRequest):
+    if request.method == "POST":
+        print("POST:", request.POST)
+        print("FILES:", request.FILES)
+        
+        arquivo = request.FILES.get("cliente")
+        if arquivo:
+            print("Arquivo recebido:", arquivo)
+            match arquivo.name.split(".")[-1]:
+                case "json":
+                    print("Clientes é JSON")
+                    df = pd.read_json(arquivo)
+                    print("DATAFRAME RESGATADO:")
+                    print(df)
+                    for i in df.values:
+                        nome = i[0]
+                        email = i[1]
+                        endereco = i[2]
+                        cpf = i[4]
+                        nascimento = i[5]
+                        idade = i[6]
+                        sexo = i[7]
+                        
+                        Cliente.objects.create(
+                            nome=nome,
+                            usuario=User.objects.create_user(email, email , "123"),
+                            endereco=endereco,
+                            cpf=cpf,
+                            nascimento=nascimento,
+                            idade=idade,
+                            sexo=sexo,
+                            aceitou_cookies=True,
+                        )
+                case "xml":
+                    print("Clientes é XML")
+                    df = pd.read_xml(arquivo)
+                    print("DATAFRAME RESGATADO:")
+                    print(df)
+                    for i in df.values:
+                        nome = i[1]
+                        email = i[2]
+                        endereco = i[3]
+                        cpf = i[5]
+                        nascimento = i[6]
+                        idade = i[7]
+                        sexo = i[8]
+                        
+                        Cliente.objects.create(
+                            nome=nome,
+                            usuario=User.objects.create_user(email, email , "123"),
+                            endereco=endereco,
+                            cpf=cpf,
+                            nascimento=nascimento,
+                            idade=idade,
+                            sexo=sexo,
+                            aceitou_cookies=True,
+                        )
+                        
+                case "csv":
+                    print("Clientes é CSV")
+                    df = pd.read_csv(arquivo)
+                    print("DATAFRAME RESGATADO:")
+                    print(df)
+                    for i in df.values:
+                        nome = i[0]
+                        email = i[1]
+                        endereco = i[2]
+                        cpf = i[4]
+                        nascimento = i[5]
+                        idade = i[6]
+                        sexo = i[7]
+                        
+                        Cliente.objects.create(
+                            nome=nome,
+                            usuario=User.objects.create_user(email, email , "123"),
+                            endereco=endereco,
+                            cpf=cpf,
+                            nascimento=nascimento,
+                            idade=idade,
+                            sexo=sexo,
+                            aceitou_cookies=True,
+                        )
     dados = {}
     return render(request, "loja/admin/importacao.html", dados)
         

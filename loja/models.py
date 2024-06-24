@@ -43,7 +43,6 @@ class Cliente(models.Model):
     criacao = models.DateTimeField(auto_now_add=True, blank=False, null=False)
     nome = models.CharField(max_length=255, blank=False, null=False)
     usuario = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE, blank=False, null=False)
-    nome = models.CharField(max_length=255, blank=False, null=False)
     endereco = models.CharField(max_length=255, blank=False, null=False)
     cpf = models.CharField(max_length=15, blank=False, null=False)
     nascimento = models.DateField(blank=False, null=False)
