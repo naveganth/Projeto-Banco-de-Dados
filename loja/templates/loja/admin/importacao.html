@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,17 +27,15 @@
         </form>
 
         <h1>Exportação</h1>
-        <h3>Produtos</h3>
-        <div>
-            <button>Exportar produtos</button>
-        </div>
-        <h3>Clientes</h3>
-        <div>
-            <button>Exportar produtos</button>
-        </div>
-        <h3>Compras</h3>
-        <div>
-            <button>Exportar produtos</button>
+        <div style="display: flex; flex-direction: row">
+            <div style="display: flex; flex-direction: column">
+                <h3>Produtos</h3>
+                <a href="{% static 'loja/backup/produtos.csv' %}" download>Exportar produtos</a>
+            </div>
+            <div style="display: flex; flex-direction: column; margin-left: 3rem;">
+                <h3>Clientes</h3>
+                <a href="{% static 'loja/backup/clientes.csv' %}" download>Exportar produtos</a>
+            </div>
         </div>
     </body>
 </html>
