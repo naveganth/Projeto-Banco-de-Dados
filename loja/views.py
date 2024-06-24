@@ -317,16 +317,20 @@ def chart(request: HttpRequest):
     print("Grupos", user.groups.all())
     print("Admin lá dentro:", user.groups.filter(name = "admin").exists() )
     if user.is_authenticated and user.groups.filter(name = "admin").exists():
-        dados = {}
-        dados["compras_por_mes_totais"] = None
-        dados["compras_por_estado"] = None
-        dados["lucros_totais_por_mes"] = None
-        dados["lucro_por_estado"] = None
-        dados["compras_por_sexo"] = None
-        dados["compras_por_nascimento"] = None
-        dados["compras_por_idade"] = None
-        dados["lucro_por_signo"] = None
         
+        if request.method == "POST":
+            marketing = request.POST.get("marketing")
+            despesas = request.POST.get("despesas")
+            config = Configuracoes.objects.get()
+            
+            try:
+                config.orcamento_marketing = float(marketing)
+                config.custo_geral = float(despesas)
+                config.save()
+            except ValueError:
+                print("Valor deu ruim aqui")
+            
+        dados = {}
         return render(request, "loja/chart.html", {"dados": dados})
     else:
         return redirect("/")
@@ -434,13 +438,13 @@ def admin_importacao(request: HttpRequest):
         print("POST:", request.POST)
         print("FILES:", request.FILES)
         
-        arquivo = request.FILES.get("cliente")
-        if arquivo:
-            print("Arquivo recebido:", arquivo)
-            match arquivo.name.split(".")[-1]:
+        arquivo_cliente = request.FILES.get("cliente")
+        if arquivo_cliente:
+            print("Arquivo recebido:", arquivo_cliente)
+            match arquivo_cliente.name.split(".")[-1]:
                 case "json":
                     print("Clientes é JSON")
-                    df = pd.read_json(arquivo)
+                    df = pd.read_json(arquivo_cliente)
                     print("DATAFRAME RESGATADO:")
                     print(df)
                     for i in df.values:
@@ -464,7 +468,7 @@ def admin_importacao(request: HttpRequest):
                         )
                 case "xml":
                     print("Clientes é XML")
-                    df = pd.read_xml(arquivo)
+                    df = pd.read_xml(arquivo_cliente)
                     print("DATAFRAME RESGATADO:")
                     print(df)
                     for i in df.values:
@@ -489,7 +493,7 @@ def admin_importacao(request: HttpRequest):
                         
                 case "csv":
                     print("Clientes é CSV")
-                    df = pd.read_csv(arquivo)
+                    df = pd.read_csv(arquivo_cliente)
                     print("DATAFRAME RESGATADO:")
                     print(df)
                     for i in df.values:

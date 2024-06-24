@@ -83,8 +83,11 @@
           {% csrf_token %}
           <div>
             <input type="hidden" name="dados_externos" value="0">
-            <label for="teste">Investimentos em marketing:</label>
-            <input id="teste" name="investimentos" type="number">
+            <label for="marketing">Orçamento de marketing:</label>
+            <input id="marketing" name="marketing" type="text" placeholder="00.00" style="width: 7rem;" pattern="^\d*(\.\d{0,2})?$">
+            <label for="geral">Despesas gerais:</label>
+            <input id="geral" name="despesas" type="text" placeholder="00.00" style="width: 7rem;" pattern="^\d*(\.\d{0,2})?$">
+            <button>Atualizar</button>
           </div>
         </form>
       </div>

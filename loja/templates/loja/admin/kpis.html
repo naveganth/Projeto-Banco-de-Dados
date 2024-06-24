@@ -28,16 +28,16 @@
                 <span>Vendas {{ mes_atual }}: {{ vendas_mes }}</span>
             </div>
             <div style="display: flex; flex-direction: column; margin-left: 3rem;">
-                <span>Taxa de conversão hoje: {{ conversao_hoje }}%</span>
-                <span>Taxa de conversão {{ mes_atual }}: {{ conversao_mes }}%</span>
+                <span>Taxa de conversão hoje: {{ conversao_hoje|stringformat:".2f" }}%</span>
+                <span>Taxa de conversão {{ mes_atual }}: {{ conversao_mes|stringformat:".2f" }}%</span>
             </div>
             <div style="display: flex; flex-direction: column; margin-left: 3rem;">
-                <span>Ticket Médio hoje: R$ {{ ticket_medio_hoje }}</span>
-                <span>Ticket Médio {{ mes_atual }}: R$ {{ ticket_medio_mes }}</span>
+                <span>Ticket Médio hoje: R$ {{ ticket_medio_hoje|stringformat:".2f" }}</span>
+                <span>Ticket Médio {{ mes_atual }}: R$ {{ ticket_medio_mes|stringformat:".2f" }}</span>
             </div>
             <div style="display: flex; flex-direction: column; margin-left: 3rem;">
-                <span>ROI {{ mes_atual }}: {{ roi_mes }}%</span>
-                <span>CAC {{ mes_atual }}: R$ {{ cac_mes }}</span>
+                <span>ROI {{ mes_atual }}: {{ roi_mes|stringformat:".2f" }}%</span>
+                <span>CAC {{ mes_atual }}: R$ {{ cac_mes|stringformat:".2f" }}</span>
             </div>
 
         </div>
