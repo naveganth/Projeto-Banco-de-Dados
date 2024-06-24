@@ -515,6 +515,92 @@ def admin_importacao(request: HttpRequest):
                             sexo=sexo,
                             aceitou_cookies=True,
                         )
+
+        arquivo_produtos = request.FILES.get("produto")
+        if arquivo_produtos:
+            print("Arquivo recebido:", arquivo_produtos)
+            match arquivo_produtos.name.split(".")[-1]:
+                case "json":
+                    print("Clientes é JSON")
+                    df = pd.read_json(arquivo_produtos)
+                    print("DATAFRAME RESGATADO:")
+                    print(df)
+                    for i in df.values:
+                        nome = i[0]
+                        descricao = i[1]
+                        mini_descricao = i[2]
+                        preco = i[3]
+                        estoque = i[4]
+                        peso = i[5]
+                        cod_barras = i[6]
+                        avaliacao = i[7]
+                        url_imagem = i[8]
+                        
+                        Produto.objects.create(
+                            nome=nome,
+                            descricao=descricao,
+                            mini_descricao=mini_descricao,
+                            preco=preco,
+                            estoque=estoque,
+                            peso=peso,
+                            cod_barras=cod_barras,
+                            avaliacao=avaliacao,
+                            url_imagem=url_imagem,
+                        )
+                case "xml":
+                    print("Clientes é XML")
+                    df = pd.read_xml(arquivo_produtos)
+                    print("DATAFRAME RESGATADO:")
+                    print(df)
+                    for i in df.values:
+                        nome = i[1]
+                        descricao = i[2]
+                        mini_descricao = i[3]
+                        preco = i[4]
+                        estoque = i[5]
+                        peso = i[6]
+                        cod_barras = i[7]
+                        avaliacao = i[8]
+                        url_imagem = i[9]
+                        
+                        Produto.objects.create(
+                            nome=nome,
+                            descricao=descricao,
+                            mini_descricao=mini_descricao,
+                            preco=preco,
+                            estoque=estoque,
+                            peso=peso,
+                            cod_barras=cod_barras,
+                            avaliacao=avaliacao,
+                            url_imagem=url_imagem,
+                        )
+                case "csv":
+                    print("Clientes é CSV")
+                    df = pd.read_csv(arquivo_produtos)
+                    print("DATAFRAME RESGATADO:")
+                    print(df)
+                    for i in df.values:
+                        nome = i[0]
+                        descricao = i[1]
+                        mini_descricao = i[2]
+                        preco = i[3]
+                        estoque = i[4]
+                        peso = i[5]
+                        cod_barras = i[6]
+                        avaliacao = i[7]
+                        url_imagem = i[8]
+                        
+                        Produto.objects.create(
+                            nome=nome,
+                            descricao=descricao,
+                            mini_descricao=mini_descricao,
+                            preco=preco,
+                            estoque=estoque,
+                            peso=peso,
+                            cod_barras=cod_barras,
+                            avaliacao=avaliacao,
+                            url_imagem=url_imagem,
+                        )
     dados = {}
     return render(request, "loja/admin/importacao.html", dados)
         

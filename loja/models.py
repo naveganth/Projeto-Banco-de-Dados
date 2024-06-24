@@ -22,6 +22,9 @@ class Acesso(models.Model):
         return f"Acesso: {self.usuario if self.usuario else 'Anônimo'} - {self.pagina} ({self.endereco_ip})"
 
 class Produto(models.Model):
+    class Meta:
+        ordering = ["-id"]
+        
     nome = models.CharField(max_length=255, blank=False, null=False, default="Produto sem nome")
     descricao = models.CharField(max_length=2048, blank=False, null=False, default="")
     mini_descricao = models.CharField(max_length=255, blank=False, null=False, default="")
